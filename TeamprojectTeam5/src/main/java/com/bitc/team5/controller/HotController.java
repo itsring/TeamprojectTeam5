@@ -1,8 +1,10 @@
 package com.bitc.team5.controller;
 
-//@Controller
-//public class HotController {
-//	
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class HotController {
+	
 //	@Autowired
 //	private HotService hotService;
 //	
@@ -33,7 +35,7 @@ package com.bitc.team5.controller;
 //		
 //			return "redirect:/hotplace";
 //		}
-//	
-//	
-//
-//}
+	
+	
+
+}

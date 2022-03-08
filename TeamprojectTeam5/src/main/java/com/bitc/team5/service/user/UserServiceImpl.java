@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
 		userMapper.userDelete(user);
 	}
 
+	@Override
+	public UserDto selectUserDetail2(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserDetail2(email);
+	}
+
 	
 
 }

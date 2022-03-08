@@ -37,9 +37,9 @@
 							id="dropdownMenuLink" data-bs-toggle="dropdown"
 							aria-expanded="false">게시판</a>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li><a class="dropdown-item" type="button" id="old-list-btn" href="">공지사항</a></li>
-							<li><a class="dropdown-item" type="button" id="cart-btn" href="">자유게시판</a></li>
-							<li><a class="dropdown-item" type="button" id="kong-btn" href="">후기게시판</a></li>
+							<li><a class="dropdown-item" type="button" id="old-list-btn" href="/board">공지사항</a></li>
+							<li><a class="dropdown-item" type="button" id="cart-btn" href="/cart/mycart/">자유게시판</a></li>
+							<li><a class="dropdown-item" type="button" id="kong-btn" href="/notice">후기게시판</a></li>
 						</ul>
 					</div>
 				 </div>
@@ -61,7 +61,7 @@
 						<li><a class="dropdown-item" type="button" id="edit-btn" href="/userEdit/" th:attrappend="href=${user.seq}">회원정보수정</a>
 						</li>
 						<li><a class="dropdown-item" type="button" id="old-list-btn" href="#">찜목록</a></li>
-						<li><a class="dropdown-item" type="button" id="cart-btn" href="#">예약 확인</a></li>
+						<li><a class="dropdown-item" type="button" id="cart-btn" href="#">숙소예약</a></li>
 						<li><a class="dropdown-item" type="button" id="cart-btn" href="/logout">로그아웃</a></li>
 					</ul>
 				</div>

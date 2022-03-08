@@ -43,15 +43,18 @@ public class MainController {
 	//로그인페이지
 	@RequestMapping("/login")
 	public String login() throws Exception{
+		//이메일, 비밀번호
 		return "/user/login";
 	}
 	//로그인체크
 	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
 	public String loginCheck(UserDto user, HttpServletRequest request) throws Exception {
 		int count = userService.loginCheck(user.getEmail(), user.getPassword());
+		UserDto userDetail = userService.selectUserDetail2(user.getEmail());
 		if (count == 1) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", user.getEmail());
+			session.setAttribute("userName", userDetail.getUserName());
 //			session.setMaxInactiveInterval(30);
 			return "redirect:/main";
 		} else {

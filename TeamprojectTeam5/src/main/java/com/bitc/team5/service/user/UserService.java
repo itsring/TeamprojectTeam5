@@ -18,5 +18,7 @@ public interface UserService {
 
 	void userDelete(UserDto user) throws Exception;
 
+	UserDto selectUserDetail2(String email) throws Exception;
+
 
 }

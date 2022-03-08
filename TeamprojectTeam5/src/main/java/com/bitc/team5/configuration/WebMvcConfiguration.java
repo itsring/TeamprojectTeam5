@@ -21,7 +21,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //		registry.addResourceHandler("/img/**").addResourceLocations("file:///D:/Java11/java404/Android_TeamProject_Team6/img/");
-//		registry.addResourceHandler("/img/**").addResourceLocations("file:///C:/img/");
-		registry.addResourceHandler("/img/**").addResourceLocations("file:///C:/img_5/");
+		registry.addResourceHandler("/img/**").addResourceLocations("file:///C:/img/");
 	}
 }

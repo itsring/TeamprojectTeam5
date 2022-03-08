@@ -72,6 +72,12 @@
 			<input type="text" class="form-control" id="input2" name="lodgeAddressName" /><br>
 			<label for="" class="col-form-label">전화 번호 : </label> 
 			<input type="text" class="form-control" id="input3" name="lodgePhone" />
+			<div style="display:none">
+				<br>
+				<label for="" class="col-form-label">길찾기 : </label> 
+				<input type="text" class="form-control" id="input4" name="lodgeId" />
+			</div>
+			
 			
 			<script>
 				const urlParams = new URL(location.href).searchParams;
@@ -88,6 +94,11 @@
 					
 					let inputVal3 = urlParams.get('phone');
 					document.querySelector('input[name="lodgePhone"]').value = inputVal3;
+					
+					let inputVal4 = urlParams.get('id');
+					document.querySelector('input[name="lodgeId"]').value = inputVal4;
+					
+					
 					console.log(inputVal);
 				}
 			</script>
@@ -100,8 +111,7 @@
 					<span for="" class="col-form-label">퇴실 : </span>
 					<input type="date" class="form-control" id="chkOutDate" name="chkOutDate"/>
 				</div>
-				<!-- <div style="display:none"> -->
-				<div>
+				<div style="display:none">
 					<input th:value="${session.email}" type="text" class="form-control" id="userEmail" name="userEmail">
 				</div>
 			</div>	

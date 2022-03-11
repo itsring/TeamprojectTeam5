@@ -44,9 +44,10 @@
 					</div>
 				 </div>
 			</div>
-			<div th:if="${session.email} == ${user.email}"
-						th:each="user : ${user}">
-				<input type="hidden" id="seq" name="seq" th:value="${user.seq}">
+			<!-- <div th:if="${session.email} != null"
+						th:each="user : ${user}"> -->
+				<div th:if="${session.email} != null">
+			<!-- 	<input type="hidden" id="seq" name="seq" th:value="${user.seq}"> -->
 				<input type="hidden" id="email" name="email"
 					th:value="${session.email}"> <input type="hidden"
 					id="method" name="_method">
@@ -58,7 +59,8 @@
 						id="dropdownMenuLink" data-bs-toggle="dropdown"
 						aria-expanded="false"></a>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<li><a class="dropdown-item" type="button" id="edit-btn" href="/userEdit/" th:attrappend="href=${user.seq}">회원정보수정</a>
+						<!-- <li><a class="dropdown-item" type="button" id="edit-btn" href="/userEdit/" th:attrappend="href=${user.seq}">회원정보수정</a> -->
+						<li><a class="dropdown-item" type="button" id="edit-btn" href="/emailCheck/" th:attrappend="href=${session.email}">회원정보수정</a>
 						</li>
 						<li><a class="dropdown-item" type="button" id="old-list-btn" href="#">찜목록</a></li>
 						<li><a class="dropdown-item" type="button" id="cart-btn" href="#">숙소예약</a></li>

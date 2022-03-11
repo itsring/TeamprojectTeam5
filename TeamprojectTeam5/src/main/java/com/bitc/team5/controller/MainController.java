@@ -86,6 +86,12 @@ public class MainController {
 	public String loginFail() throws Exception{
 		return "/user/loginFail";
 	}
+	//정보수정페이지 전 단계
+	@RequestMapping(value="/emailCheck/{email}")
+	public String goUserDetail(@PathVariable("email") String email) throws Exception{
+		int userSeq = userService.selectUserSeq(email);
+		return "redirect:/userEdit/"+userSeq;
+	}
 //	정보 수정 페이지
 	@RequestMapping(value="/userEdit/{seq}", method=RequestMethod.GET)
 	public ModelAndView userDetail(@PathVariable("seq") int seq) throws Exception{

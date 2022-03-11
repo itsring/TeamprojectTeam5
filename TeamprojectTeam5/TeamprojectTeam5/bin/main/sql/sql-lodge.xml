@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.team5.mapper.LodgeMapper">	
+	<!-- 숙소 예약 내용 저장 -->	
+
+	<insert id="insertLodge" parameterType="com.bitc.team5.dto.LodgeDto">
+		<![CDATA[ 
+			INSERT INTO lodge
+				(lodge_name, lodge_address_name, lodge_phone, chk_in_date, chk_out_date, book_date, user_email)
+			VALUES
+				(#{lodgeName}, #{lodgeAddressName}, #{lodgePhone}, #{chkInDate}, #{chkOutDate}, now(), #{userEmail})
+		]]>
+	</insert>
+		
+</mapper>

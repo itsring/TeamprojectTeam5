@@ -23,7 +23,6 @@ public class MainController {
 	@Autowired
 	private UserService userService;
 	
-	
 	@RequestMapping("/")
 	public String main() throws Exception{
 		return "index";
@@ -40,6 +39,7 @@ public class MainController {
 		}
 		return mv;
 	}
+	
 	//로그인페이지
 	@RequestMapping("/login")
 	public String login() throws Exception{

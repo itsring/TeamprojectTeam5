@@ -48,7 +48,7 @@
 				displayMarker(data[i]);
 				bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
 			}
-
+			
 			// 지도 범위 재설정
 			map.setBounds(bounds);
 		}
@@ -81,6 +81,7 @@
 			phone.innerText = place.phone;
 
 			console.log(place);
+			
 		});
 	}
 

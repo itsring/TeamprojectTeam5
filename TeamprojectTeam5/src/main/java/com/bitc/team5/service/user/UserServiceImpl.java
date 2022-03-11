@@ -55,6 +55,12 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectUserDetail2(email);
 	}
 
+	@Override
+	public int selectUserSeq(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserSeq(email);
+	}
+
 	
 
 }

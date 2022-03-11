@@ -24,6 +24,8 @@ public interface UserMapper {
 
 	UserDto selectUserDetail2(String email) throws Exception;
 
+	int selectUserSeq(String email) throws Exception;
+
 	
 
 }

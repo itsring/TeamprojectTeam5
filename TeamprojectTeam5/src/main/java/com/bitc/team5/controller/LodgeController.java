@@ -19,9 +19,7 @@ public class LodgeController {
 	
 	/* 숙소 찾기 페이지(지도)*/
 	@RequestMapping(value="/lodge/lodgeSearch", method=RequestMethod.GET) 
-	public String lodgeSearch(HttpServletRequest request) throws Exception { 
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("email");
+	public String lodgeSearch() throws Exception { 
 		return "/lodge/lodgeSearch"; 
 	}
 	
@@ -30,12 +28,51 @@ public class LodgeController {
 	public String lodgeBook() throws Exception { 
 		return "/lodge/lodgeBook"; 
 	}
+//	
+//	/* 숙소 예약 내용 저장 */	
+//	@RequestMapping(value="/lodge/lodgeBook", method=RequestMethod.POST)
+//	public String insertLodge(LodgeDto lodge) throws Exception {
+//		lodgeService.insertLodge(lodge);
+//		
+//		return "redirect:/main";
+//	}
 	
-	/* 숙소 예약 내용 저장 */	
-	@RequestMapping(value="/lodge/lodgeBook", method=RequestMethod.POST)
-	public String insertLodge(LodgeDto lodge) throws Exception {
-		lodgeService.insertLodge(lodge);
-		
-		return "redirect:/main";
+	
+	////////////////////////////////////////////////////////////
+	
+	
+	/* 숙소 찾기 페이지(지도)2*/
+	@RequestMapping(value="/lodge/lodgeSearch2", method=RequestMethod.GET) 
+	public String lodgeSearch2() throws Exception { 
+		return "/lodge/lodgeSearch2"; 
 	}
+	
+
+	/* 숙소 확인 페이지2 */
+	@RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.GET) 
+	public String lodgeBook2() throws Exception { 
+		return "/lodge/lodgeBook2"; 
+	}
+	
+	
+	
+	 // 
+//	@RequestMapping(value = "/lodge/lodgeBook2", method = RequestMethod.POST)
+//	public String chkLodge(UserDto user,HttpServletRequest request) throws Exception {
+//		userService.updateUser(user);
+//		HttpSession session = request.getSession();
+//		session.removeAttribute("userId");
+//		session.invalidate();
+//		return;
+//	}
+	
+	
+	
+//	/* 숙소 예약 내용 저장 */	
+//	@RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.POST)
+//	public String insertLodge(LodgeDto lodge) throws Exception {
+//		lodgeService.insertLodge(lodge);
+//		
+//		return "redirect:/main";
+//	}
 }

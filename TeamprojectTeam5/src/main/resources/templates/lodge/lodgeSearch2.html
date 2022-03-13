@@ -235,7 +235,7 @@ function displayPlaces(places) {
 function getListItem(index, places) {
 
     var el = document.createElement('li'),
-    itemStr = '<form class="frm" action="/lodge/lodgeBook2" method="GET"><button type="button" class="books"><span class="markerbg marker_' + (index+1) + '"></span>' +
+    itemStr = '<form class="frm" action="/lodge/lodgeBook2" method="get"><button type="submit" class="books"><span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
                 '<input type="text" id="lodgeName" class="lodgeName" name="lodgeName" readonly value="' + places.place_name +'">';
 
@@ -308,8 +308,29 @@ function removeAllChildNods(el) {
     }
 }
 
-// 검색창 목록 클릭시 지도 정보 보내기
+ 
 $(document).on('click','.books', function(){
+	var lodgeName = $.trim($(".lodgeName").val());
+	var lodgeAddressName = $.trim($(".lodgeAddressName").val());
+	var lodgePhone = $.trim($(".lodgePhone").val());
+	
+	$ajax({
+		url:"/lodge/lodgeBook2",
+		data:{lodgeName:"lodgeName"},
+		type:"get",
+		success : function(data) {
+			alert("success");
+        },
+        error : function(data) {
+        	alert("false");
+        }
+	});
+	
+});
+ 
+ 
+// 검색창 목록 클릭시 지도 정보 보내기
+/* $(document).on('click','.books', function(){
 	var childNodeList = this.childNodes;
 	
 	var name = '';
@@ -345,87 +366,7 @@ $(document).on('click','.books', function(){
 	
 	var url = `pName=${name}&aName=${addrname}&phone=${phone}`;
 	//console.log(url);
- 	location.href = "/lodge/lodgeBook2?" + url; 
-	
-	
-	
-	
-	
-// 	var item1 = $(currentTag).children("div.info").children("input.lodgeName")[0].value;
-	
-// 	parseText($(currentTag).children("div.info"));
-	
-// 	var pNames = document.querySelectorAll(".lodgeName");
-// 	var item = pNames[1];
-// 	console.log(item.value);
-	
-// 	var aNames = document.querySelectorAll(".lodgeAddressName");
-// 	var aItem = aNames[1];
-// 	console.log(aItem.value);
-// 	var phones = document.querySelectorAll(".lodgePhone");
-// 	var pItem = phones[1];
-// 	console.log(pItem.value);
-	
-// 	var pName = document.querySelector("#lodgeName").textContent;
-// 	var aName = document.querySelector("#lodgeAddressName").textContent;
-// 	var phone = document.querySelector("#lodgePhone").textContent;
-
-// 	var url = `pName=${pName}&aName=${aName}&phone=${phone}`;
-// 	//console.log(url);
-// 	location.href = "/lodge/lodgeBook2?" + url;
-	
-});
-
- 
-// $(document).on('click','.books', function(){
-// 	$("#method").val("PUT");
-// 	var frm = $(".frm")[0];
-// 	frm.action = "/lodge/lodgeBook2"
-// 	frm.submit();
-// });
-	
-	
- // 지도 마커 클릭시 지도 정보 보내기
-$(document).on('click','.btn-book', function(){
-	
-		var childNodeList = this.childNodes;
-		
-		var name = '';
-		var addrname = '';
-		var phone = '';
-		
-		for (var childNodes of childNodeList) {
-//	 		console.log(item.nodeName)
-			
-			if (childNodes.nodeName == 'DIV') {
-				var items = childNodes.childNodes;
-//	 			console.log(tmp.length);
-				
-				for (var i of items) {
-					if (i.nodeName == 'INPUT') {
-						switch (i.className) {
-						case 'lodgeName':
-							name = i.value;
-							break;
-							
-						case 'lodgeAddressName':
-							addrname = i.value;
-							break;
-							
-						case 'lodgePhone':
-							phone = i.value;
-							break;
-						}
-					}
-				}
-			}
-		}
-		
-		var url = `pName=${name}&aName=${addrname}&phone=${phone}`;
-		//console.log(url);
-	 	location.href = "/lodge/lodgeBook2?" + url; 
-});
-
+ 	location.href = "/lodge/lodgeBook2?" + url;  */
 
 
 </script>

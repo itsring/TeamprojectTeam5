@@ -14,6 +14,17 @@
 			password =#{password}
 	]]>
 	</select >
+	<select id="selectUserSeq" parameterType="map" resultType="int">
+	<![CDATA[ 
+		select
+			seq
+		from
+			user
+		where
+			email=#{email}
+		
+	]]>
+	</select >
 	<!--회원가입-->
 	<insert id="userJoin" parameterType="com.bitc.team5.dto.UserDto">
 	<![CDATA[ 

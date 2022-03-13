@@ -10,4 +10,8 @@ public class BoardDto {
 	private String boardContent;
 	private String category;
 	private String userName;
+	
+	private String star;
+	private String type;
+	private String keyword;
 }

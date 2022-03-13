@@ -1,14 +1,25 @@
 package com.bitc.team5.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bitc.team5.dto.LodgeDto;
+import com.bitc.team5.dto.LodgeRoomDto;
+import com.bitc.team5.dto.lodgeBookDto;
 import com.bitc.team5.service.lodge.LodgeService;
 
 @Controller
@@ -28,51 +39,125 @@ public class LodgeController {
 	public String lodgeBook() throws Exception { 
 		return "/lodge/lodgeBook"; 
 	}
-//	
-//	/* 숙소 예약 내용 저장 */	
-//	@RequestMapping(value="/lodge/lodgeBook", method=RequestMethod.POST)
-//	public String insertLodge(LodgeDto lodge) throws Exception {
-//		lodgeService.insertLodge(lodge);
-//		
-//		return "redirect:/main";
-//	}
-	
+
 	
 	////////////////////////////////////////////////////////////
 	
 	
 	/* 숙소 찾기 페이지(지도)2*/
-	@RequestMapping(value="/lodge/lodgeSearch2", method=RequestMethod.GET) 
+	@RequestMapping(value="/lodge/lodgeSearch2{}", method=RequestMethod.GET) 
 	public String lodgeSearch2() throws Exception { 
 		return "/lodge/lodgeSearch2"; 
 	}
 	
+//	@RequestMapping(value="/lodge/lodgeSearch2{lodgeName}", method=RequestMethod.GET) 
+//	public String lodgeSearch2(@PathVariable("lodgeName") String lodgeName) throws Exception { 
+//		return "/lodge/lodgeSearch2"; 
+//	}
+	
 
 	/* 숙소 확인 페이지2 */
+	
+	/*
+	 * @RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.GET) public
+	 * String lodgeBook2() throws Exception { return "/lodge/lodgeBook2"; }
+	 */
+	
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.GET) public
+	 * String lodgeBook2(@RequestParam("lodgeName") String lodgeName) throws
+	 * Exception { System.out.println(lodgeName); return "/lodge/lodgeBook2"; }
+	 */
+	
+	@ResponseBody
 	@RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.GET) 
-	public String lodgeBook2() throws Exception { 
+	public String lodgeBook2(@RequestParam Map<String, Object> param) throws Exception { 
+		String lodegName = (String) param.get("lodgeName");	
+		System.out.println(param.get("lodgeName"));
+		
 		return "/lodge/lodgeBook2"; 
 	}
+
 	
+	//////////////////////////////////////////////
 	
+	/* 숙소 찾기 페이지(지도)3*/
+	@RequestMapping(value="/lodge/lodgeSearch3", method=RequestMethod.GET) 
+	public String lodgeSearch3() throws Exception { 
+		return "/lodge/lodgeSearch3"; 
+	}
 	
-	 // 
-//	@RequestMapping(value = "/lodge/lodgeBook2", method = RequestMethod.POST)
-//	public String chkLodge(UserDto user,HttpServletRequest request) throws Exception {
-//		userService.updateUser(user);
+	/* 숙소 확인 페이지3 */
+//	@RequestMapping(value="/lodge/lodgeBook3", method=RequestMethod.GET) 
+//	public String lodgeBook3() throws Exception { 
+//		return "/lodge/lodgeBook3"; 
+//	}
+	
+	/* 숙소 확인 페이지3 + 객실 조회*/
+	@RequestMapping(value="/lodge/lodgeBook3", method=RequestMethod.GET) 
+	public ModelAndView lodgeRoomList() throws Exception {
+		ModelAndView mv = new ModelAndView("/lodge/lodgeBook3");
+		
+		List<LodgeRoomDto> roomList = lodgeService.selectRoomList();
+		mv.addObject("roomList", roomList);
+		
+		return mv;
+
+	}
+	
+//	@RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.GET)
+//	public String lodgeBook2(HttpServletRequest request, Model model) throws Exception {
+//		String aName= request.getParameter("aName");
+//		String pName= request.getParameter("pName");
+//		String phone= request.getParameter("phone");
 //		HttpSession session = request.getSession();
-//		session.removeAttribute("userId");
-//		session.invalidate();
-//		return;
-//	}
-	
-	
-	
-//	/* 숙소 예약 내용 저장 */	
-//	@RequestMapping(value="/lodge/lodgeBook2", method=RequestMethod.POST)
-//	public String insertLodge(LodgeDto lodge) throws Exception {
-//		lodgeService.insertLodge(lodge);
+//		session.setAttribute("aName", aName);
+//		session.setAttribute("pName", pName);
+//		session.setAttribute("phone", phone);
+//		print print = new print();
 //		
-//		return "redirect:/main";
+//		System.err.println(aName+", "+pName+", "+phone);
+//		System.out.println(session.getAttribute("email")+", "+session.getAttribute("aName")+", "+session.getAttribute("pName")+", "+session.getAttribute("phone"));
+//		
+//		return "/lodge/lodgeBok2";
+//		
 //	}
+	
+//	@RequestMapping(value="/lodge/lodgeBook3?pName={name}&aName={addrname}&phone={phone}", method=RequestMethod.GET) 
+//	public ModelAndView lodgeRoomList() throws Exception {
+//		ModelAndView mv = new ModelAndView("/lodge/lodgeBook3");
+//		
+//		List<LodgeRoomDto> roomList = lodgeService.selectRoomList();
+//		mv.addObject("roomList", roomList);
+//		
+//		return mv;
+//	}
+	
+//	@ResponseBody
+//	@RequestMapping(value="http://localhost:8080/lodge/lodgeBook3?pName={name}&aName={addrname}&phone={phone}", method=RequestMethod.GET) 
+//	public Object roomBook(@RequestParam("name") String name) throws Exception {
+//		return "/lodge/lodgeBook3";
+//	}
+	
+//	
+//	@GetMapping("/lodge/lodgeBook3")
+//	   public List<lodgeBookDto> getRoomById(@RequestParam Long name) throws Exception{
+//	      return lodgeService.selectRoomById(name);
+//	   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

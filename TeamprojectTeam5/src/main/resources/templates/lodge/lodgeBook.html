@@ -19,12 +19,21 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 
-<title>Insert title here</title>
+<!--  날짜 선택하지 않았을 떄 확인 촉구 메시지 -->
+<script>
+function validateForm() {
+  var chkIn = document.forms["frm"]["chkInDate"].value;
+  var chkOut = document.forms["frm"]["chkOutDate"].value;
+  if (chkIn == "" || chkIn == null || chkOut == "" || chkOut == null) {
+    alert("날짜를 선택해주세요");
+    return false;
+  }
+}
+</script>
 
 <style>
 #book {
-	border-color: dark;
-	border: 1px solid;
+	border: 2px solid skyblue;
 	border-radius: 30px;
 	vertical-align: middle;
 	text-align: center;
@@ -44,7 +53,7 @@
 	</header>
 <main>
 	<div class="container" id="book">
-		<form id="frm" action="/lodge/lodgeBook" method="POST">
+		<form id="frm" action="/lodge/lodgeBook" method="POST" onsubmit="return validateForm()">
 <!-- 			<input type="text" id="input1" name="input1" />
 			<script>
 				const urlParams = new URL(location.href).searchParams;
@@ -72,6 +81,12 @@
 			<input type="text" class="form-control" id="input2" name="lodgeAddressName" /><br>
 			<label for="" class="col-form-label">전화 번호 : </label> 
 			<input type="text" class="form-control" id="input3" name="lodgePhone" />
+			<div style="display:none">
+				<br>
+				<label for="" class="col-form-label">길찾기 : </label> 
+				<input type="text" class="form-control" id="input4" name="lodgeId" />
+			</div>
+			
 			
 			<script>
 				const urlParams = new URL(location.href).searchParams;
@@ -88,20 +103,24 @@
 					
 					let inputVal3 = urlParams.get('phone');
 					document.querySelector('input[name="lodgePhone"]').value = inputVal3;
+					
+					let inputVal4 = urlParams.get('id');
+					document.querySelector('input[name="lodgeId"]').value = inputVal4;
+					
+					
 					console.log(inputVal);
 				}
 			</script>
 
 			<div class="row m-3">
-				<div class="col">
+				<div class="col" >
 					<span for="" class="col-form-label">입실 : </span> 
 					<input type="date" class="form-control" id="chkInDate" name="chkInDate"/> 
 					<span> ~ </span> 
 					<span for="" class="col-form-label">퇴실 : </span>
 					<input type="date" class="form-control" id="chkOutDate" name="chkOutDate"/>
 				</div>
-				<!-- <div style="display:none"> -->
-				<div>
+				<div style="display:none">
 					<input th:value="${session.email}" type="text" class="form-control" id="userEmail" name="userEmail">
 				</div>
 			</div>	

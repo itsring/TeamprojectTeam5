@@ -1,9 +1,13 @@
 package com.bitc.team5.service.lodge;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.LodgeDto;
+import com.bitc.team5.dto.LodgeRoomDto;
+import com.bitc.team5.dto.lodgeBookDto;
 import com.bitc.team5.mapper.LodgeMapper;
 
 @Service
@@ -18,4 +22,18 @@ public class LodgeServiceImpl implements LodgeService {
 		lodgeMapper.insertLodge(lodge);
 		
 	}
+
+	/* 숙소 확인 페이지3 + 객실 조회*/
+	@Override
+	public List<LodgeRoomDto> selectRoomList() throws Exception {
+		return lodgeMapper.selectRoomList();
+	}
+
+
+//	@Override
+//	public List<lodgeBookDto> selectRoomById(Long name) throws Exception {
+//		return lodgeMapper.selectRoomById(name);
+//	}
+
+
 }

@@ -1,5 +1,6 @@
 package com.bitc.team5.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -142,6 +143,23 @@ public class LodgeController {
 		return mv;
 		
 	}
+	
+	
+//	객실 목록 ajax
+ 	@ResponseBody
+	@RequestMapping(value="/ajax/roomList", method=RequestMethod.POST)
+ 	public List<LodgeRoomDto> roomList(@RequestParam("roomCount") String roomCount,@RequestParam("lodgeName") String lodgeName) throws Exception {
+
+//		List<LodgeRoomDto> bookList = lodgeService.roomList(roomCount);
+ 		List<LodgeRoomDto> bookList = new ArrayList<LodgeRoomDto>(); 
+ 		bookList =lodgeService.selectRoomCountList(roomCount, lodgeName);
+		
+		return bookList;
+	}
+
+	
+	
+	
 	
 
 //	@RequestMapping(value="/lodge/lodgeBook3", method=RequestMethod.GET)

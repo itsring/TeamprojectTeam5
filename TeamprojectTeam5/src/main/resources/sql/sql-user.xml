@@ -14,24 +14,13 @@
 			password =#{password}
 	]]>
 	</select >
-	<select id="selectUserSeq" parameterType="map" resultType="int">
-	<![CDATA[ 
-		select
-			seq
-		from
-			user
-		where
-			email=#{email}
-		
-	]]>
-	</select >
 	<!--회원가입-->
 	<insert id="userJoin" parameterType="com.bitc.team5.dto.UserDto">
 	<![CDATA[ 
 		insert into user
-			(phone,email,password,user_name)
+			(phone,email,password)
 		values
-		(#{phone},#{email},#{password},#{userName})
+		(#{phone},#{email},#{password})
 	]]>
 	</insert>
 	<!--session.userId와 같은 유저를 고르기 위해 모든 회원정보 가져옴-->
@@ -54,23 +43,13 @@
 		 seq = #{seq}
 	]]>
 	</select>
-	<select id="selectUserDetail2" resultType="com.bitc.team5.dto.UserDto">
-		<![CDATA[ 
-			SELECT 
-					*
-			FROM 
-		user 
-		Where 
-		 email = #{email}
-	]]>
-	</select>
 	<!--회원정보 수정 updateUser-->
 	<update id="updateUser" parameterType="com.bitc.team5.dto.UserDto">
 		<![CDATA[ 
   			UPDATE 
   			 	user
 		 	SET 
-		 		phone= #{phone}, email=#{email}, password=#{password}, user_name=#{userName}
+		 		phone= #{phone}, email=#{email}, password=#{password}
 			WHERE 
 				seq = #{seq};
 		]]>

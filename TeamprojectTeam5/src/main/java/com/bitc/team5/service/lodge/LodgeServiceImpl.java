@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeRoomDto;
+import com.bitc.team5.dto.lodgeBookDto;
 import com.bitc.team5.mapper.LodgeMapper;
 
 @Service
@@ -26,6 +27,16 @@ public class LodgeServiceImpl implements LodgeService {
 	@Override
 	public List<LodgeRoomDto> selectRoomList() throws Exception {
 		return lodgeMapper.selectRoomList();
+	}
+
+//	@Override
+//	public List<LodgeRoomDto> roomList(String roomCount) throws Exception {
+//		return lodgeMapper.roomList(roomCount);
+//	}
+
+	@Override
+	public List<LodgeRoomDto> selectRoomCountList(String roomCount, String lodgeName) throws Exception {
+		return lodgeMapper.selectRoomCountList(roomCount, lodgeName);
 	}
 
 

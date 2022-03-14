@@ -29,6 +29,85 @@ function validateForm() {
     return false;
   }
 }
+
+
+/* $(function(){
+	$('#roomSearch').click(function(){
+		if($("#roomList").css("display") == "none") {
+			$('#roomList').show();
+		} 
+	});	
+}); */
+
+
+$(document).ready(function() {	
+	$("#roomSearch").on('click', function() {
+
+		if($("#roomList").css("display") == "none") {
+			$('#roomList').show();
+		} else 
+			$('#roomList').hide();
+		
+
+//		const URL = "/ajax/roomList?roomCount="+ $('select').val();
+		
+		var result = $("#roomCount option:selected").val();
+		lodgeName=$("#input1").val();
+		var lodgeName;
+		var datas = {
+				roomCount : result,
+				lodgeName : lodgeName
+				
+		};
+		
+
+		$.ajax({
+			url: "/ajax/roomList",
+			type : "post",
+			data : datas,
+			success: function(data) {										
+				 const bookList = $(".roomList");
+				
+				bookList.empty();
+				
+				for (var i = 0; i < data.length; i++) {
+		               var str ='<form id="formList" class="formList">'; 
+		            	  str+='<div class="row p-3" id="book2">';
+		               str += '<div class="row">';
+		               str += '<div class="col-4">';
+			           str += '<img src=' + data[i].roomImg + ' </img>';		              
+		               str += '</div>';
+		               str += '<div class="col-8">';
+		               str += '<h4>' + data[i].roomName +'</h4>';
+		               str += '<div class="row">';
+		               str += '<div class="col">';    
+		               str += '<h4>' + data[i].roomType +'</h4>';
+		               str += '</div>';
+		               str += '<div class="col">';    
+		               str += '<h4>' + data[i].roomCount + '명' +'</h4>';
+		               str += '</div></div>';
+		               str += '<div class="row">';
+		               str += '<div class="col">';    
+		               str += '<h4>' + data[i].roomPrice + '원' +'</h4>';
+		               str += '</div>';
+		               str += '<div class="col">';  
+		               str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';  
+		               str += '</div></div></div></div></div></form>';
+	            
+		               bookList.append(str);
+		               
+					}
+				
+				}, error: function(request, status, error) {
+					alert(request.responseText + "\nerror:"
+							+ error);
+					
+				}
+			}); 
+	});
+});
+
+
 </script>
 
 <style>
@@ -45,24 +124,18 @@ function validateForm() {
 	text-align: center;
 	margin:20px;
 }
+#roomList{
+	display:none;
+}
 #book2 {
 	border: 2px solid skyblue;
 	border-radius: 30px;
 	vertical-align: middle;
 	text-align: left;
 	margin:20px;
-
 }
 
 </style>
-<script>
-/* 	$(function(){
-		$('#roomSearch').click(function(){
-			if($("#book2").css("dispaly") == $('#lodge-card').show()
-		
-	}); */
-
-</script>
 
 </head>
 <body>
@@ -77,7 +150,7 @@ function validateForm() {
 	</header>
 <main>
 	<div class="container">
-		<form id="frm" action="/lodge/lodgeBook3" method="POST" onsubmit="return validateForm()">
+		<!-- <form id="frm" action="/lodge/lodgeBook3" method="POST" onsubmit="return validateForm()"> -->
 			<div class="row m-3">
 				<div class="row" >
 					<div class="col-4">
@@ -90,16 +163,18 @@ function validateForm() {
 					</div>
 					<div class="col-2">
 						<span for="" class="col-form-label">인원 : </span>
-						<select>
+						<select id="roomCount">
 							<option value="1">1인</option>
-							<option value="2">3인</option>
-							<option value="3">5인</option>
-							<option value="4">9인</option>
+							<option value="3">3인</option>
+							<option value="5">5인</option>
+							<option value="9">9인</option>
 						</select>
-					</div>
+					</div>					
 					<div class="col-2">
-						<button type="button" id="roomSerch" class="btn btn-primary">선택</button>
-					</div>
+						<form name="formSearch" method="get" action="#">
+							<input type="button" id="roomSearch" name="roomSearch" class="btn btn-primary" value="선택">
+						</form>
+					</div>				
 				</div>
 		<!-- 유저 이메일 -->
 				<div style="display:none">
@@ -140,7 +215,7 @@ function validateForm() {
 			</div> -->
 			
 			<!-- 숙소 정보 출력 -->
-			<div class="row p-3" id="book" >
+			<div class="row p-3" id="book">
 				<div class="row">
 					<div class="col-10">
 						<label for="" class="col-form-label">숙소 이름 : </label> 
@@ -164,28 +239,38 @@ function validateForm() {
 			</div>
 			
 			<!-- 객실 내용 출력 -->
-			<div class="row p-3" id="book2" th:if="${#lists.size(roomList)} > 0" th:each="list : ${roomList}">
-				<div class="row">
-					<div class="row">
-						<div class="col-4">
-							<img th:src="@{${list.roomImg}}">
-						</div>
-						<div class="col-8">
-							<h2 th:text="${list.roomName}"></h2>
-							<h4 th:text="${list.roomType}"></h4>
-							<div class="row">
-								<div class="col">
-									<h4 th:text="${list.roomPrice} + '원'"></h4>
-								</div>
-								<div class="col">
-									<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>
-								</div>
+			<div id="roomList" class="roomList">
+				<form id="formList" class="formList">
+					<div class="row p-3" id="book2" th:if="${#lists.size(roomList)} > 0" th:each="list : ${roomList}">		
+						<div class="row">
+							<div class="col-4">
+								<img th:src="@{${list.roomImg}}">
 							</div>
+							<div class="col-8">
+								<h2 th:text="${list.roomName}"></h2>
+								<div class="row">
+									<div class="col">
+										<h4 th:text="${list.roomType}"></h4>
+									</div>
+									<div class="col">
+										<h4 th:text="${list.roomCount} + '명'"></h4>
+									</div>							
+								</div>
+								<div class="row">
+									<div class="col">
+										<h4 th:text="${list.roomPrice} + '원'"></h4>
+									</div>
+									<div class="col">
+										<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>
+									</div>
+								</div>
+							</div>									
 						</div>
-					</div>				
-				</div>
+					</div>
+				</form>
+				
 			</div>
-		</form>
+		<!-- </form> -->
 	</div>
 
 </main>
@@ -210,23 +295,7 @@ function validateForm() {
 	}
 </script>
 </body>
+<footer>
+	<div th:replace="layout/footer :: footer"></div>
+</footer>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

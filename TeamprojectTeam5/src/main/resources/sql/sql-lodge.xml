@@ -25,5 +25,18 @@
 		]]>
 	</select >
 
+	<select id="selectRoomCountList"  resultType="com.bitc.team5.dto.LodgeRoomDto">
+		<![CDATA[ 
+			select
+				*
+			from
+				lodge_room
+			where 
+				room_count = #{roomCount}
+			and
+				lodge_name=#{lodgeName}
+			
+		]]>
+	</select>
 		
 </mapper>

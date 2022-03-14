@@ -23,6 +23,7 @@ public class MainController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@RequestMapping("/")
 	public String main() throws Exception{
 		return "index";
@@ -39,22 +40,18 @@ public class MainController {
 		}
 		return mv;
 	}
-	
 	//로그인페이지
 	@RequestMapping("/login")
 	public String login() throws Exception{
-		//이메일, 비밀번호
 		return "/user/login";
 	}
 	//로그인체크
 	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
 	public String loginCheck(UserDto user, HttpServletRequest request) throws Exception {
 		int count = userService.loginCheck(user.getEmail(), user.getPassword());
-		UserDto userDetail = userService.selectUserDetail2(user.getEmail());
 		if (count == 1) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", user.getEmail());
-			session.setAttribute("userName", userDetail.getUserName());
 //			session.setMaxInactiveInterval(30);
 			return "redirect:/main";
 		} else {
@@ -85,12 +82,6 @@ public class MainController {
 	@RequestMapping("/loginFail")
 	public String loginFail() throws Exception{
 		return "/user/loginFail";
-	}
-	//정보수정페이지 전 단계
-	@RequestMapping(value="/emailCheck/{email}")
-	public String goUserDetail(@PathVariable("email") String email) throws Exception{
-		int userSeq = userService.selectUserSeq(email);
-		return "redirect:/userEdit/"+userSeq;
 	}
 //	정보 수정 페이지
 	@RequestMapping(value="/userEdit/{seq}", method=RequestMethod.GET)

@@ -9,7 +9,7 @@ public class LodgeRoomDto {
 	private int seq;
 	private String lodgeName;
 	private String lodgeImg;
-	private int lodgeScore;
+	private double lodgeScore;
 	private String roomImg;
 	private String roomName;
 	private String roomType;

@@ -3,11 +3,9 @@ package com.bitc.team5.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeRoomDto;
-import com.bitc.team5.dto.lodgeBookDto;
 
 @Mapper
 public interface LodgeMapper {

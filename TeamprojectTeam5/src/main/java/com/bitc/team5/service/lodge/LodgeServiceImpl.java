@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeRoomDto;
-import com.bitc.team5.dto.lodgeBookDto;
 import com.bitc.team5.mapper.LodgeMapper;
 
 @Service

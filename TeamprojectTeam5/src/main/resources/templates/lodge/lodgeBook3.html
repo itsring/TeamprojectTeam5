@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<title>숙소 확인</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+
+<!--  날짜 선택하지 않았을 떄 확인 촉구 메시지 -->
+<script>
+function validateForm() {
+  var chkIn = document.forms["frm"]["chkInDate"].value;
+  var chkOut = document.forms["frm"]["chkOutDate"].value;
+  if (chkIn == "" || chkIn == null || chkOut == "" || chkOut == null) {
+    alert("날짜를 선택해주세요");
+    return false;
+  }
+}
+</script>
+
+<style>
+
+#lodgeImg {
+    display: flex;
+    justify-content: center;
+    margin:20px;
+}
+#book {
+	border: 2px solid skyblue;
+	border-radius: 30px;
+	vertical-align: middle;
+	text-align: center;
+	margin:20px;
+}
+#book2 {
+	border: 2px solid skyblue;
+	border-radius: 30px;
+	vertical-align: middle;
+	text-align: left;
+	margin:20px;
+
+}
+
+</style>
+<script>
+/* 	$(function(){
+		$('#roomSearch').click(function(){
+			if($("#book2").css("dispaly") == $('#lodge-card').show()
+		
+	}); */
+
+</script>
+
+</head>
+<body>
+	<header>
+		<div id="header" th:include="layout/header :: header"></div>
+
+		<div class="container mt-4">
+			<h3
+				class="p-1 text-center border bg-primary bg-opacity-25 text-white">숙소
+				예약 화면</h3>
+		</div>
+	</header>
+<main>
+	<div class="container">
+		<form id="frm" action="/lodge/lodgeBook3" method="POST" onsubmit="return validateForm()">
+			<div class="row m-3">
+				<div class="row" >
+					<div class="col-4">
+						<span for="" class="col-form-label">입실 : </span> 
+						<input type="date" class="form-control" id="chkInDate" name="chkInDate"/> 
+					</div>
+					<div class="col-4">
+						<span for="" class="col-form-label">퇴실 : </span>
+						<input type="date" class="form-control" id="chkOutDate" name="chkOutDate"/>
+					</div>
+					<div class="col-2">
+						<span for="" class="col-form-label">인원 : </span>
+						<select>
+							<option value="1">1인</option>
+							<option value="2">3인</option>
+							<option value="3">5인</option>
+							<option value="4">9인</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<button type="button" id="roomSerch" class="btn btn-primary">선택</button>
+					</div>
+				</div>
+		<!-- 유저 이메일 -->
+				<div style="display:none">
+					<input th:value="${session.email}" type="text" class="form-control" id="userEmail" name="userEmail">
+				</div>
+			</div>	
+			
+		<!-- 숙소 선택 lodgeName과 일치하는 숙소 이미지 가져오기 -->
+			<!-- <div th:if="${#lists.size(roomList)} > 0 and ${#lists.lodgeName.equals(${session.pName})}" th:each="list : ${roomList}"> -->
+			
+			<!-- 숙소 이름에 맞는 이미지 출력 -->
+			<div id="lodgeImg">				
+				<img th:src="@{${imgUrl}}">
+			</div> 
+			
+ 			<!-- <div th:each="list : ${roomList}"> 
+				<div th:if="${list.lodgeName} == ${session.pName}">
+					<div th:with="imgYes = 'Yes'">						
+					</div>					
+				</div>	
+				<div th:if="${imgYes} == Yes">
+					<img th:src="@{${list.lodgeImg}}">
+				</div>	
+			</div>  -->
+			
+		<!-- 	<div th:each="room : ${roomList}" th:object="${roomList}" th:if="${room.lodgeName} == ${session.pName}">
+				<img th:src="@{${room.lodgeImg}}">					
+			</div> -->	
+			
+			
+			<!-- <div th:text="${#lists.contains(roomList, '${session.pName}')}">
+				<img th:src="@{${roomList.lodgeImg}}">
+			</div> -->	
+				
+			
+		<!-- 	<div th:if="${#lists.lodgeName == ${session.pName})}">
+				<img th:src="@{${list.lodgeImg}}">
+			</div> -->
+			
+			<!-- 숙소 정보 출력 -->
+			<div class="row p-3" id="book" >
+				<div class="row">
+					<div class="col-10">
+						<label for="" class="col-form-label">숙소 이름 : </label> 
+						<input type="text" class="form-control" id="input1" name="lodgeName" />
+					</div>
+					<div class="col-2" th:each="room : ${roomList}" th:object="${roomList}" th:if="${room.lodgeName} == ${session.pName}">
+						<label for="" class="col-form-label">평점 : </label> 
+						<p th:text="${room.lodgeScore} + ' / 5.0'"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-8">
+						<label for="" class="col-form-label">주소 : </label> 
+			<input type="text" class="form-control" id="input2" name="lodgeAddressName" />
+					</div>
+					<div class="col-4">
+						<label for="" class="col-form-label">전화 번호 : </label> 
+			<input type="text" class="form-control" id="input3" name="lodgePhone" />
+					</div>
+				</div>
+			</div>
+			
+			<!-- 객실 내용 출력 -->
+			<div class="row p-3" id="book2" th:if="${#lists.size(roomList)} > 0" th:each="list : ${roomList}">
+				<div class="row">
+					<div class="row">
+						<div class="col-4">
+							<img th:src="@{${list.roomImg}}">
+						</div>
+						<div class="col-8">
+							<h2 th:text="${list.roomName}"></h2>
+							<h4 th:text="${list.roomType}"></h4>
+							<div class="row">
+								<div class="col">
+									<h4 th:text="${list.roomPrice} + '원'"></h4>
+								</div>
+								<div class="col">
+									<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>
+								</div>
+							</div>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</form>
+	</div>
+
+</main>
+<script>
+	const urlParams = new URL(location.href).searchParams;
+
+	TextInput();
+
+	function TextInput() {
+		
+		let inputVal1 = urlParams.get('pName');
+		document.querySelector('input[name="lodgeName"]').value = inputVal1;
+		
+		let inputVal2 = urlParams.get('aName');
+		document.querySelector('input[name="lodgeAddressName"]').value = inputVal2;
+		
+		let inputVal3 = urlParams.get('phone');
+		document.querySelector('input[name="lodgePhone"]').value = inputVal3;
+
+				
+		console.log(inputVal);
+	}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

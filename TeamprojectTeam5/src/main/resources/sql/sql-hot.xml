@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.bitc.team5.mapper.HotMapper">
+
+	<!-- 명소 조회 -->
+	<!-- 전체 -->
+	<select id="selectHotList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT
+				*
+			FROM
+				attration
+		]]>
+	</select>
+	<!-- 시장 -->
+	<select id="selectMarketList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT
+				seq, place_name, place_location, place_img_location
+			FROM
+				attration
+			WHERE
+				category_group_name = '시장';
+		]]>
+	</select>
+	<!-- 랜드마크 -->
+	<select id="selectLandList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT
+				seq, place_name, place_location, place_img_location
+			FROM
+				attration
+			WHERE
+				category_group_name = '랜드마크';
+		]]>
+	</select>
+	<!-- 공원 -->
+	<select id="selectParkList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT
+				seq, place_name, place_location, place_img_location
+			FROM
+				attration
+			WHERE
+				category_group_name = '공원';
+		]]>
+	</select>
+	<!-- 산책로 -->
+	<select id="selectWalkList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT
+				seq, place_name, place_location, place_img_location
+			FROM
+				attration
+			WHERE
+				category_group_name = '산책로';
+		]]>
+	</select>
+	
+	<!-- 명소 상세 조회 -->
+	<select id="hotDetailList" parameterType="int" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT
+				*
+			FROM
+				attration
+			WHERE
+				seq = #{seq}
+		]]>
+	</select>
+	
+	
+	<!-- 명소 등록 -->
+	<insert id="hotinsert" parameterType="com.bitc.team5.dto.HotDto" useGeneratedKeys="true" keyProperty="seq">
+		<![CDATA[
+			INSERT INTO
+				attration (place_name, place_location, place_explain, place_img_location, category_group_name, 
+				place_img_c1, place_img_c2, place_img_c3, place_img_c4)
+			VALUES
+				(#{placeName}, #{placeLocation}, #{placeExplain}, #{placeImgLocation}, #{categoryGroupName}, 
+				#{placeImgC1}, #{placeImgC2}, #{placeImgC3}, #{placeImgC4})
+		]]>
+	</insert>
+	
+	
+	<!-- 명소 수정 -->
+	<update id="hotUpdateBoard" parameterType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			update
+				attration
+			set
+				place_name = #{placeName}, place_location = #{placeLocation}, place_explain = #{placeExplain}, 
+				place_img_location = #{placeImgLocation}, category_group_name = #{categoryGroupName}, 
+				place_img_c1 = #{placeImgC1}, place_img_c2 = #{placeImgC2}, place_img_c3 = #{placeImgC3}, place_img_c4 = #{placeImgC4}
+			where 
+				seq = #{seq}
+		]]>
+	</update>
+
+
+
+</mapper>

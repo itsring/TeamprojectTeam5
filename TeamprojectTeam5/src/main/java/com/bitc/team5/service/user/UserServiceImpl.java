@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto selectUserDetail(int seq) throws Exception {
+	public UserDto selectUserDetail(String email) throws Exception {
 		// TODO Auto-generated method stub
-		return userMapper.selectUserDetail(seq);
+		return userMapper.selectUserDetail(email);
 	}
 
 	@Override
@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService {
 	public void userDelete(UserDto user) throws Exception {
 		// TODO Auto-generated method stub
 		userMapper.userDelete(user);
+	}
+
+	@Override
+	public UserDto selectUserDetail2(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserDetail2(email);
 	}
 
 	

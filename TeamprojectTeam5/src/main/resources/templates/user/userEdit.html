@@ -61,9 +61,14 @@ $(document).ready(function() {
 	  						<input type="email" th:value="${user.email}" class="form-control" placeholder="email" id="email" name="email" aria-label="email" aria-describedby="basic-addon1">
 						</div>
 						<div class="input-group mb-3">
+	  						<span class="input-group-text" id="basic-addon1">이름</span>
+	  						<input type="text" th:value="${user.userName}" class="form-control" placeholder="userName" name="userName" id="userName" aria-label="userName" aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group mb-3">
 	  						<span class="input-group-text" id="basic-addon1">전화번호</span>
 	  						<input type="number" th:value="${user.phone}" class="form-control" placeholder="Phone" name="phone" id="phone" aria-label="Phone" aria-describedby="basic-addon1">
 						</div>
+						
 						<div class="input-group mb-3">
 	  						<span class="input-group-text" id="basic-addon1">비밀번호</span>
 	  						<input type="password" th:value="${user.password}" id="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">

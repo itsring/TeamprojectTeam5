@@ -12,11 +12,13 @@ public interface UserService {
 
 	List<UserDto> selectUserList() throws Exception;
 
-	UserDto selectUserDetail(int seq) throws Exception;
+	UserDto selectUserDetail(String email) throws Exception;
 
 	void updateUser(UserDto user) throws Exception;
 
 	void userDelete(UserDto user) throws Exception;
+
+	UserDto selectUserDetail2(String email) throws Exception;
 
 
 }

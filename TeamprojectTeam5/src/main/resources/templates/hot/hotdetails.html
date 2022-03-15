@@ -21,9 +21,6 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70f7ed42e1841b4f0e035f058580eea2&libraries=services"></script>
 <style>
-  #tocMap {
-    display: none;
-  }
   #tocSearch {
     text-decoration: none;
   }
@@ -31,6 +28,9 @@
  	 cursor: pointer;
     color: #2962ff;
     text-decoration: underline;
+  }
+  #mapSearch{
+  display:none;
   }
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -132,8 +132,9 @@
 						</div>
 						<div class="col-4 p-4 m-0">
 							<span class="btn border border-success float-end me-3" id="tocSearch" onclick="openCloseToc()">지도로 위치 확인</span>
-							<a class="btn border border-success float-end me-3" target="_blank" href="https://map.kakao.com/link/to/" th:attrappend="href=${item.placeId}">길찾기</a>
-						</div>	
+							<a class="btn border border-success float-end me-3" href="https://map.kakao.com/link/to/" th:attrappend="href=${item.placeId}">길찾기</a>
+						</div>
+						
 					</div>
 					
 					<div id="tocMap">
@@ -142,9 +143,9 @@
 						
 						    <div id="menu_wrap" class="bg_white">
 						        <div class="option">
-						            <div>
+						            <div id="mapSearch">
 						                <form onsubmit="searchPlaces(); return false;">
-						                    키워드 : <input type="text" value="해운대 숙소" id="keyword" size="15"> 
+						                    키워드 : <input type="text" th:value="${item.placeName}"id="keyword" size="15"> 
 						                    <button type="submit">검색하기</button> 
 						                </form>
 						            </div>
@@ -169,18 +170,13 @@
 					
 					<div class="d-flex justify-content-end mt-5">
 						<button id ="btn-edit" class="btn btn-primary float-end">수정</button>
-					</div>
-					
+					</div>				
 				</div>
 				</form>
-				
-					
 			</div>
 		</div>
-
 	</main>
 	
-
 	<footer>
 		<div th:include="layout/footer :: footer"></div>
 	</footer>
@@ -198,26 +194,35 @@
 		});
 	});
 	
+	// 마커를 담을 배열입니다
+	var markers = [];
+
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    }; 
+	
+
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	
+	
 	  function openCloseToc() {
 		    if(document.getElementById('tocMap').style.display === 'block') {
 		      document.getElementById('tocMap').style.display = 'none';
-		      document.getElementById('tocSearch').textContent = '지도로 위치 확인';
+		      document.getElementById('tocSearch').textContent = '지도로 위치 확인'; 
+		      document.getElementById('tocSearch').textContent = '지도 접기';
 		    } else {
 		      document.getElementById('tocMap').style.display = 'block';
 		      document.getElementById('tocSearch').textContent = '지도 접기';
 		    }
 		  }
 	  
-	  var markers = [];
+	  map.relayout()
+ 
 
-	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	      mapOption = {
-	          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-	          level: 3 // 지도의 확대 레벨
-	      };  
-
-	  // 지도를 생성합니다    
-	  var map = new kakao.maps.Map(mapContainer, mapOption); 
 
 	  // 장소 검색 객체를 생성합니다
 	  var ps = new kakao.maps.services.Places();  
@@ -225,6 +230,14 @@
 	  // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 	  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
+	/*   function relayout() {
+		    map.relayout();
+		    let bounds = new kakao.maps.LatLngBounds();
+		    markers.forEach(item => bounds.extend(item.getPosition()));
+		    map.setBounds(bounds);
+		} */
+	  
+	  
 	  // 키워드로 장소를 검색합니다
 	  searchPlaces();
 

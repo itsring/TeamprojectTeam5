@@ -108,12 +108,54 @@ input { outline: none;border:none; }
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places();  
 		
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new kakao.maps.LatLng(35.8755582, 128.6053956); 
+		 
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+		
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 		
 		// 키워드로 장소를 검색합니다
 		searchPlaces();
     //});
+    
+    
+		var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';                              // 마커이미지 주소
+	    imageSize = new kakao.maps.Size(34, 36);                // 마커이미지의 크기
+	    imageOption = {offset: new kakao.maps.Point(17, 36)};   // 마커의 좌표와 일치시킬 이미지 안에서의 좌표설정
+	      
+	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+	 
+	 
+	var arr = new Array();
+	arr[0] = ["운대산 숙소",35.1530655,129.1525596, "해운대 운대산","1980287267"];
+	 
+	var markerTmp;      // 마커
+	var customOverlay;  // 오버레이
+	var contentStr;
+	 
+	for (var i=0;i<arr.length;i++) {
+	    markerTmp = new daum.maps.Marker({
+	        position: new daum.maps.LatLng(arr[i][1],arr[i][2]),
+	        title: arr[i][0],
+	        image: markerImage,
+	        map:map
+	    });
+	 
+	    contentStr = "<div class='customoverlay'><a href='https://map.kakao.com/link/map/"+ arr[i][4] +"' target='_blank'><span class='title'>"+ arr[i][0] +"</span></a></div>";
+	 
+	    customOverlay = new kakao.maps.CustomOverlay({
+	        map: map,
+	        position: new daum.maps.LatLng(arr[i][1],arr[i][2]),
+	        content: contentStr,
+	        yAnchor: 1 
+	    });
+	}
     
     
 // 키워드 검색을 요청하는 함수입니다
@@ -182,32 +224,15 @@ function displayPlaces(places) {
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
 
-/*         var iwContent = '<button type="button" id="btn-book" class="btn btn-primary">예약하러가기</button>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-	    // 인포윈도우를 생성합니다
-	    var infowindow = new kakao.maps.InfoWindow({
-	        content : iwContent,
-	        removable : iwRemoveable
-	    });
-	
-	    // 마커에 클릭이벤트를 등록합니다
-	    kakao.maps.event.addListener(marker, 'click', function() {
-	          // 마커 위에 인포윈도우를 표시합니다
-	          infowindow.open(map, marker);  
-	    }); */
-            
-            
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-         (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'click', function() {
+        (function(marker, title) {
+            kakao.maps.event.addListener(marker, 'mouseover', function() {
                 displayInfowindow(marker, title);
-                
             });
 
-            kakao.maps.event.addListener(marker, 'dblclick', function() {
+            kakao.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
             });
 
@@ -218,7 +243,7 @@ function displayPlaces(places) {
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
-        })(marker, places[i].place_name); 
+        })(marker, places[i].place_name);
 
         fragment.appendChild(itemEl);
     }
@@ -256,7 +281,7 @@ function getListItem(index, places) {
     return el;
 }
 
-// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+//마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
     var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
@@ -277,7 +302,7 @@ function addMarker(position, idx, title) {
     return marker;
 }
 
-// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+//지도 위에 표시되고 있는 마커를 모두 제거합니다
 function removeMarker() {
     for ( var i = 0; i < markers.length; i++ ) {
         markers[i].setMap(null);
@@ -285,20 +310,13 @@ function removeMarker() {
     markers = [];
 }
 
-// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-// 인포윈도우에 장소명을 표시합니다
+//검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+//인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
-//    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-//    infowindow.setContent(content);
-    
-     var iwContent = '<button type="button" class="btn-book">예약하러가기</button>';
-     iwRemoveable = true;
-     
-     var infowindow = new kakao.maps.InfoWindow({
-	        content : iwContent,
-	        removable : iwRemoveable
-	    }); 
-    infowindow.open(map, marker);
+ var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+ infowindow.setContent(content);
+ infowindow.open(map, marker);
 }
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -308,6 +326,13 @@ function removeAllChildNods(el) {
     }
 }
 
+//지도에 확대 축소 컨트롤을 생성한다
+var zoomControl = new kakao.maps.ZoomControl();
+ 
+// 지도의 우측에 확대 축소 컨트롤을 추가한다
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+ 
+ 
 // 검색창 목록 클릭시 지도 정보 보내기
 $(document).on('click','.books', function(){
 	var childNodeList = this.childNodes;

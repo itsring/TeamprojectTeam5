@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<title></title>
+<script>
+$(document).ready(function() {
+	$("#btnSearch").on("click", function() {
+		// 검색어 가져오기
+		var keyword = $("#keyWord").val();
+		var keywordType = $("#type option:selected").val();
+		
+		// 서버로 전송할 데이터 묶음 만들기
+		var datas = {keyword: keyword, keytype:keywordType};
+		// ajax 동작
+		$.ajax({
+			url : "/ajaxReviewboard",
+			type : "get",
+			data : datas,
+			success : function(data) {
+				
+				$('table tbody').empty();
+				
+				for (var i = 0; i < data.length; i++) {
+					var strTag = '';
+					strTag += "<tr>";
+					strTag += "<td>"+ data[i].category +"</td>";
+					strTag += "<td><a href='/reviewboard/" + data[i].boardSeq + "' class='text-decoration-none center'>" + data[i].boardTitle + "</a></td>";
+					strTag += "<td>" + data[i].userName + "</td>";
+					strTag += "</tr>";
+					$('table tbody').append(strTag);
+				}
+			},
+			error : function() {
+				alert("ajax 통신 실패");
+			}
+		});
+	});
+});
+
+</script>
+</head>
+<body>
+	<header>
+		<div id="header" th:include="layout/header :: header"></div>
+	</header>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-sm">
+				<table class="table table-hover table-striped">
+					<colgroup>
+						<col width="30%" />
+						<col width="40%" />
+						<col width="30%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>카테고리</th>
+							<th>제목</th>
+							<th>작성자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${#lists.size(boardList.getList())} > 0" th:each="list : ${boardList.getList()}">
+							<td th:text="${list.category}"></td>
+							<td>
+								<a href="/reviewboard/" th:attrappend="href=${list.boardSeq}" th:text="${list.boardTitle}" class="text-decoration-none center" ></a>
+							</td>
+							<td th:text="${list.userName}"></td>
+						</tr>
+						<tr th:unless="${#lists.size(boardList.getList())} > 0">
+							<td colspan="5">내용이 없습니다</td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+			    	<ul class="pagination justify-content-center">
+			            <li class="page-item" th:classappend="${boardList.getPrePage() == 0} ? 'disabled'">
+			               <a class="page-link" th:href="@{/reviewboard(pageNum=${boardList.getPrePage()})}">Prev</a>
+			            </li>
+			            <li class="page-item" th:each="page : ${#numbers.sequence(boardList.getNavigateFirstPage(), boardList.getNavigateLastPage())}" th:classappend="${page == boardList.getPageNum()} ? 'active'">
+			               <a class="page-link" th:text="${page}" th:href="@{/reviewboard(pageNum=${page})}"></a>
+			            </li>
+			            <li class="page-item" th:classappend="${boardList.getNextPage() == 0} ? 'disabled'">
+			               <a class="page-link" th:href="@{/reviewboard(pageNum=${boardList.getNextPage()})}">Next</a>
+			            </li>
+					</ul>
+				</div>
+				<div class="my-3 clearfix">
+					<form name = "search-form" autocomplete="off">
+						<select name = "type" id="type">
+							<option selected value = "" id="">검색 내용을 선택</option>
+							<option value="숙박">숙박</option>
+							<option value="명소">명소</option>
+						</select>
+						<input type = "text" id="keyWord" name = "keyword" value="">
+						<input type = "button" id="btnSearch" class = "btn btn-outline-primary mr-2" value ="검색">
+						<a href="/reviewboard/write" class="btn btn-outline-primary">글쓰기</a>
+					</form>
+					<!-- 관리자 ID qwe123 비밀번호 1234 -->
+<!-- 						 <a href="/reviewboard/write" class="btn btn-primary float-end">글쓰기</a> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

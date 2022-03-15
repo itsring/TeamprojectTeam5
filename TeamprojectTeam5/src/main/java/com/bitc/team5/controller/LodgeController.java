@@ -1,5 +1,6 @@
 package com.bitc.team5.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,17 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeRoomDto;
-import com.bitc.team5.dto.lodgeBookDto;
 import com.bitc.team5.service.lodge.LodgeService;
 
 @Controller
@@ -125,7 +122,7 @@ public class LodgeController {
 		
 		
 		ModelAndView mv = new ModelAndView("/lodge/lodgeBook3");
-		List<LodgeRoomDto> roomList = lodgeService.selectRoomList();
+		List<LodgeRoomDto> roomList = lodgeService.selectRoomList(pName);
 		
 //		숙소 이름에 맞는 이미지 출력
 //		System.out.println(pName);
@@ -148,7 +145,8 @@ public class LodgeController {
 //	객실 목록 ajax
  	@ResponseBody
 	@RequestMapping(value="/ajax/roomList", method=RequestMethod.POST)
- 	public List<LodgeRoomDto> roomList(@RequestParam("roomCount") String roomCount,@RequestParam("lodgeName") String lodgeName) throws Exception {
+ 	//roomCountOnly
+ 	public List<LodgeRoomDto> roomList(@RequestParam("roomCount") int roomCount,@RequestParam("lodgeName") String lodgeName) throws Exception {
 
 //		List<LodgeRoomDto> bookList = lodgeService.roomList(roomCount);
  		List<LodgeRoomDto> bookList = new ArrayList<LodgeRoomDto>(); 
@@ -157,8 +155,23 @@ public class LodgeController {
 		return bookList;
 	}
 
-	
-	
+	@ResponseBody
+	@RequestMapping(value="/ajax/roomList/dateOnly",method=RequestMethod.POST)
+	//roomDate Only
+	public List<LodgeRoomDto> roomListDateOnly(@RequestParam("chkInDate") Date chkInDate, @RequestParam("chkOutDate") Date chkOutDate ,@RequestParam("lodgeName") String lodgeName) throws Exception {
+//		List<LodgeRoomDto> bookList = lodgeService.roomList(roomCount);
+ 		List<LodgeRoomDto> bookList = new ArrayList<LodgeRoomDto>(); 
+ 		bookList =lodgeService.selectRoomDateOnlyList(chkInDate, chkOutDate, lodgeName);
+
+		return bookList;
+	}
+	@ResponseBody
+	@RequestMapping(value="/ajax/roomList/everyCount",method=RequestMethod.POST)
+	public List<LodgeRoomDto> roomListEveryCountList(@RequestParam("chkInDate") Date chkInDate, @RequestParam("chkOutDate") Date chkOutDate ,@RequestParam("lodgeName") String lodgeName,@RequestParam("roomCount") int roomCount) throws Exception{
+		List<LodgeRoomDto> bookList = new ArrayList<LodgeRoomDto>(); 
+ 		bookList =lodgeService.selectRoomEveryCountList(chkInDate, chkOutDate, lodgeName,roomCount);
+ 		return bookList;
+	}
 	
 	
 

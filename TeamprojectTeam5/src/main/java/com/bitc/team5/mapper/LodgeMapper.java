@@ -1,5 +1,6 @@
 package com.bitc.team5.mapper;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,11 +17,15 @@ public interface LodgeMapper {
 	void insertLodge(LodgeDto lodge) throws Exception;
 
 	/* 숙소 확인 페이지3 + 객실 조회*/
-	List<LodgeRoomDto> selectRoomList() throws Exception;
+	List<LodgeRoomDto> selectRoomList(@Param("pName") String pName) throws Exception;
 
 //	List<LodgeRoomDto> roomList(String roomCount) throws Exception;
 
-	List<LodgeRoomDto> selectRoomCountList(@Param("roomCount")String roomCount, @Param("lodgeName")String lodgeName);
+	List<LodgeRoomDto> selectRoomCountList(@Param("roomCount") int roomCount, @Param("lodgeName")String lodgeName) throws Exception;
+
+	List<LodgeRoomDto> selectRoomDateOnlyList(@Param("chkInDate") Date chkInDate,@Param("chkOutDate") Date chkOutDate,@Param("lodgeName") String lodgeName) throws Exception;
+
+	List<LodgeRoomDto> selectRoomEveryCountList(@Param("chkInDate") Date chkInDate,@Param("chkOutDate") Date chkOutDate,@Param("lodgeName") String lodgeName,@Param("roomCount") int roomCount) throws Exception;
 
 //	List<lodgeBookDto> selectRoomById(Long name) throws Exception;
 

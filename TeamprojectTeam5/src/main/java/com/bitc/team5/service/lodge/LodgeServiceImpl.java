@@ -1,5 +1,6 @@
 package com.bitc.team5.service.lodge;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeRoomDto;
-import com.bitc.team5.dto.lodgeBookDto;
 import com.bitc.team5.mapper.LodgeMapper;
 
 @Service
@@ -25,8 +25,8 @@ public class LodgeServiceImpl implements LodgeService {
 
 	/* 숙소 확인 페이지3 + 객실 조회*/
 	@Override
-	public List<LodgeRoomDto> selectRoomList() throws Exception {
-		return lodgeMapper.selectRoomList();
+	public List<LodgeRoomDto> selectRoomList(String pName) throws Exception {
+		return lodgeMapper.selectRoomList(pName);
 	}
 
 //	@Override
@@ -35,8 +35,21 @@ public class LodgeServiceImpl implements LodgeService {
 //	}
 
 	@Override
-	public List<LodgeRoomDto> selectRoomCountList(String roomCount, String lodgeName) throws Exception {
+	public List<LodgeRoomDto> selectRoomCountList(int roomCount, String lodgeName) throws Exception {
 		return lodgeMapper.selectRoomCountList(roomCount, lodgeName);
+	}
+
+	@Override
+	public List<LodgeRoomDto> selectRoomDateOnlyList(Date chkInDate, Date chkOutDate, String lodgeName) throws Exception {
+		// TODO Auto-generated method stub
+		return lodgeMapper.selectRoomDateOnlyList(chkInDate,chkOutDate,lodgeName);
+	}
+
+	@Override
+	public List<LodgeRoomDto> selectRoomEveryCountList(Date chkInDate, Date chkOutDate, String lodgeName, int roomCount)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return lodgeMapper.selectRoomEveryCountList(chkInDate,chkOutDate,lodgeName,roomCount);
 	}
 
 

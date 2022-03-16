@@ -15,9 +15,52 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <title></title>
-<script>
+<style>
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
+/* explanation */
+
+article {
+  background-color:#ffe;
+  box-shadow:0 0 1em 1px rgba(0,0,0,.25);
+  color:#006;
+  font-family:cursive;
+  font-style:italic;
+  margin:4em;
+  max-width:30em;
+  padding:2em;
+}
+</style>
+<script th:inline="javascript">
 $(document).ready(function() {
-	$("#btnSearch").on("click", function() {
+	/* $("#btnSearch").on("click", function() {
 		// 검색어 가져오기
 		var keyword = $("#keyWord").val();
 		var keywordType = $("#type option:selected").val();
@@ -47,8 +90,50 @@ $(document).ready(function() {
 				alert("ajax 통신 실패");
 			}
 		});
+	}); */
+	
+	$(".page-link").on("click", function() {
+		var keyword = $("#keyWord").val();
+		var keywordType = $("#type option:selected").val();
+		var pageNum = $(this).text();
+		
+		if (pageNum == "Prev") {
+			pageNum = Number(boardOpt.pageNum) -1 ;
+		}
+		else if (pageNum == "Next") {
+			pageNum = Number(boardOpt.pageNum) + 1;
+		}
+		
+		location.href="/reviewboard?pageNum=" + pageNum + "&keyword=" + keyword + "&keytype=" + keywordType
 	});
+	
+	$("#btn-search").on("click", function() {
+		var keyword = $("#keyWord").val();
+		var keywordType = $("#type option:selected").val();
+		
+		location.href="/reviewboard?keyword=" + keyword + "&keytype=" + keywordType
+	});
+	
+	function pageSetup() {
+		var pageNum = boardOpt.pageNum;
+		var keyword = boardOpt.keyword;
+		var keywordType = boardOpt.keytype;
+		
+		$("#keyWord").val(keyword);
+		
+		if (keywordType != "") {
+			$("#type").val(keywordType).prop("selected", true);
+		}
+	}
+	
+	/*<![CDATA[*/
+	var boardOpt = /*[[ ${boardOption} ]]*/
+	/*]]*/
+	
+	pageSetup();
 });
+
+
 
 </script>
 </head>
@@ -59,16 +144,20 @@ $(document).ready(function() {
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-sm">
-				<table class="table table-hover table-striped">
+				<table class="table table-hover table-striped ">
 					<colgroup>
-						<col width="30%" />
-						<col width="40%" />
-						<col width="30%" />
+						<col width="20%" />
+						<col width="20%" />
+						<col width="20%"/>
+						<col width="20%" />
+						<col width="20%" />
 					</colgroup>
 					<thead>
 						<tr>
 							<th>카테고리</th>
 							<th>제목</th>
+							<th>별점</th>
+							<th>이용시설</th>
 							<th>작성자</th>
 						</tr>
 					</thead>
@@ -78,7 +167,16 @@ $(document).ready(function() {
 							<td>
 								<a href="/reviewboard/" th:attrappend="href=${list.boardSeq}" th:text="${list.boardTitle}" class="text-decoration-none center" ></a>
 							</td>
+							<td th:switch="${list.star}">
+								<p th:case="1.0">★☆☆☆☆</p>
+								<p th:case="2.0">★★☆☆☆</p>
+								<p th:case="3.0">★★★☆☆</p>
+								<p th:case="4.0">★★★★☆</p>
+								<p th:case="5.0">★★★★★</p>
+							</td>
+							<td th:text="${list.place}"></td>
 							<td th:text="${list.userName}"></td>
+						
 						</tr>
 						<tr th:unless="${#lists.size(boardList.getList())} > 0">
 							<td colspan="5">내용이 없습니다</td>
@@ -86,27 +184,29 @@ $(document).ready(function() {
 					</tbody>
 				</table>
 				<div>
-			    	<ul class="pagination justify-content-center">
-			            <li class="page-item" th:classappend="${boardList.getPrePage() == 0} ? 'disabled'">
-			               <a class="page-link" th:href="@{/reviewboard(pageNum=${boardList.getPrePage()})}">Prev</a>
-			            </li>
-			            <li class="page-item" th:each="page : ${#numbers.sequence(boardList.getNavigateFirstPage(), boardList.getNavigateLastPage())}" th:classappend="${page == boardList.getPageNum()} ? 'active'">
-			               <a class="page-link" th:text="${page}" th:href="@{/reviewboard(pageNum=${page})}"></a>
-			            </li>
-			            <li class="page-item" th:classappend="${boardList.getNextPage() == 0} ? 'disabled'">
-			               <a class="page-link" th:href="@{/reviewboard(pageNum=${boardList.getNextPage()})}">Next</a>
-			            </li>
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:classappend="${boardList.getPrePage() == 0} ? 'disabled'">
+							<!-- <a class="page-link" th:href="@{/reviewboard(pageNum=${boardList.getPrePage()})}">Prev</a> -->
+							<a class="page-link">Prev</a>
+						</li>
+						<li class="page-item" th:each="page : ${#numbers.sequence(boardList.getNavigateFirstPage(), boardList.getNavigateLastPage())}" th:classappend="${page == boardList.getPageNum()} ? 'active'">
+							<!-- <a class="page-link" th:text="${page}" th:href="@{/reviewboard(pageNum=${page})}"></a> -->
+							<a class="page-link" th:text="${page}"></a>
+						</li>
+						<li class="page-item" th:classappend="${boardList.getNextPage() == 0} ? 'disabled'">
+							<a class="page-link">Next</a>
+						</li>
 					</ul>
 				</div>
 				<div class="my-3 clearfix">
-					<form name = "search-form" autocomplete="off">
-						<select name = "type" id="type">
-							<option selected value = "" id="">검색 내용을 선택</option>
+					<form name="search-form" autocomplete="off">
+						<select name="type" id="type">
+							<option selected value="">검색 내용을 선택</option>
 							<option value="숙박">숙박</option>
 							<option value="명소">명소</option>
 						</select>
-						<input type = "text" id="keyWord" name = "keyword" value="">
-						<input type = "button" id="btnSearch" class = "btn btn-outline-primary mr-2" value ="검색">
+						<input type="text" id="keyWord" name="keyword" value="">
+						<button type="button" id="btn-search" class="btn btn-outline-primary mr-2">검색</button>
 						<a href="/reviewboard/write" class="btn btn-outline-primary">글쓰기</a>
 					</form>
 					<!-- 관리자 ID qwe123 비밀번호 1234 -->

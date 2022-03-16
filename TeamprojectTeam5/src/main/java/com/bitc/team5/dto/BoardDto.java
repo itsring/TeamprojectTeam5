@@ -11,6 +11,7 @@ public class BoardDto {
 	private String category;
 	private String userName;
 	
+	private String place;
 	private String star;
 	private String type;
 	private String keyword;

@@ -22,10 +22,18 @@ public interface BoardMapper {
 	void noticeUpdate(BoardDto board) throws Exception;
 
 	//자유 게시판
-	List<BoardDto> freeBoardList() throws Exception;
+//	List<BoardDto> freeBoardList() throws Exception;
+	Page<BoardDto> freeBoardList(int pageNum) throws Exception;
+	
 	//자유 게시판 검색기능
-	List<BoardDto> SearchFreeBoardList(String keyword) throws Exception;
+//	List<BoardDto> SearchFreeBoardList(String keyword) throws Exception;
 
+	Page<BoardDto> SearchKeytypeFreeBoardList( String keytype) throws Exception;
+	
+	Page<BoardDto> SearchKeywordFreeBoardList(String keyword) throws Exception;
+	
+	Page<BoardDto> SearchFreeBoardList(String keyword, String keytype) throws Exception;
+	
 	void freeInsert(BoardDto board) throws Exception;
 
 	BoardDto freeBoardDetail(int seq) throws Exception;
@@ -37,8 +45,6 @@ public interface BoardMapper {
 	//후기 게시판
 //	List<BoardDto> reviewBoardList() throws Exception;
 	Page<BoardDto> reviewBoardList() throws Exception;
-	
-	List<BoardDto> SearchReviewBoardList(@Param("keyword") String keyword, @Param("keytype") String keytype) throws Exception;
 
 	void reviewInsert(BoardDto board) throws Exception;
 
@@ -50,8 +56,19 @@ public interface BoardMapper {
 
 	void getSearchList(BoardDto board) throws Exception;
 
-	List<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception;
+//	List<BoardDto> SearchReviewBoardList(@Param("keyword") String keyword, @Param("keytype") String keytype) throws Exception;
+	
+//	List<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception;
 
-	List<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception;
+//	List<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception;
+	
+	Page<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception;
 
+	Page<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception;
+	
+	Page<BoardDto> SearchReviewBoardList(@Param("keyword") String keyword, @Param("keytype") String keytype) throws Exception;
+
+
+
+	
 }

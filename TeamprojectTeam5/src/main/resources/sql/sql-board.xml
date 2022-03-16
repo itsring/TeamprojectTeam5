@@ -80,7 +80,24 @@
 	</select>
 	
 	<!--자유게시판 검색기능-->
-	<select id="SearchFreeBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="String">
+	<select id="SearchFreeBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="Map">
+		<![CDATA[ 
+			select 
+				category, board_seq, board_title, board_content, user_name
+			from 
+				board
+			where 
+				deleted_yn ='N'
+			and 
+				category = #{keytype}
+			and
+				board_title LIKE CONCAT('%', #{keyword}, '%')
+			order by 
+				board_seq DESC
+		]]>
+	</select>
+	
+	<select id="SearchKeywordFreeBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="String">
 		<![CDATA[ 
 			select 
 				category, board_seq, board_title, board_content, user_name
@@ -90,6 +107,23 @@
 				deleted_yn ='N'
 			and
 				board_title LIKE CONCAT('%', #{keyword}, '%')
+			and
+				category IN ('자유')
+			order by 
+				board_seq DESC
+		]]>
+	</select>
+	
+	<select id="SearchKeytypeFreeBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="String">
+		<![CDATA[ 
+			select 
+				category, board_seq, board_title, board_content, user_name
+			from 
+				board
+			where 
+				deleted_yn ='N'
+			and 
+				category = #{keytype}
 			order by 
 				board_seq DESC
 		]]>
@@ -140,7 +174,7 @@
 	<select id="reviewBoardList" resultType="com.bitc.team5.dto.BoardDto">
 		<![CDATA[ 
 			select 
-				category,board_seq, board_title, board_content, user_name
+				category,board_seq, board_title, board_content, user_name, star, place
 			from 
 				board
 			where 
@@ -155,7 +189,7 @@
 	<select id="SearchReviewBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="Map">
 		<![CDATA[ 
 			select 
-				category, board_seq, board_title, board_content, user_name
+				category, board_seq, board_title, board_content, user_name, star
 			from 
 				board
 			where 
@@ -172,13 +206,15 @@
 	<select id="SearchKeywordReviewBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="String">
 		<![CDATA[ 
 			select 
-				category, board_seq, board_title, board_content, user_name
+				category, board_seq, board_title, board_content, user_name, star
 			from 
 				board
 			where 
 				deleted_yn ='N'
 			and
 				board_title LIKE CONCAT('%', #{keyword}, '%')
+			and
+				category IN ('숙박', '명소')
 			order by 
 				board_seq DESC
 		]]>
@@ -187,7 +223,7 @@
 	<select id="SearchKeytypeReviewBoardList" resultType="com.bitc.team5.dto.BoardDto" parameterType="String">
 		<![CDATA[ 
 			select 
-				category, board_seq, board_title, board_content, user_name
+				category, board_seq, board_title, board_content, user_name, star
 			from 
 				board
 			where 
@@ -202,15 +238,15 @@
 	<insert id="reviewInsert" parameterType="com.bitc.team5.dto.BoardDto">
 		<![CDATA[ 
 			insert into board
-				(board_title, board_content, user_name,category,star)
+				(board_title, board_content, user_name,category,star,place)
 			VALUES
-				(#{boardTitle},#{boardContent},#{userName},#{category},#{star})
+				(#{boardTitle},#{boardContent},#{userName},#{category},#{star},#{place})
 		]]>
 	</insert>
 	<select id="reviewDetail" parameterType="int" resultType="com.bitc.team5.dto.BoardDto">
 		<![CDATA[
 			SELECT
-				board_seq, board_title, board_content, user_name
+				board_seq, board_title, board_content, user_name, star, place, category
 			FROM
 				board
 			WHERE
@@ -232,7 +268,7 @@
 			update
 				board
 			set
-				board_title = #{boardTitle}, board_content = #{boardContent}
+				board_title = #{boardTitle}, board_content = #{boardContent}, star = #{star}, category = #{category}, place = #{place}
 			where 
 				board_seq = #{boardSeq}
 			AND

@@ -61,7 +61,7 @@
 		 	SET 
 		 		phone= #{phone}, email=#{email}, password=#{password}, user_name=#{userName}
 			WHERE 
-				seq = #{seq};
+				email = #{email};
 		]]>
 	</update>
 	<!--회원 탈퇴-->
@@ -70,7 +70,7 @@
 			DELETE FROM
 				user 
 			WHERE 
-				seq=#{seq}
+				email=#{email}
 		]]>
 	</delete>
 </mapper >

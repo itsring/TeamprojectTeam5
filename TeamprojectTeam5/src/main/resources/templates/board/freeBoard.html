@@ -15,39 +15,80 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <title></title>
-<script>
-$(document).ready(function() {
-	$("#btnSearch").on("click", function() {
-		// 검색어 가져오기
+<script th:inline="javascript">
+ $(document).ready(function() {
+// 	$("#btnSearch").on("click", function() {
+// 		// 검색어 가져오기
+// 		var keyword = $("#keyWord").val();
+// 		var keywordType = $("#type option:selected").val();
+		
+// 		// 서버로 전송할 데이터 묶음 만들기
+// 		var datas = {keyword: keyword, keytype:keywordType};
+// 		// ajax 동작
+// 		$.ajax({
+// 			url : "/ajaxfreeboard",
+// 			type : "get",
+// 			data : datas,
+// 			success : function(data) {
+				
+// 				$('table tbody').empty();
+				
+// 				for (var i = 0; i < data.length; i++) {
+// 					var strTag = '';
+// 					strTag += "<tr>";
+// 					strTag += "<td>"+ data[i].category +"</td>";
+// 					strTag += "<td><a href='/freeboard/" + data[i].boardSeq + "' class='text-decoration-none center'>" + data[i].boardTitle + "</a></td>";
+// 					strTag += "<td>" + data[i].userName + "</td>";
+// 					strTag += "</tr>";
+// 					$('table tbody').append(strTag);
+// 				}
+// 			},
+// 			error : function() {
+// 				alert("ajax 통신 실패");
+// 			}
+// 		});
+// 	});
+// });
+
+	$(".page-link").on("click", function() {
+		var keyword = $("#keyWord").val();
+		var keywordType = $("#type option:selected").val();
+		var pageNum = $(this).text();
+		
+		if (pageNum == "Prev") {
+			pageNum = Number(boardOpt.pageNum) -1 ;
+		}
+		else if (pageNum == "Next") {
+			pageNum = Number(boardOpt.pageNum) + 1;
+		}
+		
+		location.href="/freeboard?pageNum=" + pageNum + "&keyword=" + keyword + "&keytype=" + keywordType
+	});
+	
+	$("#btn-search").on("click", function() {
 		var keyword = $("#keyWord").val();
 		var keywordType = $("#type option:selected").val();
 		
-		// 서버로 전송할 데이터 묶음 만들기
-		var datas = {keyword: keyword, keytype:keywordType};
-		// ajax 동작
-		$.ajax({
-			url : "/ajaxfreeboard",
-			type : "get",
-			data : datas,
-			success : function(data) {
-				
-				$('table tbody').empty();
-				
-				for (var i = 0; i < data.length; i++) {
-					var strTag = '';
-					strTag += "<tr>";
-					strTag += "<td>"+ data[i].category +"</td>";
-					strTag += "<td><a href='/freeboard/" + data[i].boardSeq + "' class='text-decoration-none center'>" + data[i].boardTitle + "</a></td>";
-					strTag += "<td>" + data[i].userName + "</td>";
-					strTag += "</tr>";
-					$('table tbody').append(strTag);
-				}
-			},
-			error : function() {
-				alert("ajax 통신 실패");
-			}
-		});
+		location.href="/freeboard?keyword=" + keyword + "&keytype=" + keywordType
 	});
+	
+	function pageSetup() {
+		var pageNum = boardOpt.pageNum;
+		var keyword = boardOpt.keyword;
+		var keywordType = boardOpt.keytype;
+		
+		$("#keyWord").val(keyword);
+		
+		if (keywordType != "") {
+			$("#type").val(keywordType).prop("selected", true);
+		}
+	}
+	
+	/*<![CDATA[*/
+	var boardOpt = /*[[ ${boardOption} ]]*/
+	/*]]*/
+	
+	pageSetup();
 });
 
 </script>
@@ -73,22 +114,40 @@ $(document).ready(function() {
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${#lists.size(boardList)} > 0" th:each="list : ${boardList}">
+						<tr th:if="${#lists.size(boardList.getList())} > 0" th:each="list : ${boardList.getList()}">
 							<td th:text="${list.category}"></td>
 							<td>
 								<a href="/free/" th:attrappend="href=${list.boardSeq}" th:text="${list.boardTitle}" class="text-decoration-none center" ></a>
 							</td>
 							<td th:text="${list.userName}"></td>
 						</tr>
-						<tr th:unless="${#lists.size(boardList)} > 0">
+						<tr th:unless="${#lists.size(boardList.getList())} > 0">
 							<td colspan="5">내용이 없습니다</td>
 						</tr>
 					</tbody>
 				</table>
+				<div>
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:classappend="${boardList.getPrePage() == 0} ? 'disabled'">
+							<!-- <a class="page-link" th:href="@{/reviewboard(pageNum=${boardList.getPrePage()})}">Prev</a> -->
+							<a class="page-link">Prev</a>
+						</li>
+						<li class="page-item" th:each="page : ${#numbers.sequence(boardList.getNavigateFirstPage(), boardList.getNavigateLastPage())}" th:classappend="${page == boardList.getPageNum()} ? 'active'">
+							<!-- <a class="page-link" th:text="${page}" th:href="@{/reviewboard(pageNum=${page})}"></a> -->
+							<a class="page-link" th:text="${page}"></a>
+						</li>
+						<li class="page-item" th:classappend="${boardList.getNextPage() == 0} ? 'disabled'">
+							<a class="page-link">Next</a>
+						</li>
+					</ul>
+				</div>
 				<div class="my-3 clearfix">
-					<form name = "search-form" autocomplete="off">
-						<input type = "text" id="keyWord" name = "keyword" value="">
-						<input type = "button" id="btnSearch" class = "btn btn-outline-primary mr-2" value ="검색">
+					<form name="search-form" autocomplete="off">
+						<select name="type" id="type">
+							<option selected value="">제목으로 검색</option>
+						</select>
+						<input type="text" id="keyWord" name="keyword" value="">
+						<button type="button" id="btn-search" class="btn btn-outline-primary mr-2">검색</button>
 						<a href="/freeboard/write" class="btn btn-outline-primary">글쓰기</a>
 					</form>
 <!-- 					<div class="my-3 clearfix"> -->

@@ -1,6 +1,9 @@
 package com.bitc.team5.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,33 +81,68 @@ public class BoardController {
 
 	
 	//자유게시판
+//	@RequestMapping(value="/freeboard",method=RequestMethod.GET)
+//	public ModelAndView freeBoardList() throws Exception{
+//	ModelAndView mv = new ModelAndView("/board/freeBoard");
+//	
+//	List<BoardDto> boardList = boardService.freeBoardList();
+//	mv.addObject("boardList",boardList);
+//	
+//	return mv;
+//	}
+//	
+//	//자유게시판 검색기능
+//	@ResponseBody
+//	@RequestMapping(value="/ajaxfreeboard",method=RequestMethod.GET)
+//	public Object ajaxFreeBoardList(@RequestParam(value = "keyword", required = false, defaultValue="") String keyword) throws Exception{
+////		ModelAndView mv = new ModelAndView("/board/reviewBoard");
+//		List<BoardDto> boardList = null;
+//		
+//		if (keyword.equals("")) {
+//			boardList = boardService.freeBoardList();
+//		}
+//		else {
+//			boardList = boardService.SearchFreeBoardList(keyword);
+//		}
+//		
+////		mv.addObject("boardList",boardList);
+//		
+//		return boardList;
+//	}
+	
 	@RequestMapping(value="/freeboard",method=RequestMethod.GET)
-	public ModelAndView freeBoardList() throws Exception{
-	ModelAndView mv = new ModelAndView("/board/freeBoard");
-	
-	List<BoardDto> boardList = boardService.freeBoardList();
-	mv.addObject("boardList",boardList);
-	
-	return mv;
-	}
-	
-	//자유게시판 검색기능
-	@ResponseBody
-	@RequestMapping(value="/ajaxfreeboard",method=RequestMethod.GET)
-	public Object ajaxFreeBoardList(@RequestParam(value = "keyword", required = false, defaultValue="") String keyword) throws Exception{
-//		ModelAndView mv = new ModelAndView("/board/reviewBoard");
-		List<BoardDto> boardList = null;
+	public ModelAndView freeBoardList(
+			@RequestParam(required=false, defaultValue= "1", value="pageNum") int pageNum,
+			@RequestParam(value = "keyword", required = false, defaultValue="") String keyword,
+			@RequestParam(value="keytype", required=false, defaultValue="") String keytype
+			) throws Exception{
+		ModelAndView mv = new ModelAndView("/board/freeBoard");
 		
-		if (keyword.equals("")) {
-			boardList = boardService.freeBoardList();
+		Map<String, String> boardOption = new HashMap<String, String>();
+		boardOption.put("pageNum", String.valueOf(pageNum));
+		boardOption.put("keyword", keyword);
+		boardOption.put("keytype", keytype);
+		
+		mv.addObject("boardOption", boardOption);
+		
+		PageInfo<BoardDto> boardList; 
+		
+		if (keyword.equals("") && keytype.equals("")) {
+			boardList = new PageInfo<>(boardService.freeBoardList(pageNum), 5);
+		}
+		else if (!keyword.equals("") && keytype.equals("")) {
+			boardList = new PageInfo<>(boardService.SearchKeywordFreeBoardList(pageNum, keyword), 5);
+		}
+		else if (keyword.equals("") && !keytype.equals("")) {
+			boardList = new PageInfo<>(boardService.SearchKeytypeFreeBoardList(pageNum, keytype), 5);
 		}
 		else {
-			boardList = boardService.SearchFreeBoardList(keyword);
+			boardList = new PageInfo<>(boardService.SearchFreeBoardList(pageNum, keyword, keytype), 5);
 		}
 		
-//		mv.addObject("boardList",boardList);
+		mv.addObject("boardList", boardList);
 		
-		return boardList;
+		return mv;
 	}
 	//자유게시판 글 쓰기
 	@RequestMapping(value="/freeboard/write",method=RequestMethod.GET)
@@ -168,25 +206,83 @@ public class BoardController {
 //	}
 	
 	@RequestMapping(value="/reviewboard",method=RequestMethod.GET)
-	public ModelAndView reviewBoardList(@RequestParam(required=false, defaultValue= "1", value="pageNum") int pageNum) throws Exception{
+	public ModelAndView reviewBoardList(
+			@RequestParam(required=false, defaultValue= "1", value="pageNum") int pageNum,
+			@RequestParam(value = "keyword", required = false, defaultValue="") String keyword,
+			@RequestParam(value="keytype", required=false, defaultValue="") String keytype
+			) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/reviewBoard");
 		
-		PageInfo<BoardDto> boardList = new PageInfo<>(boardService.reviewBoardList(pageNum), 5);
+		Map<String, String> boardOption = new HashMap<String, String>();
+		boardOption.put("pageNum", String.valueOf(pageNum));
+		boardOption.put("keyword", keyword);
+		boardOption.put("keytype", keytype);
 		
-		mv.addObject("boardList",boardList);
+		mv.addObject("boardOption", boardOption);
+		
+		PageInfo<BoardDto> boardList; 
+		
+		if (keyword.equals("") && keytype.equals("")) {
+			boardList = new PageInfo<>(boardService.reviewBoardList(pageNum), 5);
+		}
+		else if (!keyword.equals("") && keytype.equals("")) {
+			boardList = new PageInfo<>(boardService.SearchKeywordReviewBoardList(pageNum, keyword), 5);
+		}
+		else if (keyword.equals("") && !keytype.equals("")) {
+			boardList = new PageInfo<>(boardService.SearchKeytypeReviewBoardList(pageNum, keytype), 5);
+		}
+		else {
+			boardList = new PageInfo<>(boardService.SearchReviewBoardList(pageNum, keyword, keytype), 5);
+		}
+		
+		mv.addObject("boardList", boardList);
 		
 		return mv;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/reviewboard/write1", method = RequestMethod.POST)
+	public Object box1Selected(@RequestParam("type") String type) throws Exception {
+		List<String> place = new ArrayList<String>();
+		if(type.equals("숙박")) {
+			place.add("대성장");
+			place.add("파라다이스호텔 부산");
+			place.add("G2모텔");
+			place.add("이비스앰배서더호텔 부산시티센터점");
+			
+		}else if(type.equals("명소")) {
+			place.add("암남공원");
+			place.add("시민공원");
+			place.add("UN기념공원");
+			place.add("용두산공원");
+			place.add("삼락생태공원");
+			place.add("광안대교");
+			place.add("해운대 달맞이 길");
+			place.add("송도 해상 케이블 카");
+			place.add("BIFF 광장");
+			place.add("서면 먹자 골목");
+			place.add("흰여울문화마을");
+			place.add("민락수변공원");
+			place.add("동백섬");
+			place.add("청사포 다릿돌 전망대");
+			place.add("이기대 해안산책로");
+			place.add("감천 문화마을");
+			place.add("자갈치시장");
+			place.add("국제시장");
+			place.add("부전시장");
+			place.add("기장시장");
+			
+		}
+		return place;
 	}
 	
 	//후기 게시판 검색기능
 	@ResponseBody
 	@RequestMapping(value="/ajaxReviewboard",method=RequestMethod.GET)
 	public Object ajaxReviewBoardList(@RequestParam(value = "keyword", required = false, defaultValue="") String keyword, @RequestParam(value="keytype", required=false, defaultValue="") String keytype) throws Exception{
-//		ModelAndView mv = new ModelAndView("/board/reviewBoard");
 		List<BoardDto> boardList = null;
 		
 //		if (keyword.equals("") && keytype.equals("")) {
-//			boardList = boardService.reviewBoardList();
+//			boardList = boardService.reviewBoardList(0);
 //		}
 //		else if (!keyword.equals("") && keytype.equals("")) {
 //			boardList = boardService.SearchKeywordReviewBoardList(keyword);
@@ -197,8 +293,6 @@ public class BoardController {
 //		else {
 //			boardList = boardService.SearchReviewBoardList(keyword, keytype);
 //		}
-		
-//		mv.addObject("boardList",boardList);
 		
 		return boardList;
 	}

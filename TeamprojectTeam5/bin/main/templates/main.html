@@ -22,7 +22,7 @@ main {
 
 footer {
 	height: 300px;
-	position: relative;
+	position:relative;
 	transform: translateY(-100%);
 	margin:0px;
 }
@@ -89,49 +89,49 @@ footer {
 		</div>
 		<!-- 부산 축제 캐러셀 부분 -->
 		<div class="container">
-		<div class="container mt-5  w-75">
-		<div class="text-center my-5">
-			<h1>부산 축제</h1>
-		</div>
-			<div id="carouselExampleCaptions" class="carousel slide container mt-3"
-				data-bs-ride="carousel">
-				
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="/img_5/festival/busan_rock_festival.jpg"
-							class="d-block w-100" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5>부산 국제 락 페스티벌</h5>
-							<p></p>
-						</div>
-					</div>
-					<div class="carousel-item" th:if="${#lists.size(hotList)} > 0"
-						th:each="item : ${hotList}">
-						<img th:src="${item.festivalImg}" class="d-block w-100" alt="...">
-						<div class="carousel-caption d-none d-md-block">
-							<h5 th:text="${item.festivalName}">페스티벌이름</h5>
-							
-						</div>
-					</div>
-
+			<div class="container mt-5  w-75">
+				<div class="text-center my-5">
+					<h1>부산 축제</h1>
 				</div>
-				<button class="carousel-control-prev" type="button"
-					data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button"
-					data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
+				<div id="carouselExampleCaptions" class="carousel slide container mt-3"
+					data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="/img_5/festival/busan_rock_festival.jpg"
+								class="d-block w-100" alt="...">
+							<div class="carousel-caption d-none d-md-block">
+								<h5>부산 국제 락 페스티벌</h5>
+								<p></p>
+							</div>
+						</div>
+						<div class="carousel-item" th:if="${#lists.size(hotList)} > 0"
+							th:each="item : ${hotList}">
+							<img th:src="${item.festivalImg}" class="d-block w-100" alt="...">
+							<div class="carousel-caption d-none d-md-block">
+								<h5 th:text="${item.festivalName}">페스티벌이름</h5>
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button"
+						data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button"
+						data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
 			</div>
 		</div>
+		<div class="container">
+		<!-- 축제 일정 혹은 무언가 -->
+			<div class=""></div>
 		</div>
 	</main>
-
-	<footer>
+	
 	<div th:include="layout/footer :: footer"></div>
-</footer>
+
 </body>
 </html>

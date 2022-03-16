@@ -19,7 +19,15 @@ public interface BoardService {
 	void noticeUpdate(BoardDto board) throws Exception;
 
 	// 자유
-	List<BoardDto> freeBoardList() throws Exception;
+//	List<BoardDto> freeBoardList() throws Exception;
+	
+	Page<BoardDto> freeBoardList(int pageNum) throws Exception;
+	
+	Page<BoardDto> SearchKeywordFreeBoardList(int pageNum, String keyword) throws Exception;
+	
+	Page<BoardDto> SearchKeytypeFreeBoardList(int pageNum, String keytype) throws Exception;
+
+	Page<BoardDto> SearchFreeBoardList(int pageNum, String keyword, String keytype) throws Exception;
 
 	void freeInsert(BoardDto board) throws Exception;
 
@@ -29,13 +37,10 @@ public interface BoardService {
 
 	void freeUpdate(BoardDto board) throws Exception;
 
-	List<BoardDto> SearchFreeBoardList(String keyword) throws Exception;
 
 	// 후기
 //	List<BoardDto> reviewBoardList() throws Exception;
 	Page<BoardDto> reviewBoardList(int pageNum) throws Exception;
-	
-	List<BoardDto> SearchReviewBoardList(String keyword, String keytype) throws Exception;
 
 	void reviewInsert(BoardDto board) throws Exception;
 
@@ -45,8 +50,18 @@ public interface BoardService {
 
 	void reviewUpdate(BoardDto board) throws Exception;
 
-	List<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception;
+//	List<BoardDto> SearchReviewBoardList(String keyword, String keytype) throws Exception;
+	
+//	List<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception;
 
-	List<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception;
+//	List<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception;
+
+	Page<BoardDto> SearchKeywordReviewBoardList(int pageNum, String keyword) throws Exception;
+
+	Page<BoardDto> SearchKeytypeReviewBoardList(int pageNum, String keytype) throws Exception;
+	
+	Page<BoardDto> SearchReviewBoardList(int pageNum, String keyword, String keytype) throws Exception;
+
+
 
 }

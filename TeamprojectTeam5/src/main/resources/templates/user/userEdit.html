@@ -18,6 +18,7 @@
 <script>
 $(document).ready(function() {
 	var seq = $("#seq").val();
+	var email=$("#email").val();
 	/* 목록으로 */
 	$("#btn-list").on("click", function() {
 		location.href = "/myPage";
@@ -26,14 +27,14 @@ $(document).ready(function() {
 	$("#btn-edit").on("click", function() {
 		$("#method").val("PUT");
 		var frm = $("#frm")[0];
-		frm.action = "/userEdit/" + seq;
+		frm.action = "/userEdit/" + email;
 		frm.submit();
 	});
 	/* 삭제 */
 	$("#btn-del").on("click", function() {
 		$("#method").val("DELETE");
 		var frm = $("#frm")[0];
-		frm.action = "/userEdit/" + seq;
+		frm.action = "/userEdit/" + email;
 		frm.submit();
 	});
 });
@@ -48,48 +49,44 @@ $(document).ready(function() {
 		<div class="text-center mt-5">
 				<div class=" d-flex justify-content-center">
 					<form id="frm" method="POST">
-						<h3>회원정보 수정</h3>
-						<hr style="height: 3px; color: red;">
-						<div class="d-flex justify-content-center">
-							<input type="hidden" id="seq" name="seq" th:value="${user.seq}"><input
-								type="hidden" id="method" name="_method">
-							
-						</div>
-						
-						<div class="input-group mb-3">
-	  						<span class="input-group-text" id="basic-addon1">email</span>
-	  						<input type="email" th:value="${user.email}" class="form-control" placeholder="email" id="email" name="email" aria-label="email" aria-describedby="basic-addon1">
-						</div>
-						<div class="input-group mb-3">
-	  						<span class="input-group-text" id="basic-addon1">이름</span>
-	  						<input type="text" th:value="${user.userName}" class="form-control" placeholder="userName" name="userName" id="userName" aria-label="userName" aria-describedby="basic-addon1">
-						</div>
-						<div class="input-group mb-3">
-	  						<span class="input-group-text" id="basic-addon1">전화번호</span>
-	  						<input type="number" th:value="${user.phone}" class="form-control" placeholder="Phone" name="phone" id="phone" aria-label="Phone" aria-describedby="basic-addon1">
-						</div>
-						
-						<div class="input-group mb-3">
-	  						<span class="input-group-text" id="basic-addon1">비밀번호</span>
-	  						<input type="password" th:value="${user.password}" id="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
-						</div>
-						
-						<div class="d-flex">
-							<!-- <div class="clearfix justify-content-start">
-								<button type="button" class="btn btn-secondary float-start"
-									id="btn-list">마이페이지</button>
-							</div> -->
-							<div class="d-flex ">
-								<button type="button" id="btn-del"
-									class="btn btn-danger float-end ">
-									탈퇴 <span th:text="${user.seq}" class="d-none"></span>
-								</button>
-								<button type="button" id="btn-edit"
-									class="btn btn-warning float-end">
-									수정 <span th:text="${user.seq}" class="d-none"></span>
-								</button>
+							<h3>회원정보 수정</h3>
+							<hr style="height: 3px; color: red;">
+							<div class="d-flex justify-content-center">
+								<input type="hidden" id="seq" name="seq" th:value="${user.seq}"><input
+									type="hidden" id="method" name="_method">
 							</div>
-						</div>
+							<div class="input-group mb-3">
+		  						<span class="input-group-text" id="basic-addon1">email</span>
+		  						<input type="email" th:value="${user.email}" class="form-control" placeholder="email" id="user_email" name="email" aria-label="email" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+		  						<span class="input-group-text" id="basic-addon1">이름</span>
+		  						<input type="text" th:value="${user.userName}" class="form-control" placeholder="userName" id="userName" name="userName" aria-label="userName" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+		  						<span class="input-group-text" id="basic-addon1">비밀번호</span>
+		  						<input type="password" th:value="${user.password}" id="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+		  						<span class="input-group-text" id="basic-addon1">전화번호</span>
+		  						<input type="number" th:value="${user.phone}" class="form-control" placeholder="Phone" name="phone" id="phone" aria-label="Phone" aria-describedby="basic-addon1">
+							</div>
+							<div class="d-flex">
+								<!-- <div class="clearfix justify-content-start">
+									<button type="button" class="btn btn-secondary float-start"
+										id="btn-list">마이페이지</button>
+								</div> -->
+								<div class="d-flex ">
+									<button type="button" id="btn-del"
+										class="btn btn-danger float-end ">
+										탈퇴 <span th:text="${user.seq}" class="d-none"></span>
+									</button>
+									<button type="button" id="btn-edit"
+										class="btn btn-warning float-end">
+										수정 <span th:text="${user.seq}" class="d-none"></span>
+									</button>
+								</div>
+							</div>
 					</form>
 					
 					

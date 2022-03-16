@@ -63,6 +63,13 @@ public class UserController {
 		public String loginFail() throws Exception{
 			return "/user/loginFail";
 		}
+		@RequestMapping(value="/user/myPage/{email}",method=RequestMethod.GET)
+		public ModelAndView myPage(@PathVariable("email") String email) throws Exception{
+			ModelAndView mv = new ModelAndView("/user/myPage");
+			UserDto userDetail = userService.selectUserDetail(email);
+			mv.addObject("user",userDetail);
+			return mv;
+		}
 //		정보 수정 페이지
 		@RequestMapping(value="/userEdit/{email}", method=RequestMethod.GET)
 		public ModelAndView userDetail(@PathVariable("email") String email) throws Exception{
@@ -72,7 +79,7 @@ public class UserController {
 			return mv;
 		}
 //		수정 완료 후 로그인 페이지로 이동
-		@RequestMapping(value = "/userEdit/{email}", method = RequestMethod.POST)
+		@RequestMapping(value = "/userEdit/{email}", method = RequestMethod.PUT)
 		public String updateUserList(UserDto user,HttpServletRequest request) throws Exception {
 			userService.updateUser(user);
 			HttpSession session = request.getSession();
@@ -90,5 +97,12 @@ public class UserController {
 			session.invalidate();
 			return "redirect:/main";
 		}
+		
+//		@RequestMapping(value="/user/Mypage/{email}",method=RequestMethod.GET)
+//		public String myPage(@PathVariable("email") String email) throws Exception{
+//			ModelAndView mv = new ModelAndView("/user/myPage");
+//			
+//			return "/user/myPage";
+//		}
 		
 }

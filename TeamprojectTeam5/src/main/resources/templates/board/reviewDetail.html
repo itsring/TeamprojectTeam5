@@ -15,7 +15,81 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <title></title>
+<style>
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
+/* explanation */
+
+article {
+  background-color:#ffe;
+  box-shadow:0 0 1em 1px rgba(0,0,0,.25);
+  color:#006;
+  font-family:cursive;
+  font-style:italic;
+  margin:4em;
+  max-width:30em;
+  padding:2em;
+}
+</style>
 <script>
+$(document).ready(function() {
+	tel();//전화번호 불러오는 함수
+});
+function tel() {
+	$("#type").on("change", function() {
+		/* select 태그의 자손 태그인 option태그중 상태가 selected인 속성값을 가져옴 */
+		var result = $("#type option:selected").val();
+		var datas = {
+			type : result
+		};
+
+		$.ajax({
+			url : "/reviewboard/write1",
+			type : "post",
+			data : datas,
+			success : function(data) {
+				var sel2 = $("#place"); //2번째 select 태그를 선택
+				sel2.empty(); //기존에 존재하는  자손태그를 모두 삭제 
+				/* 기본값 추가 */
+				sel2.append("<option value=''>선택해주세요</option>");
+				/* 서버에서 넘어온 데이터를 2번째 select 태그에 추가함 */
+				for (var i = 0; i < data.length; i++) {
+					sel2.append("<option>" + data[i] + "</option>");
+				}
+			},
+			error : function() {
+				alert("ajax 통신 실패");
+			}
+		});
+	});
+}
 //	버튼 클릭 이벤트 (누르면 공지사항으로 돌아가기, 글 수정, 글 삭제)
 	$(document).ready(function() {
 		var seq = $("#seq").val();
@@ -38,6 +112,19 @@
 			frm.submit();
 		});
 	});
+	function pageSetup() {
+		var pageNum = boardOpt.pageNum;
+		var keyword = boardOpt.type;
+		var keywordType = boardOpt.keytype;
+		
+		$("#category").val(type);
+		
+		if (keywordType != "") {
+			$("#place").val(숙박).prop("selected", true);
+		}
+	}
+
+	
 </script>
 </head>
     <header>
@@ -47,13 +134,46 @@
 	<main class="container mt-5">
 		<form id="frm" method="POST">
 			<div class="row my-3">
-				<div class="col-sm">
-					<input type="text" class="form-control" name="boardTitle" value="제목" placeholder="제목을 입력하세요" th:value="${boardList.boardTitle}">
+				<div class="col-sm-3">
+					<select class="form-control" id="type"
+						name="category" >
+						<option th:value="${boardList.category}" value="${boardList.category}" selected >선택하세요</option>
+						<option value="숙박" >숙박 후기</option>
+						<option value="명소">명소 후기</option>
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" id="place" name="place" >
+						<option selected>선택하세요</option>
+					</select>
+				</div>
+				<div class="form-control star-rating" id="star" > 
+				  <input type="radio" id="5-stars" name="star" value="5"  />
+				  <label for="5-stars" class="star">&#9733;</label>
+				  <input type="radio" id="4-stars" name="star" value="4" />
+				  <label for="4-stars" class="star">&#9733;</label>
+				  <input type="radio" id="3-stars" name="star" value="3" />
+				  <label for="3-stars" class="star">&#9733;</label>
+				  <input type="radio" id="2-stars" name="star" value="2" />
+				  <label for="2-stars" class="star">&#9733;</label>
+				  <input type="radio" id="1-star" name="star" value="1" />
+				  <label for="1-star" class="star">&#9733;</label>
+			</div>
+			</div>
+			<div class="row my-3">
+				<div class="col-sm" th:if="${session.userName} == ${boardList.userName} or ${session.email} == 'qwe123@qwe123'">
+					<input type="text" class="form-control" name="boardTitle" value="제목" placeholder="제목을 입력하세요" th:value="${boardList.boardTitle}" >
+				</div>
+				<div class="col-sm" th:unless="${session.userName} == ${boardList.userName} or ${session.email} == 'qwe123@qwe123'">
+					<input type="text" class="form-control" name="boardTitle" value="제목" placeholder="제목을 입력하세요" th:value="${boardList.boardTitle}" readonly>
 				</div>
 			</div>
 			<div class="row my-3">
-				<div class="col-sm">
+				<div class="col-sm" th:if="${session.userName} == ${boardList.userName} or ${session.email} == 'qwe123@qwe123'">
 					<textarea rows="10" class="form-control" name="boardContent" th:text="${boardList.boardContent}"></textarea>
+				</div>
+				<div class="col-sm" th:unless="${session.userName} == ${boardList.userName} or ${session.email} == 'qwe123@qwe123'">
+					<textarea rows="10" class="form-control" name="boardContent" th:text="${boardList.boardContent}" readonly></textarea>
 				</div>
 			</div>
 			<div>

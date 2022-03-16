@@ -49,18 +49,44 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 자유
+//	@Override
+//	public List<BoardDto> freeBoardList() throws Exception {
+//
+//		return boardMapper.freeBoardList();
+//	}
 	@Override
-	public List<BoardDto> freeBoardList() throws Exception {
-
-		return boardMapper.freeBoardList();
-	}
-
-//	자유게시판 검색기능
-	@Override
-	public List<BoardDto> SearchFreeBoardList(String keyword) throws Exception {
-		return boardMapper.SearchFreeBoardList(keyword);
+	public Page<BoardDto> freeBoardList(int pageNum) throws Exception {
+		PageHelper.startPage(pageNum, 3);
+		return boardMapper.freeBoardList(pageNum);
 	}
 	
+//	자유게시판 검색기능
+
+	@Override
+	public Page<BoardDto> SearchKeywordFreeBoardList(int pageNum, String keyword) throws Exception {
+		PageHelper.startPage(pageNum, 3);
+		
+		return boardMapper.SearchKeywordFreeBoardList(keyword);
+	}
+
+	@Override
+	public Page<BoardDto> SearchKeytypeFreeBoardList(int pageNum, String keytype) throws Exception {
+		PageHelper.startPage(pageNum, 3);
+		return boardMapper.SearchKeytypeFreeBoardList(keytype);
+	}
+
+	@Override
+	public Page<BoardDto> SearchFreeBoardList(int pageNum, String keyword, String keytype) throws Exception {
+		PageHelper.startPage(pageNum, 3);
+
+		return boardMapper.SearchFreeBoardList(keyword, keytype);
+	}
+
+//	@Override
+//	public List<BoardDto> SearchFreeBoardList(String keyword) throws Exception {
+//		return boardMapper.SearchFreeBoardList(keyword);
+//	}
+//	
 	@Override
 	public void freeInsert(BoardDto board) throws Exception {
 		boardMapper.freeInsert(board);
@@ -93,14 +119,14 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public Page<BoardDto> reviewBoardList(int pageNum) throws Exception {
-		PageHelper.startPage(pageNum, 5);
+		PageHelper.startPage(pageNum, 3);
 		return boardMapper.reviewBoardList();
 	}
 	
-	@Override
-	public List<BoardDto> SearchReviewBoardList(String keyword, String keytype) throws Exception {
-		return boardMapper.SearchReviewBoardList(keyword, keytype);
-	}
+//	@Override
+//	public List<BoardDto> SearchReviewBoardList(String keyword, String keytype) throws Exception {
+//		return boardMapper.SearchReviewBoardList(keyword, keytype);
+//	}
 
 	@Override
 	public void reviewInsert(BoardDto board) throws Exception {
@@ -126,14 +152,37 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.reviewUpdate(board);
 	}
 
+//	@Override
+//	public List<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception {
+//		return boardMapper.SearchKeywordReviewBoardList(keyword);
+//	}
+//
+//	@Override
+//	public List<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception {
+//		return boardMapper.SearchKeytypeReviewBoardList(keytype);
+//	}
+
+//	public Page<BoardDto> reviewBoardList(int pageNum) throws Exception {
+//	PageHelper.startPage(pageNum, 5);
+//	return boardMapper.reviewBoardList();
+//}
+	
 	@Override
-	public List<BoardDto> SearchKeywordReviewBoardList(String keyword) throws Exception {
+	public Page<BoardDto> SearchKeywordReviewBoardList(int pageNum, String keyword) throws Exception {
+		PageHelper.startPage(pageNum, 3);
 		return boardMapper.SearchKeywordReviewBoardList(keyword);
 	}
 
 	@Override
-	public List<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception {
+	public Page<BoardDto> SearchKeytypeReviewBoardList(int pageNum, String keytype) throws Exception {
+		PageHelper.startPage(pageNum, 3);
 		return boardMapper.SearchKeytypeReviewBoardList(keytype);
 	}
-	
+
+	@Override
+	public Page<BoardDto> SearchReviewBoardList(int pageNum, String keyword, String keytype) throws Exception {
+		PageHelper.startPage(pageNum, 3);
+		return boardMapper.SearchReviewBoardList(keyword, keytype);
+	}
+
 }

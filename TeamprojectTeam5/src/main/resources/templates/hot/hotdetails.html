@@ -70,6 +70,31 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
 
+<script type="text/javascript" th:inline="javascript">
+
+	$(document).ready(function() {
+		/*<![CDATA[*/ var dib = /*[[ ${hotDetail} ]]*/
+		// 장바구니 추가 버튼
+		$("#btn_dib").on("click", function(e){
+			
+			var datas = {attrationSeq: dib.seq, placeName:dib.placeName, placeLocation: dib.placeLocation}
+			$.ajax({
+				url: '/dib/add',
+				type: 'POST',
+				data: datas,
+				success: function(result){
+						alert("찜하기 추가");
+						location.href="/hotplace";
+				},
+				error: function() {
+					alert("ajax 통신 오류 발생");
+				}
+			});
+		});
+	});
+	
+</script>
+
 </head>
 <body>
 
@@ -81,9 +106,9 @@
 	
 		<div class="rounded p-5 my-3 bg-primary bg-opacity-25">
 			<h1 class="text-center text-white">관광지 상세 페이지</h1>
-		</div>       	
-       	
-       	
+		</div>
+		
+		
 		<div class="container" style="margin-bottom: 100px;">
 			<div class="mb-3">
 				<form id="frm" method="POST">

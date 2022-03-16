@@ -73,7 +73,6 @@
 		]]>
 	</select>
 	
-	
 	<!-- 명소 등록 -->
 	<insert id="hotinsert" parameterType="com.bitc.team5.dto.HotDto" useGeneratedKeys="true" keyProperty="seq">
 		<![CDATA[
@@ -85,7 +84,6 @@
 				#{placeImgC1}, #{placeImgC2}, #{placeImgC3}, #{placeImgC4})
 		]]>
 	</insert>
-	
 	
 	<!-- 명소 수정 -->
 	<update id="hotUpdateBoard" parameterType="com.bitc.team5.dto.HotDto">
@@ -100,7 +98,5 @@
 				seq = #{seq}
 		]]>
 	</update>
-
-
 
 </mapper>

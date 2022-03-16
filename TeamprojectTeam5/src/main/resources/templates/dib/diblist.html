@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>찜 목록입니다</title>
+</head>
+<body>
+
+	<main>
+
+		<!-- <input type="hidden" class="email" id="email" value="${dibList.email}"> -->
+
+		<div class="border-top border-bottom my-3 ps-3 py-2 text-center text-muted" style="background: #f0f0f5;">
+			<h1 class=" m-0"  id="basket">찜하기 목록</h1>
+		</div>
+		
+		<div class="container p-0 ">
+			<form name="frm" method="GET" class="frm">
+				<div id="items" class="border-top shadow py-0 bg-white rounded" style="border-radius: 40px;">
+					<div class="d-flex justify-content-between py-2 border-bottom" th:if="${#lists.size(dibList)} > 0" th:each="list : ${dibList}">
+						<div class="col-sm-4">
+
+							<div class="body">
+								<!-- <div class="card-title m-0" th:text="${list.placeName}"></div> -->
+								<p class="card-text small m-0" th:text="'명소 : ' +${list.placeName}"></p>
+								<p class="card-text small m-0" th:text="'위치 : ' +${list.placeLocation}"></p>
+							</div>
+							
+						</div>
+						
+						<div class="col-sm-2 d-flex align-content-center flex-wrap">
+							<button type="button" id="btn-delete" class="btn btn-danger float-end me-3 btn-delete">
+								<span class="d-none" th:text="${list.seq}"></span>삭제
+							</button>
+						</div>
+						
+					</div>
+				</div>
+
+				<div th:unless="${#lists.size(dibList)} > 0" class="text-center">
+					<div>장바구니 내역 없습니다</div>
+				</div>
+
+				<input type="hidden" id="method" name="_method">
+
+				<div class="d-grid gap-2">
+				<button	class="btn btn-secondary btn-lg btn-blocks mt-2 mx-3 btn-submit" id="btn-submit">확인</button>
+				</div>
+			</form>
+		</div>
+		
+	</main>
+
+
+
+</body>
+</html>

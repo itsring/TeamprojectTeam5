@@ -20,18 +20,19 @@ public class DibServiceImpl implements DibService {
 		dibMapper.addDib(dib);
 	}
 	
-	// 찜하기 목록
+	// 찜 목록
 	@Override
 	public List<DibDto> dibList(String email) throws Exception {
-		
-		if (email == null || email.equals("")) {
-			email = "N";
-		}
-		
 		List<DibDto> dib = dibMapper.getDib(email);
-		
 		return dib;
+	}
+	
+	// 찜 삭제
+	@Override
+	public void deleteDib(int seq) throws Exception {
+		dibMapper.deleteDib(seq);
 		
 	}
 
+	
 }

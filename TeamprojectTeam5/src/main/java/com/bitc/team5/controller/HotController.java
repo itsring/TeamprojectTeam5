@@ -87,5 +87,8 @@ public class HotController {
 		return "redirect:/hotplace";
 	}
 	
+	
+	
+	
 
 }

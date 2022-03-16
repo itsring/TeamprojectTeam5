@@ -29,6 +29,17 @@
 				deleted_yn ='N'
 		]]>
 	</select>
-
+	
+	<!-- 찜 삭제  -->
+	<update id="deleteDib" parameterType="int">
+		<![CDATA[
+			UPDATE
+				dib
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				seq = #{seq}
+		]]>
+	</update>
 
 </mapper>

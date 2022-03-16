@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitc.team5.dto.DibDto;
@@ -37,18 +38,30 @@ public class DibController {
 		return "success";
 	}
 	
-	
 	@RequestMapping(value = "/diblist", method = RequestMethod.GET)
 	public String dibList(Model model, HttpSession session) throws Exception {
 		
 		String email = (String) session.getAttribute("email");
-		 
-		 Map<String, Object> map = new HashMap<String, Object>();
-	
+		
 		List<DibDto> dibList = dibService.dibList(email);
+		
 		model.addAttribute("dibList", dibList);
 		
 		return "/dib/diblist";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dib/dibDelete")
+	public Map<String, String> dibDelete(@RequestParam("seq") int seq) throws Exception {
+		
+		Map<String, String> result = new HashMap<String, String>();
+
+		dibService.deleteDib(seq);
+
+		result.put("result", "success");
+
+		return result;
+	}
+	
 
 }

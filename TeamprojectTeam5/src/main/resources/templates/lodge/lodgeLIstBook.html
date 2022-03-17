@@ -112,7 +112,8 @@ height: 150px;
 							</div>
 							<div class="col-2">
 								<label for="" class="col-form-label">평점 : </label> 
-								<p th:text="${lodge.lodgeScore} + ' / 5.0'"></p>
+								<!-- <p th:text="${lodge.lodgeScore} + ' / 5.0'"></p> -->
+								<p id="star-grade" th:text="${session.star} + ' / 5.0'"></p>
 							</div>
 						</div>
 						<div class="row">
@@ -634,9 +635,8 @@ map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 //marker.setMap(null); 
 </script>
 
-<!-- <footer>
-	<div th:replace="layout/footer :: footer"></div>
-</footer> -->
+	<div th:include="layout/footer :: footer"></div>
+
 </html>
 
 

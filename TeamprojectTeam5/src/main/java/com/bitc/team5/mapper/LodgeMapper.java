@@ -45,5 +45,7 @@ public interface LodgeMapper {
 	/* 결제 페이지 */
 	List<LodgeRoomDto> payList(int seq) throws Exception;
 
+	String lodgeDetailStar(String lodgeName) throws Exception;
+
 
 }

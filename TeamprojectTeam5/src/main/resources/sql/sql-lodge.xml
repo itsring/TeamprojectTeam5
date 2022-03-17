@@ -133,4 +133,16 @@
 				seq = #{seq}
 		]]>
 	</select>
+	
+	<!-- 평점 첨가 -->
+	<select id="lodgeDetailStar" parameterType="String" resultType="String">
+		<![CDATA[ 
+			SELECT 
+				AVG(star) 
+			FROM 
+				board 
+			WHERE 
+				place = #{lodgeName};
+		]]>
+	</select>
 </mapper>

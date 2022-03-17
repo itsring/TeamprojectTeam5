@@ -89,4 +89,10 @@ public class LodgeServiceImpl implements LodgeService {
 		return lodgeMapper.payList(seq);
 	}
 
+	@Override
+	public String lodgeDetailStar(String lodgeName) throws Exception {
+		System.out.println(lodgeMapper.lodgeDetailStar(lodgeName));
+		return lodgeMapper.lodgeDetailStar(lodgeName);
+	}
+
 }

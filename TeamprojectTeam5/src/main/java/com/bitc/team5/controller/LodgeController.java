@@ -236,7 +236,7 @@ public class LodgeController {
 	 
 	/* 숙소 상세*/
 	@RequestMapping(value="/lodge/lodgeListBook/{seq}", method=RequestMethod.GET) 
-	public ModelAndView lodgeDetail(@PathVariable("seq") int seq) throws Exception {
+	public ModelAndView lodgeDetail(@PathVariable("seq") int seq, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/lodge/lodgeListBook");
 		
 		LodgeListDto lodgeDetail = lodgeService.lodgeDetailList(seq);
@@ -245,6 +245,13 @@ public class LodgeController {
 		List<LodgeRoomDto> roomList = lodgeService.roomList();
 		mv.addObject("roomList", roomList);
 		
+		// 평점 부분
+				String lodgeName = lodgeDetail.getLodgeName();
+				String star = lodgeService.lodgeDetailStar(lodgeName);
+				HttpSession session = request.getSession();
+				session.setAttribute("star", star);
+				System.out.println(lodgeName+","+ session.getAttribute(star)+","+star);
+				mv.addObject("star", star);
 		return mv;
 
 	}

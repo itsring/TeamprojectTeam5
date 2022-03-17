@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="EUC-KR">
+<title>제휴 숙소 목록</title>
+<link
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+   crossorigin="anonymous">
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+   crossorigin="anonymous"></script>
+<title>숙소 결제</title>
+
+<style>
+
+.form{
+background: #E8F5FF;
+border-radius: 20px;
+width: 350px;
+height: 500px;
+text-align: center;
+padding:20px 10px 20px 10px;
+
+}
+.btn-pay{
+border-radius: 5px;
+ background-color:white; 
+ color:#6495ED;
+ font-size:20px;
+ width:161px;
+ height:100px;
+margin-top:7px;
+}
+.btn-pay:hover{
+ background-color:#6495ED;
+ color:white;
+}
+#howTo span{
+   text-align:middle; 
+}
+#howTo{
+border-radius: 5px;
+ background-color:#6495ED;
+ color:white;
+ width:98%;
+ height:10%;
+ margin:10px 5px;
+}
+
+</style>
+
+</head>
+<body>
+<header>
+	<div id="header" th:include="layout/header :: header"></div>
+</header>
+<main>
+	<div class="container py-5">  
+		<div class="row my-5">
+			<div class="col-sm-6 mx-auto">
+				<form class="form" id="form" action="/lodge/lodgePay" method="POST" th:if="${#lists.size(payList)} > 0" th:each="list : ${payList}">
+					<h2>숙소 예약</h2>
+					<div id="roomName">
+						<input type="text" id="lodgeName" name="lodgeName" th:value=${list.lodgeName}>
+						<input type="text" id="roomName" name="roomName" th:value=${list.roomName}>
+						<input type="text" id="roomCount" name="roomCount" th:value=${list.roomCount}>
+					</div>
+					<div id="roomPay">
+						<input type="text" id="roomPrice" name="roomPrice" th:value=${list.roomPrice}>
+					</div>
+					<div id="howTo">
+						<span>결제 방법</span>
+					</div>
+					<div class="row">
+						<div class="col">
+							<button type="submit" id="btn-pay" class="btn btn-pay" onclick="alert('결제가 완료되었습니다.')">계좌이체</button>
+							<button type="submit" id="btn-pay" class="btn btn-pay" onclick="alert('결제가 완료되었습니다.')">휴대폰결제</button>
+						</div>
+						<div class="col">
+							<button type="submit" id="btn-pay" class="btn btn-pay" onclick="alert('결제가 완료되었습니다.')">pay</button>
+							<button type="submit" id="btn-pay" class="btn btn-pay" onclick="alert('결제가 완료되었습니다.')">신용카드</button>
+						</div>
+					</div>
+					<div style="display:none">
+						<input th:value="${session.email}" type="text" name="userEmail" class="form-control" id="userEmail">
+						<input type="text" class="form-control" id="chkIn" name="chkInDate" />
+						<input type="text" class="form-control" id="chkOut" name="chkOutDate" />
+						<input type="text" id="roomType" name="roomType" th:value=${list.roomType}>
+						<input type="text" id="roomImg" name="roomImg" th:value=${list.roomImg}>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</main>
+<footer>
+	<div th:include="layout/footer :: footer"></div>
+</footer>
+
+<script>
+	
+const urlParams = new URL(location.href).searchParams;
+
+TextInput();
+
+function TextInput() {
+	
+	let inputVal1 = urlParams.get('chkInDate');
+	document.querySelector('input[name="chkInDate"]').value = inputVal1;
+	
+	let inputVal2 = urlParams.get('chkOutDate');
+	document.querySelector('input[name="chkOutDate"]').value = inputVal2;
+			
+	console.log(inputVal);
+}
+
+var chkInDate =$("#chkIn").val();
+var chkOutDate =$("#chkOut").val();
+
+/* $(".btn-pay").on('click', function() {
+		alert('결제가 완료되었습니다.')
+	}); */
+
+
+</script>
+
+
+</body>
+</html>
+
+

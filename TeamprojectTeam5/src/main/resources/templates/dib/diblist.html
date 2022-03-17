@@ -64,17 +64,15 @@
 			<form name="frm" method="GET" class="frm">
 				<div id="items" class="border-top shadow py-0 bg-white rounded" style="border-radius: 40px;">
 					<div class="d-flex justify-content-between py-2 border-bottom" th:if="${#lists.size(dibList)} > 0" th:each="list : ${dibList}">
-						<div class="col-sm-4">
-
-							<div class="body">
-								<p class="card-text small m-0" th:text="'명소 : ' +${list.placeName}"></p>
-								<p class="card-text small m-0" th:text="'위치 : ' +${list.placeLocation}"></p>
+						<div class="col-10">
+							<div class="body ms-5">
+								<h5 class="card-text m-1" th:text="'명소 : ' +${list.placeName}"></h5>
+								<h5 class="card-text m-1" th:text="'위치 : ' +${list.placeLocation}"></h5>
 							</div>
-							
 						</div>
 						
-						<div class="col-sm-2 d-flex align-content-center flex-wrap">
-							<button type="button" id="btn-delete" class="btn btn-danger float-end me-3 btn-delete">
+						<div class="col me-5" style="display: flex; align-items: center; justify-content: center;">
+							<button type="button" id="btn-delete" class="btn btn-danger float-end btn-delete">
 								<span class="d-none" th:text="${list.seq}"></span>삭제
 							</button>
 						</div>

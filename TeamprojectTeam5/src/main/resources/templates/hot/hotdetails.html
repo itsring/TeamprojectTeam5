@@ -64,6 +64,11 @@
 <script type="text/javascript" th:inline="javascript">
 
 	$(document).ready(function() {
+		
+		
+		
+		
+		
 		/*<![CDATA[*/ var dib = /*[[ ${hotDetail} ]]*/
 		// 장바구니 추가 버튼
 		$("#btn_dib").on("click", function(e){
@@ -84,6 +89,8 @@
 		});
 	});
 	
+	
+	
 </script>
 
 </head>
@@ -93,7 +100,7 @@
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 	
-	<main class="container" style="margin-top: 10px">
+	<main class="container" style="margin-top: 50px">
 	
 		<div class="rounded p-5 my-3 bg-primary bg-opacity-25">
 			<h1 class="text-center text-white">관광지 상세 페이지</h1>
@@ -103,8 +110,18 @@
 		<div class="container" style="margin-bottom: 100px;">
 			<div class="mb-3">
 				<form id="frm" method="POST">
+				
+				
+				<!-- <div class="" th:if="${#lists.size(star)} > 0" th:each="starname : ${star}">
+						<div class="my-3">
+							<label for="star" class="form-label text-warning">평점 : </label>
+							<h2 th:text="'평점 ' + ${starname} + ' / 5.0'" th:value="${starname}" class="m-2" id="star"></h2>
+						</div>
+					</div> -->
+					
+					
+					
 				<div class="" th:if="${#lists.size(hotDetail)} > 0" th:each="item : ${hotDetail}">
-
 
 					<!-- 캐러셀 -->
 					<div id="div-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -136,10 +153,21 @@
 						<input type="hidden" id="seq" name="seq" value="1" th:value="${hotDetail.seq}">
 						<input type="hidden" id="method" name="_method" value="put">
 					</div>
-					<div class="my-3">
-						<label for="name" class="form-label text-warning">관광지명 </label>
-						<h2 th:text="${item.placeName}" class="m-2" id="name"></h2>
+					
+					
+					<div class="row my-3">
+						<div class="col-10">
+							<label for="name" class="form-label text-warning">관광지명 </label>
+							<h2 th:text="${item.placeName}" class="m-2" id="name"></h2>
+						</div>
+						<!-- 평점 들어가는 부분 -->
+						<div class="col-2">
+							<label for="grade" class="form-label text-warning">평점 </label>
+							<!-- <span id="star-grade" th:text="'평점 ' + ${session.star} + ' / 5.0'"></span> -->
+							<h3 id="star-grade" th:text="${session.star} + ' / 5.0'"></h3>
+						</div>
 					</div>
+					
 					<br>
 					<div class="my-3 row">
 						<div class="col-8">

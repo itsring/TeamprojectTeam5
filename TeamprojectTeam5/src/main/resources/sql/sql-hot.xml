@@ -98,5 +98,15 @@
 				seq = #{seq}
 		]]>
 	</update>
+	
+	
+	<select id="selectParkList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			SELECT AVG(star) 
+			from board 
+			where place=#{placeName};
+		]]>
+	</select>
+	
 
 </mapper>

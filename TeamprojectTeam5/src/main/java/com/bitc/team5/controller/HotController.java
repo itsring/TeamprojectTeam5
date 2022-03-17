@@ -2,6 +2,9 @@ package com.bitc.team5.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,10 +63,18 @@ public class HotController {
 		
 	///////////////****************관광지 상세 페이지*****************///////////////////
 	@RequestMapping(value="/hotDetail/{seq}", method=RequestMethod.GET)
-	public ModelAndView hotDetail(@PathVariable("seq") int seq) throws Exception {
+	public ModelAndView hotDetail(@PathVariable("seq") int seq, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/hot/hotdetails");
 		
 		HotDto hotDetail = hotService.hotDetailList(seq);
+		
+		// 평점 부분
+		String placeName = hotDetail.getPlaceName();
+		String star = hotService.hotDetailStar(placeName);
+		HttpSession session = request.getSession();
+		session.setAttribute("star", star);
+		
+		mv.addObject("star", star);
 		mv.addObject("hotDetail", hotDetail);
 		
 		return mv;

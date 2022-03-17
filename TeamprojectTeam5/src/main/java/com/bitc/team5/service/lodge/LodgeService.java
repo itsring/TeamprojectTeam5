@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.bitc.team5.dto.LodgeDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
 
 public interface LodgeService {
@@ -23,5 +24,19 @@ public interface LodgeService {
 
 //	List<lodgeBookDto> selectRoomById(Long name) throws Exception;
 
+	//////////////////////////////////
+	
+	/* 명소별 숙소 목록*/
+	List<LodgeListDto> selectLodgeList() throws Exception;
+
+	LodgeListDto lodgeDetailList(int seq) throws Exception;
+
+	List<LodgeRoomDto> roomList() throws Exception;
+
+	/* 객실 예약 */
+	void roomInsert(LodgeDto room) throws Exception;
+
+	/* 결제 페이지 */
+	List<LodgeRoomDto> payList(int seq) throws Exception;
 
 }

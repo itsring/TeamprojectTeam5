@@ -11,12 +11,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bitc.team5.dto.LodgeDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
 import com.bitc.team5.service.lodge.LodgeService;
 
@@ -215,6 +218,67 @@ public class LodgeController {
 //	   public List<lodgeBookDto> getRoomById(@RequestParam Long name) throws Exception{
 //	      return lodgeService.selectRoomById(name);
 //	   }
+	
+	
+	/////////////////////////////////////////////////////////////////////////
+	
+	/* 명소별 숙소 목록*/
+	 @RequestMapping(value="/lodge/lodgeList", method=RequestMethod.GET) 
+	 public ModelAndView lodgeList() throws Exception {
+	 	ModelAndView mv = new ModelAndView("/lodge/lodgeList");
+	  
+		 List<LodgeListDto> lodgeList = lodgeService.selectLodgeList();
+		 mv.addObject("lodgeList", lodgeList);
+		 
+		 return mv; 
+	}
+	 
+	 
+	/* 숙소 상세*/
+	@RequestMapping(value="/lodge/lodgeListBook/{seq}", method=RequestMethod.GET) 
+	public ModelAndView lodgeDetail(@PathVariable("seq") int seq) throws Exception {
+		ModelAndView mv = new ModelAndView("/lodge/lodgeListBook");
+		
+		LodgeListDto lodgeDetail = lodgeService.lodgeDetailList(seq);
+		mv.addObject("lodgeDetail", lodgeDetail);
+		
+		List<LodgeRoomDto> roomList = lodgeService.roomList();
+		mv.addObject("roomList", roomList);
+		
+		return mv;
+
+	}
+	
+	/* 객실 예약 */
+//	@RequestMapping(value="/lodge/lodgeListBook", method=RequestMethod.POST) 
+//	public String roomInsert(LodgeDto room) throws Exception {
+//		lodgeService.roomInsert(room);
+//		
+//		return "redirect:/main";
+//	}
+	
+	@RequestMapping(value="/lodge/lodgePay", method=RequestMethod.POST) 
+	public String roomInsert(LodgeDto room) throws Exception {
+		lodgeService.roomInsert(room);
+		
+		return "/main";
+	}
+	
+	/* 결제 페이지 */
+	@RequestMapping(value="/lodge/lodgePay{seq}", method=RequestMethod.GET) 
+	public ModelAndView lodgePay(@PathVariable("seq") int seq, HttpServletRequest request, Model model) throws Exception {
+		ModelAndView mv = new ModelAndView("/lodge/lodgePay");
+		String chkInDate= request.getParameter("chkInDate");
+		String chkOutDate= request.getParameter("chkOutDate");
+		HttpSession session = request.getSession();
+		session.setAttribute("chkInDate", chkInDate);
+		session.setAttribute("chkOutDate", chkOutDate);
+		
+		List<LodgeRoomDto> payList = lodgeService.payList(seq);
+		mv.addObject("payList", payList);
+		return mv;
+
+	}
 }
 
 

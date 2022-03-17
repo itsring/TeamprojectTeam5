@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="EUC-KR">
+<title>제휴 숙소 목록</title>
+<link
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+   crossorigin="anonymous">
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+   crossorigin="anonymous"></script>
+<title>Insert title here</title>
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70f7ed42e1841b4f0e035f058580eea2"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70f7ed42e1841b4f0e035f058580eea2&libraries=LIBRARY"></script> -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70f7ed42e1841b4f0e035f058580eea2&libraries=services"></script>
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=70f7ed42e1841b4f0e035f058580eea2&libraries=services,clusterer,drawing"></script> -->
+
+<style>
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {width:80%;height:300px;display:block; margin:auto;}
+</style>
+
+<style>
+.customoverlay {position:relative;bottom:50px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#111;text-align:center;border-radius:6px;font-size:14px;font-weight:500;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:500;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+	
+</style>
+
+<style>
+.lodgeDiv{
+position: relative;
+display: inline-block;
+*display: inline;
+zoom: 1;
+}
+#lodgeImg {
+position: absolute;
+left: 0;
+bottom: 0;
+width: 80%;
+background: #000;
+background: rgba(0,0,0,.5);
+}
+</style>
+
+<style>
+
+#book {
+	border: 2px solid skyblue;
+	border-radius: 30px;
+	vertical-align: middle;
+	text-align: center;
+	margin:20px;
+}
+/* #roomList{
+	display:none;
+} */
+#book2 {
+	border: 2px solid #6495ED;
+	border-radius: 30px;
+	background-color:#6495ED;
+	vertical-align: middle;
+	text-align: left;
+	margin:20px;
+}
+#mapCenter {
+	display:none;
+}
+#roomImg{
+position: absolute;
+width: 250px;
+height: 150px;
+}
+
+</style>
+
+</head>
+
+<body>
+	<header>
+		<div id="header" th:include="layout/header :: header"></div>
+	</header>
+	<main>
+		<div class="container" style="margin-top: 10px">
+			<div class="rounded p-5 my-3 bg-primary bg-opacity-25">
+				<h1 class="text-center text-white">관광지 상세 페이지</h1>
+			</div>   
+			
+			
+			<!-- 숙소 정보 출력 -->
+			<div class="row p-3" id="book" th:each="lodge : ${lodgeDetail}">
+				<div class="row">
+					<div class="col-4 lodgeDiv">				
+						<img th:src="@{${lodge.lodgeImg}}" id="lodgeImg">
+					</div> 
+					<div class="col-8">
+						<div class="row">
+							<div class="col-10">
+								<label for="" class="col-form-label">숙소 이름 : </label> 
+								<input type="text" class="form-control" id="input1" name="input1" th:value="${lodge.lodgeName}"/>
+							</div>
+							<div class="col-2">
+								<label for="" class="col-form-label">평점 : </label> 
+								<p th:text="${lodge.lodgeScore} + ' / 5.0'"></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-8">
+								<label for="" class="col-form-label">주소 : </label> 
+					<input type="text" class="form-control" id="input2" th:value="${lodge.lodgeAddressName}"/>
+							</div>
+							<div class="col-4">
+								<label for="" class="col-form-label">전화 번호 : </label> 
+					<input type="text" class="form-control" id="input3" th:value="${lodge.lodgePhone}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="mapCenter">
+					<input type="text" class="latitude" id="latitude" th:value="${lodge.lodgeLatitude}">
+					<input type="text" class="longitude" id="longitude" th:value="${lodge.lodgeLongitude}">
+				</div>
+				
+			</div>
+			
+			
+			<div class="map_wrap">
+				<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+			</div>
+			
+			<div class="row m-3">
+				<div class="row" >
+					<div class="col-4">
+						<span class="col-form-label">입실 : </span> 
+						<input type="date" class="form-control" id="chkInDate" name="chkInDate"/> 
+					</div>
+					<div class="col-4">
+						<span class="col-form-label">퇴실 : </span>
+						<input type="date" class="form-control" id="chkOutDate" name="chkOutDate"/>
+					</div>
+					<div class="col-2">
+						<span class="col-form-label">인원 : </span>
+						<select id="roomCount">
+							<option value="인원 :">인실</option>
+							<option value="1">1인</option>
+							<option value="3">3인</option>
+							<option value="5">5인</option>
+							<option value="9">9인</option>
+						</select>
+					</div>					
+					<div class="col-2">
+						<form name="formSearch" method="get" action="#">
+							<input type="button" id="roomSearch" name="roomSearch" class="btn btn-primary" value="선택">
+						</form>
+					</div>				
+				</div>
+			</div>
+			
+			<!-- 객실 내용 출력 -->
+	<div id="roomList" class="roomList">
+				<form id="formList" action="/lodge/lodgePay" class="formList" method="GET">
+<!-- 				<form id="formList" action="/lodge/lodgeListBook" class="formList" method="POST"> -->
+					<div class="row p-3" id="book2" th:if="${#lists.size(roomList)} > 0" th:each="list : ${roomList}">		
+						<div class="row">
+							<!-- <div class="col-4">
+								<img id="roomImg" th:src="@{${list.roomImg}}">
+							</div>
+							<div class="col-8">
+								<h2 th:text="${list.roomName}"></h2>
+								<div class="row">
+									<div class="col">
+										<h4 th:text="${list.roomType}"></h4>
+									</div>
+									<div class="col">
+										<h4 th:text="${list.roomCount} + '명'"></h4>
+									</div>							
+								</div>
+								<div class="row">
+									<div class="col">
+										<h4 th:text="${list.roomPrice} + '원'"></h4>
+									</div>
+									<div class="col">
+										<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>
+									</div>
+								</div>
+							</div>	 -->	
+							
+							<div class="col-4">
+								<img id="roomImg" th:src="@{${list.roomImg}}">
+							</div>
+							<div class="col-8">
+								<input type="text" id="roomName" name="roomName" th:value=${list.roomName}>
+								<div class="row">
+									<div class="col">
+										<input type="text" id="roomType" name="roomType" th:value=${list.roomType}>
+									</div>
+									<div class="col">
+										<input type="text" id="roomCount" name="roomCount" th:value=${list.roomCount}>
+									</div>							
+								</div>
+								<div class="row">
+									<div class="col">
+										<input type="text" id="roomPrice" name="roomPrice" th:value=${list.roomPrice}>
+									</div>
+									<div class="col">
+										<button type="submit" id="btn-books" class="btn btn-primary btn-books">예약하기</button>
+									</div> 
+								</div>
+							</div>
+							<div>
+								<!-- <span th:value="${session.email}" id="userEmail"></span> -->
+							</div>
+														
+						</div>
+					</div>
+					<div style="display:none">
+						<input th:value="${session.email}" type="text" class="form-control" id="userEmail">
+					</div>
+				</form>
+			</div>
+		</div>
+		
+	</main>
+	
+	
+</body>
+	
+<script th:inline="javascript">
+/* $(function(){
+	$('#roomSearch').click(function(){
+		if($("#roomList").css("display") == "none") {
+			$('#roomList').show();
+		} 
+	});	
+});  */
+$(document).ready(function() {	
+	$("#roomCount").on("change", function(){
+		var result = $("#roomCount option:selected").val();
+	});
+	$("#chkInDate").on("change", function(){
+		var chkInDate = $("#chkInDate").val();
+	});
+	$("chkOutDate").on("change", function(){
+		var chkOutDate=$("#chkOutDate").val();
+	});
+	//var result = $("#roomCount option:selected").val();
+	//var chkInDate = $("#chkInDate").val();
+	//var chkOutDate=$("#chkOutDate").val();
+	$("#roomSearch").on('click', function() {
+		var result = $("#roomCount option:selected").val();
+		var chkInDate = $("#chkInDate").val();
+		var chkOutDate=$("#chkOutDate").val();
+		
+		/* if(result=="인원 :"&&chkInDate!=""&&chkOutDate!=""){
+			dateOnly(chkInDate, chkOutDate);
+		}else if(chkInDate==""&&chkOutDate==""&&result!="인원 :"){
+			roomCountOnly(result);
+		}else if(chkInDate!=""&&chkOutDate!=""&&result!="인원 :"){
+			everyCount(result, chkInDate, chkOutDate);
+		}else if(chkInDate==""&&chkOutDate==""&&result=="인원 :"){
+			alert("날짜와 인원을 선택해 주세요");
+		}
+		else{
+			alert("에러");
+		} */
+		
+		if(result=="인원 :"&&chkInDate!=""&&chkOutDate!=""){
+			alert("날짜와 인원을 모두 선택해 주세요");
+		}else if(chkInDate==""&&chkOutDate==""&&result!="인원 :"){
+			alert("날짜와 인원을 모두 선택해 주세요");
+		}else if(chkInDate!=""&&chkOutDate!=""&&result!="인원 :"){
+			everyCount(result, chkInDate, chkOutDate);
+		}else if(chkInDate==""&&chkOutDate==""&&result=="인원 :"){
+			alert("날짜와 인원을 모두 선택해 주세요");
+		}
+		else{
+			alert("에러");
+		}
+		
+	});
+});
+function validateForm(chkIn,chkOut) {
+	  //var chkIn = document.forms["frm"]["chkInDate"].value;
+	  //var chkOut = document.forms["frm"]["chkOutDate"].value;
+	  if (chkIn == "" || chkIn == null || chkOut == "" || chkOut == null) {
+	    alert("날짜를 선택해주세요");
+	    return false;
+	  }
+	}
+function everyCount(result, chkInDate, chkOutDate){
+	var lodgeName =$("#input1").val();
+	var datas = {
+			roomCount : result,
+			chkInDate : chkInDate,
+			chkOutDate : chkOutDate,
+			lodgeName : lodgeName
+			
+	};
+	
+
+	$.ajax({
+		url: "/ajax/roomList/everyCount",
+		type : "post",
+		data : datas,
+		success: function(data) {										
+			const bookList = $(".roomList");
+			
+			bookList.empty();
+			
+			for (var i = 0; i < data.length; i++) {
+				var str ='<form id="formList"  class="formList" method="GET" action="/lodge/lodgePay' + data[i].seq + '">'; 
+				str+='<div class="row p-3" id="book2">';
+				str += '<div class="row">';
+				str += '<div class="col-4">';
+				str += '<img id="roomImg" src=' + data[i].roomImg + '>';		              
+/* 				str += '<input type="hidden" name="roomImg" value=' + data[i].roomImg + '>'; */		              
+				str += '</div>';
+				str += '<div class="col-8">';
+				str += '<h4>' + data[i].roomName +'</h4>';
+/* 				str += '<input type="hidden" name="roomName" id="roomName" value="' + data[i].roomName +'">'; */
+				str += '<div class="row">';
+				str += '<div class="col">';    
+				/* str += '<h4>' + data[i].roomType +'</h4>'; */
+/* 				str += '<input type="hidden" class="roomType" name="roomType" value="' + data[i].roomType + '">'; */
+/* 				str += '<input type="hidden" class="roomType" name="roomType" value="' + $("#roomType").val() + '">'; */
+				str += '</div>';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomCount + '명' +'</h4>';
+				str += '</div></div>';
+				str += '<div class="row">';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomPrice + '원' +'</h4>';
+				str += '</div>';
+				str += '<div class="col">';  
+				str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';  
+				str += '</div></div></div></div></div>';
+				str += '<div style="display:none">';
+				str += '</div></div></div></div></div>';
+/* 				str += '<input type="hidden" class="userEmail" name="userEmail" value="' + $("#userEmail").val() + '">'; */
+ 													/*####### 오류아님 자바스크립트 안에서 thleaf 쓰는거임########*/
+/* 				str += '<input type="hidden" class="userEmail" name="userEmail" value="'+[[${session.email}]]+'">';
+				str += '<input type="hidden" class="lodgeName" name="lodgeName" value="' + $("#input1").val() + '">'; */
+/* 				str += '<input type="hidden" class="roomImg" name="roomImg" value="' + $("#roomImg").val() + '">'; */
+				
+				str += '<input type="hidden" class="chkInDate" name="chkInDate" value="' + $("#chkInDate").val() + '">';
+				str += '<input type="hidden" class="chkOutDate" name="chkOutDate" value="' + $("#chkOutDate").val() + '">';
+				str += '</div></form>';
+				
+				bookList.append(str);
+	               
+			}
+			
+		}, error: function(request, status, error) {
+				alert(request.responseText + "\nerror:"
+						+ error);
+				
+		}
+	}); 
+}
+function dateOnly(chkInDate, chkOutDate){
+	var lodgeName =$("#input1").val();
+	var datas = {
+			chkInDate : chkInDate,
+			chkOutDate : chkOutDate,
+			lodgeName : lodgeName
+			
+	};
+	
+
+	$.ajax({
+		url: "/ajax/roomList/dateOnly",
+		type : "post",
+		data : datas,
+		success: function(data) {										
+			const bookList = $(".roomList");
+			
+			bookList.empty();
+			
+			for (var i = 0; i < data.length; i++) {
+				var str ='<form id="formList" action="/lodge/lodgeListBook" class="formList" method="POST">'; 
+				str+='<div class="row p-3" id="book2">';
+				str += '<div class="row">';
+				str += '<div class="col-4">';
+				str += '<img id="roomImg" src=' + data[i].roomImg + ' </img>';		              
+				str += '</div>';
+				str += '<div class="col-8">';
+				str += '<h4>' + data[i].roomName +'</h4>';
+				str += '<div class="row">';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomType +'</h4>';
+				str += '</div>';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomCount + '명' +'</h4>';
+				str += '</div></div>';
+				str += '<div class="row">';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomPrice + '원' +'</h4>';
+				str += '</div>';
+				str += '<div class="col">';  
+				str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';  
+				str += '</div></div></div></div></div>';
+				str += '<input type="hidden" class="userEmail" name="userEmail" value="' + $("#userEmail").val() + '">';
+				str += '<input type="hidden" class="input1" name="input1" value="' + $("#input1").val() + '">';
+				str += '<input type="hidden" class="roomImg" name="roomImg" value="' + $("#roomImg").val() + '">';
+				
+				str += '<input type="hidden" class="chkInDate" name="chkInDate" value="' + $("#chkInDate").val() + '">';
+				str += '<input type="hidden" class="chkOutDate" name="chkOutDate" value="' + $("#chkOutDate").val() + '">';
+				str += '</div></form>';
+				
+				bookList.append(str);
+	               
+			}
+			
+		}, error: function(request, status, error) {
+				alert(request.responseText + "\nerror:"
+						+ error);
+				
+		}
+	}); 
+}
+function roomCountOnly(result){
+	
+
+	/* if($("#roomList").css("display") == "none") {
+		$('#roomList').show();
+	} else 
+		$('#roomList').hide(); */
+		
+
+//		const URL = "/ajax/roomList?roomCount="+ $('select').val();
+	
+	var lodgeName =$("#input1").val();
+	var datas = {
+			roomCount : result,
+			lodgeName : lodgeName
+			
+	};
+	
+
+	$.ajax({
+		url: "/ajax/roomList",
+		type : "post",
+		data : datas,
+		success: function(data) {										
+			const bookList = $(".roomList");
+			
+			bookList.empty();
+			
+			for (var i = 0; i < data.length; i++) {
+				var str ='<form id="formList" action="/lodge/lodgeListBook" class="formList" method="POST">'; 
+				str+='<div class="row p-3" id="book2">';
+				str += '<div class="row">';
+				str += '<div class="col-4">';
+				str += '<img id="roomImg" src=' + data[i].roomImg + ' </img>';		              
+				str += '</div>';
+				str += '<div class="col-8">';
+				str += '<h4>' + data[i].roomName +'</h4>';
+				str += '<div class="row">';
+				str += '<div class="col">';    
+				/* str += '<input type="hidden" id="roomType" name="roomType" value="' + $("#roomType").val() + '">'; */
+				str += '<input type="hidden" class="roomType" name="roomType" value="' + $("#roomType").val() + '">';
+				str += '</div>';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomCount + '명' +'</h4>';
+				str += '</div></div>';
+				str += '<div class="row">';
+				str += '<div class="col">';    
+				str += '<h4>' + data[i].roomPrice + '원' +'</h4>';
+				str += '</div>';
+				str += '<div class="col">';  
+				str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';  
+				str += '</div></div></div></div></div>';
+				str += '<div style="display:none">';
+				/* str += '<input type="hidden" id="userEmail" name="userEmail" value="' + $("#userEmail").val() + '">';
+				str += '<input type="hidden" id="input1" name="input1" value="' + $("#input1").val() + '">';
+				str += '<input type="hidden" id="roomImg" name="roomImg" value="' + $("#roomImg").val() + '">';
+				
+				str += '<input type="date" id="chkInDate" name="chkInDate" value="' + $("#chkInDate").val() + '">';
+				str += '<input type="date" id="chkOutDate" name="chkOutDate" value="' + $("#chkOutDate").val() + '">'; */
+				
+				str += '<input type="hidden" class="userEmail" name="userEmail" value="' + $("#userEmail").val() + '">';
+				str += '<input type="hidden" class="input1" name="input1" value="' + $("#input1").val() + '">';
+				str += '<input type="hidden" class="roomImg" name="roomImg" value="' + $("#roomImg").val() + '">';
+				
+				str += '<input type="hidden" class="chkInDate" name="chkInDate" value="' + $("#chkInDate").val() + '">';
+				str += '<input type="hidden" class="chkOutDate" name="chkOutDate" value="' + $("#chkOutDate").val() + '">';
+				str += '</div></form>';
+				
+				bookList.append(str);
+	               
+			}
+			
+		}, error: function(request, status, error) {
+				alert(request.responseText + "\nerror:"
+						+ error);
+				
+		}
+		
+	}); 
+
+}
+
+
+/* $(document).ready(function() {	
+
+	$("#btn-books").on('click', function() {
+		var chkIn = document.getElementById('chkInDate').value;
+		var chkOut = document.getElementById('chkOutDate').value;
+		var roomCount = document.getElementById('roomCount').value;
+
+		  if (chkIn == "" || chkIn == null || chkOut == "" || chkOut == null) {
+		    alert("날짜를 선택해주세요");
+		   }else if(roomCount == "" || roomCount == null){
+			   alert("인원을 선택해주세요");
+			}else if(chkIn == "" || chkIn == null || chkOut == "" || chkOut == null || roomCount == "" || roomCount == null){
+			   alert("날짜와 인원을 선택해주세요");
+			}
+			else{
+				alert("에러");
+			}
+	});
+}); */
+
+</script>
+	
+	
+	
+<script th:inline="javascript">
+
+// 이미지 지도에서 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+
+// 이미지 지도에 표시할 마커입니다
+// 이미지 지도에 표시할 마커는 Object 형태입니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 지도 중심좌표에 표시 할 위도, 경도
+var latitude = document.getElementById('latitude').value;
+var longitude = document.getElementById('longitude').value;
+/* var latitude = $("#latitude");
+var longitude = $("#longitude"); */
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+    center: new kakao.maps.LatLng(latitude,longitude), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+
+
+/* var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+    center: new kakao.maps.LatLng(35.878067,128.603209), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+}; */
+
+//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//마커가 지도 위에 표시되도록 설정합니다
+//marker.setMap(map);
+
+//인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+  content : "<div style='position: absolute; left: 0px; top: 0px;'><div style='width:140px;padding:1px;text-align:center;'>칠성종합시장</div></div>" 
+});
+
+//마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+//infowindow.open(map, marker); 
+
+var imageSrc = 'https://i.ibb.co/MhTjs8T/clipart2135697.png';                              // 마커이미지 주소
+  imageSize = new kakao.maps.Size(34, 36);                // 마커이미지의 크기
+  imageOption = {offset: new kakao.maps.Point(17, 36)};   // 마커의 좌표와 일치시킬 이미지 안에서의 좌표설정
+    
+//마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+
+
+var arr = new Array();
+arr[0] = ["칠성시장북편 노상공영주차장",35.8780671960342,128.60320927213, "대구 북구 칠성동1가 275-3","1980287267"];
+arr[1] = ["칠성시장방범초소 노상공영주차장",35.8794483127273,128.602329365994, "대구 북구 칠성동2가 409-24","1438742395"];
+arr[2] = ["신천둔치주차장",35.8767253660639,128.605336577613, "대구 북구 칠성동1가 276-1","10068807"];
+
+var markerTmp;      // 마커
+var customOverlay;  // 오버레이
+var contentStr;
+
+for (var i=0;i<arr.length;i++) {
+  markerTmp = new daum.maps.Marker({
+      position: new daum.maps.LatLng(arr[i][1],arr[i][2]),
+      title: arr[i][0],
+      image: markerImage,
+      map:map
+  });
+
+  contentStr = "<div class='customoverlay'><a href='https://map.kakao.com/link/map/"+ arr[i][4] +"' target='_blank'><span class='title'>"+ arr[i][0] +"</span></a></div>";
+
+  customOverlay = new kakao.maps.CustomOverlay({
+      map: map,
+      position: new daum.maps.LatLng(arr[i][1],arr[i][2]),
+      content: contentStr,
+      yAnchor: 1 
+  });
+}
+
+
+//지도 타입 변경 컨트롤을 생성한다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+//지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);    
+
+//지도에 확대 축소 컨트롤을 생성한다
+var zoomControl = new kakao.maps.ZoomControl();
+
+//지도의 우측에 확대 축소 컨트롤을 추가한다
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+//아래 코드는 지도 위의 마커를 제거하는 코드입니다
+//marker.setMap(null); 
+</script>
+
+<!-- <footer>
+	<div th:replace="layout/footer :: footer"></div>
+</footer> -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

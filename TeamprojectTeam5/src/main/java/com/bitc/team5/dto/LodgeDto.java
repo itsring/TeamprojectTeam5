@@ -9,14 +9,13 @@ import lombok.Data;
 @Data
 public class LodgeDto {
 	
-	private int lodgeSeq;
-	private String lodgeAddressName;
+	private int seq;
+	private String roomImg;
 	private String lodgeName;
-	private String lodgeUrl;
-	private String lodgeId;
-	private String lodgePhone;
-	private String userEmail;
-	private Date bookDate;
+	private String roomType;
 	private Date chkInDate;
 	private Date chkOutDate;
+	private String userEmail;
+	private int roomCount;
+	private int roomPrice;
 }

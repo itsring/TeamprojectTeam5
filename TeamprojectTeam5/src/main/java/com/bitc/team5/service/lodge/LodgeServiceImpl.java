@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.LodgeDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
 import com.bitc.team5.mapper.LodgeMapper;
 
@@ -58,5 +59,34 @@ public class LodgeServiceImpl implements LodgeService {
 //		return lodgeMapper.selectRoomById(name);
 //	}
 
+	////////////////////////////////////////
+	
+	/* 명소별 숙소 목록*/
+	@Override
+	public List<LodgeListDto> selectLodgeList() throws Exception {
+		return lodgeMapper.selectLodgeList();
+	}
+
+	@Override
+	public LodgeListDto lodgeDetailList(int seq) throws Exception {
+		return lodgeMapper.lodgeDetailList(seq);
+	}
+
+	@Override
+	public List<LodgeRoomDto> roomList() throws Exception {
+		return lodgeMapper.roomLIst();
+	}
+
+	/* 객실 예약 */
+	@Override
+	public void roomInsert(LodgeDto room) throws Exception {
+		lodgeMapper.roomInsert(room);
+	}
+
+	/* 결제 페이지 */
+	@Override
+	public List<LodgeRoomDto> payList(int seq) throws Exception {
+		return lodgeMapper.payList(seq);
+	}
 
 }

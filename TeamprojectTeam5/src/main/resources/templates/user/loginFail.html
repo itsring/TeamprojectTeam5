@@ -30,7 +30,7 @@ $(document).ready(function(){
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 
-<main class="container">
+<main class="container" style="padding-bottom:310px;">
 	<div class="row">
 		<div class="col-sm-4 mx-auto border rounded p-4">
 			<h3 class="text-center">아이디 및 비밀번호가 틀렸습니다.</h3>
@@ -40,6 +40,6 @@ $(document).ready(function(){
 		</div>
 	</div>
 </main>
-
+<div th:include="layout/footer :: footer"></div>
 </body>
 </html>

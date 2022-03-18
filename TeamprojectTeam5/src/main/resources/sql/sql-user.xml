@@ -73,4 +73,16 @@
 				email=#{email}
 		]]>
 	</delete>
+	<select id="dibList" parameterType="String" resultType="com.bitc.team5.dto.DibDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				dib
+			WHERE
+				email = #{email}
+			AND
+				deleted_yn ='N'
+		]]>
+	</select>
 </mapper >

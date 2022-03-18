@@ -1,5 +1,7 @@
 package com.bitc.team5.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bitc.team5.dto.DibDto;
 import com.bitc.team5.dto.UserDto;
 import com.bitc.team5.service.user.UserService;
 
@@ -64,9 +67,12 @@ public class UserController {
 			return "/user/loginFail";
 		}
 		@RequestMapping(value="/user/myPage/{email}",method=RequestMethod.GET)
-		public ModelAndView myPage(@PathVariable("email") String email) throws Exception{
+		public ModelAndView myPage(@PathVariable("email") String email, HttpSession session) throws Exception{
 			ModelAndView mv = new ModelAndView("/user/myPage");
 			UserDto userDetail = userService.selectUserDetail(email);
+			
+			List<DibDto> dibList = userService.dibList(email);
+			mv.addObject("dibList",dibList);
 			mv.addObject("user",userDetail);
 			return mv;
 		}

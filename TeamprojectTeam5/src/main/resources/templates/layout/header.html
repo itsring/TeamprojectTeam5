@@ -26,7 +26,7 @@
 </head>
 <body>
 	<header th:fragment="header">
-		<div class="bg-light d-flex text-align-center justify-content-between" style="background-color: #e3f2fd;">
+		<div class=" d-flex text-align-center justify-content-between" style="background-color:  #E8F5FF;">
 			<div class="d-flex text-align-center justify-content-between my-2">
 				<a href="/main" class="text-decoration-none d-flex text-align-center align-items-center ms-3">Busan</a>
 			</div>
@@ -37,11 +37,11 @@
 				 	 	<a href="/notice" class="text-decoration-none me-3 d-flex align-items-center text-align-center">공지사항</a>
 				 	 	<a href="/freeboard" class="text-decoration-none me-3 d-flex align-items-center text-align-center">자유게시판</a>
 				 	 	<a href="/reviewboard" class="text-decoration-none me-3 d-flex align-items-center text-align-center">후기게시판</a>
-				 	 	<a href="/lodge/lodgeList" class="text-decoration-none me-3 d-flex text-align-center">제휴숙소</a>
+				 	 	<a href="/lodge/lodgeList" class="text-decoration-none me-3 d-flex text-align-center">숙소찾기</a>
 				 	</div>
 				 </div>
 			</div>
-			<form action="" method="GET">
+			<form action="" method="GET" class="d-flex align-items-center">
 			<div class="d-flex align-items-center">
 				<div th:if="${session.email} != null">
 				<input type="hidden" id="email" name="email"

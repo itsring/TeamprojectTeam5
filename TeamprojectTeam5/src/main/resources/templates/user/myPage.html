@@ -3,52 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-   crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 <script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script
-   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-   crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/2ae861af45.js" crossorigin="anonymous"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/2ae861af45.js"
+	crossorigin="anonymous"></script>
 <style>
-.user__info__left{padding-right:50px;border-right:1px solid rgba(0,0,0,0.2);box-shadow:2px black;height:100vh;}
-.logo{width: 50px; height: 50px;}
-.font__icon{font-size:150px;color:rgba(200,200,255,0.5);}
+.user__info__left {
+	padding-right: 50px;
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 2px black;
+	height: 100vh;
+}
+
+.logo {
+	width: 50px;
+	height: 50px;
+}
+
+.font__icon {
+	font-size: 150px;
+	color: rgba(200, 200, 255, 0.5);
+}
 /* .item__container{
 margin-top:10px;
 } */
-.flex__box__column{
-display:flex;
-flex-direction: column;
-justify-content:space-between;
+.flex__box__column {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
-.item__container{margin-top:25px;}
-.edit__icon{position: relative;}
-.font__icon__pen{
-    display: flex;
-    border:1px solid rgba(0,0,0,0.5);
-    border-radius: 25px;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    position: absolute;
-    right: 3px;
-    bottom: 3px;
-    color:green;
-    width:40px;
-    height:40px;
-    background-color:white;
+
+.item__container {
+	margin-top: 25px;
 }
-.btn-edit{
-margin-top:50px;
-color:black;
+
+.edit__icon {
+	position: relative;
+}
+
+.font__icon__pen {
+	display: flex;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 25px;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
+	position: absolute;
+	right: 3px;
+	bottom: 3px;
+	color: green;
+	width: 40px;
+	height: 40px;
+	background-color: white;
+}
+
+.btn-edit {
+	margin-top: 50px;
+	color: black;
+}
+
+.BR__1px {
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	padding-right: 5px;
+}
+
+.info__icon {
+	display: flex;
+	justify-content: center;
+}
+
+.left__button {
+	border-radius: 5px;
+}
+
+.right__button {
+	border-radius: 5px;
+}
+
+.logout, .user-edit {
+	border: 1px solid white;
+	background-color: #6495ED;
+	color: white;
 }
 </style>
-   <script>
+<script>
 	$(document).ready(function() {
 		var email = $("#email").val();
 		$(".btn-edit").on("click", function() {
@@ -64,88 +110,130 @@ color:black;
 			location.href = "/restBoard";
 		}); */
 
-		
-
-/* 		$("#btn-delete").on("click", function() { */
-			/* id값이 method이고 name값이 _method인 input 태그의 value값을 DELETE으로 변경 */
-			/* $("#method").val("DELETE");
-			var frm = $("#frm")[0];
-			frm.action = "/restBoard/delete/" + idx;
-			frm.submit();
+		/* 		$("#btn-delete").on("click", function() { */
+		/* id값이 method이고 name값이 _method인 input 태그의 value값을 DELETE으로 변경 */
+		/* $("#method").val("DELETE");
+		var frm = $("#frm")[0];
+		frm.action = "/restBoard/delete/" + idx;
+		frm.submit();
 		}); */
-		
-		
+
 	});
 </script>
 <title th:text="|${session.email}님의 마이페이지|"></title>
 </head>
-<body style="background-color:#F9FBFC;">
+<body style="background-color: #F9FBFC;">
 	<header>
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 	<main class="container">
 		<div class="mt-5 h-100">
-								<h4 class="text-center">마이페이지</h4>
-			<div >
+			<h4 class="text-center">마이페이지</h4>
+			<div>
 				<form action="" id="frm">
-					<div th:if="${#lists.size(user)} > 0"
-								th:each="item : ${user}">
-						<input type="hidden" id="email" th:value="${item.email}">
-						<div class="d-flex">
-						<!-- 정보 세로 구역 -->
-							<div class="user__info__left" >
-								<div class="flex__box__column">
-								<!-- 로고 & 프로젝트이름 -->
-									<div>
-										<img alt="" class="logo" src="/img_5/busanlogo.png">
-										<span>여행오소</span>
+						<div th:if="${#lists.size(user)} > 0" th:each="item : ${user}">
+							<input type="hidden" id="email" th:value="${item.email}">
+							<div class="d-flex">
+							<!-- 정보 세로 구역 -->
+								<div class="user__info__left">
+									<div class="flex__box__column">
+										<!-- 로고 & 프로젝트이름 -->
+										<div class="text-center d-flex">
+											<div>
+												<img alt="" class="logo" src="/img_5/busanlogo.png">
+											</div>
+											<div
+												class="d-flex justify-content-center align-items-center ms-3">
+												<span>여행오소</span>
+											</div>
+										</div>
+										<div class="item__container info__icon">
+											<a type="button" href="/userEdit/"
+												th:attrappend="href=${user.email}"
+												class="text-decoration-none btn-edit edit__icon"> <i
+												class="fa-solid fa-pen font__icon__pen"></i> <i
+												class="fa-solid fa-face-grin font__icon"></i>
+											</a>
+										</div>
+										<div class="item__container">
+											<span>email : </span>
+											<h4 th:text="${item.email}"></h4>
+										</div>
+										<div class="item__container">
+											<span>이름 : </span>
+											<h4 th:text="${item.userName}"></h4>
+										</div>
+										<div class="item__container">
+											<span>전화번호 : </span>
+											<h4 th:text="${item.phone}"></h4>
+										</div>
 									</div>
-									<div class="item__container">
-										<a type="button"  href="/userEdit/" th:attrappend="href=${user.email}" class="text-decoration-none btn-edit edit__icon">
-											<i class="fa-solid fa-pen font__icon__pen"></i>
-											<i class="fa-solid fa-face-grin font__icon"></i>
-										</a>
-									</div>
-									<div class="item__container">
-										<span>email : </span>
-										<h4 th:text="${item.email}"></h4>
-									</div>
-									<div class="item__container">
-										<span>이름 : </span>
-										<h4 th:text="${item.userName}"></h4>
-									</div>
-									<div class="item__container">
-										<span>전화번호 : </span>
-										<h4 th:text="${item.phone}"></h4>
+								
+									<div class="d-flex justify-content-between align-items-center ">
+										<div class="">
+											<div class=" btn-edit BR__1px">
+												<a type="button" href="/userEdit/"
+													th:attrappend="href=${user.email}"
+													class="p-1 text-decoration-none left__button user-edit">회원정보
+													수정</a>
+											</div>
+										</div>
+										<div class="">
+											<div class="btn-edit">
+												<a type="button" href="/logout"
+													class="text-decoration-none ms-2 right__button logout p-1">로그아웃</a>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="">
-									<a type="button"  href="/userEdit/" th:attrappend="href=${user.email}" class="text-decoration-none btn-edit">회원정보 수정</a>
-								</div>
-							</div>
+							
 							<!-- 찜하기 등 가로 배열  -->
-							<div class="user__info__right">
-								<div class="row">
-									<div><!-- 찜 목록, 클릭시 각 디테일 페이지로 이동 -->
+								<div class="user__info__right ms-5">
+									<div class="row">
 										<div>
-											<a href="/diblist" class="text-decoration-none">찜목록 수정</a>
+											<!-- 찜 목록, 클릭시 각 디테일 페이지로 이동 -->
+											<div class="mt-3">
+												<a href="/diblist" class="text-decoration-none">찜목록 수정</a>
+											</div>
+											<div id="items" class="border-top shadow py-0 bg-white rounded my-3" style="border-radius: 40px;">
+												<div class="d-flex justify-content-between py-2 border-bottom"
+													th:if="${#lists.size(dibList)} > 0"
+													th:each="list : ${dibList}">
+													<div class="col-10">
+														<div class="body ms-5">
+															<h5 class="card-text m-1"
+																th:text="'명소 : ' +${list.placeName}"></h5>
+															<h5 class="card-text m-1"
+																th:text="'위치 : ' +${list.placeLocation}"></h5>
+														</div>
+													</div>
+												</div>
+												<div th:unless="${#lists.size(dibList)} > 0"
+													class="text-center">
+													<div>
+														<h3>명소 찜 내역 없습니다.</h3>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div><!-- 숙소 리스트 각 디테일 페이지로 이동-->
-										<div>
-										<!-- /////////////////////////////////////////////////////////////// -->
-										<a href="" class="text-decoration-none">숙소</a>
-										<span>숙소 링크 추가하세요</span>
-										<!-- /////////////////////////////////////////////////////////////// -->
+										<hr/>
+										<div class="row mt-3">
+											<div>
+												<!-- 숙소 리스트 각 디테일 페이지로 이동-->
+												<div>
+													<!-- /////////////////////////////////////////////////////////////// -->
+													<a href="/lodge/lodgeList" class="text-decoration-none">더
+														많은 숙소 보기</a>
+													<div></div>
+													<!-- /////////////////////////////////////////////////////////////// -->
+												</div>
+											</div>
 										</div>
-										
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+						
 				</form>
 			</div>
 		</div>

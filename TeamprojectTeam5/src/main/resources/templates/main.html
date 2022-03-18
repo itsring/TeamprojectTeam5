@@ -14,11 +14,6 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <style>
-main {
-	height: auto;
-	min-height: 100%;
-	padding-bottom: 310px;
-}
 
 footer {
 	height: 300px;
@@ -26,7 +21,9 @@ footer {
 	transform: translateY(-100%);
 	margin:0px;
 }
-
+.main__title{
+font-size:50px;
+}
 </style>
 <title>마! 이게 부산이다 메인페이지</title>
 </head>
@@ -36,42 +33,56 @@ footer {
 	</header>
 
 	<main>
-		<div class="container mt-5 d-felx justify-content-center">
-			<div class="container text-center my-5">
+		<div class="my-5">
+			<div>
+				<div class="text-center">
+				<!-- 페이지 소개글 -->
+					<div >
+						<span class="main__title">부산에 여행 오세요</span>
+					</div>
+					<div class="container">
+						<p class="mt-3">
+							<a href="/hotplace">#부산 명소 추천</a><br/>
+							<a href="/lodge/lodgeList">#제휴 숙소 추천</a><br/>
+						</p>
+					</div>
+				</div>
+				<!-- 제휴 숙박 -->
+				<!--  -->
+			</div>
+		</div>
+		<div class="p-5 " >
+			<div class="container text-center pb-4">
+				<!-- 홈페이지 소개 -->
+				
 			<!-- 부산 명소 캐러셀 부분 -->
-				<div class="my-5">
+				<div class="">
 					<h1>부산 명소</h1>
 				</div>
-				<div class="container mt-3 w-75">
-					<div id="carouselExampleIndicators" class="carousel slide"
+				<div class="container mt-3 pb-5 w-75">
+					<div id="carouselExampleIndicators" class="carousel slide pb-5"
 						data-bs-ride="carousel">
 						
-						<div class="carousel-inner">
+						<div class="carousel-inner mb-5 border border-3 border-info">
 							<div class="carousel-item active">
 							<!-- 액티브를 주기 위한 캐러셀 첫화면 -->
 								<a href="/hotDetail/20">
 								 <img src="/img_5/walk/walk_igidae.jpg"
-									class="d-block w-100" alt="..." style="height: 600px; width: 900px;">
+									class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
 								</a>
-								<div class="carousel-caption d-none d-md-block">
-									<h5>이기대 해안산책로</h5>
-								</div>
+								
 							</div>
 							<div class="carousel-item" th:if="${#lists.size(hot)} > 0"
 						th:each="item : ${hot}">
 						<!-- 리스트 출력 -->
 								<a href="/hotDetail" th:href="|/hotDetail/${item.seq}|">
 								<!-- 사진 클릭시 명소 디테일부분으로 이동 --> 
-								<img th:src="${item.placeImgLocation}" class="d-block w-100" alt="..." style="height: 600px; width: 900px;">
+								<img th:src="${item.placeImgLocation}" class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
 								<!-- 사진 크기 가로 900 세로 800 -->
 								</a>
-								<div class="carousel-caption d-none d-md-block">
-									<h5 th:text="${item.placeName}">Second slide label</h5>
-									
-								</div>
+								
 							</div>
-						</div>
-						<div class="">
+							<div class="">
 						<button class="carousel-control-prev" type="button"
 							data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -83,45 +94,60 @@ footer {
 							<span class="visually-hidden">Next</span>
 						</button>
 						</div>
+						</div>
+						<!-- <div class="">
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+						</div> -->
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 부산 축제 캐러셀 부분 -->
-		<div class="container">
-			<div class="container mt-5  w-75">
-				<div class="text-center my-5">
+		<div class="p-5" style="background-color:#E8F5FF; color:#6495ED;">
+			<div class="container p-5 my-5">
+				<div class="text-center">
 					<h1>부산 축제</h1>
 				</div>
-				<div id="carouselExampleCaptions" class="carousel slide container mt-3"
-					data-bs-ride="carousel">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="/img_5/festival/busan_rock_festival.jpg"
-								class="d-block w-100" alt="...">
-							<div class="carousel-caption d-none d-md-block">
-								<h5>부산 국제 락 페스티벌</h5>
-								<p></p>
+				<div class="container mt-3 w-75">
+					<div id="carouselExampleCaptions" class="carousel slide "
+						data-bs-ride="carousel">
+						<div class="carousel-inner border border-3 border-info">
+							<div class="carousel-item active">
+								<img src="/img_5/festival/busan_rock_festival.jpg"
+									class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
+								<!-- <div class="carousel-caption d-none d-md-block">
+									<h5>부산 국제 락 페스티벌</h5>
+									<p></p>
+								</div> -->
+							</div>
+							<div class="carousel-item" th:if="${#lists.size(hotList)} > 0"
+								th:each="item : ${hotList}">
+								<img th:src="${item.festivalImg}" class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
+								<!-- <div class="carousel-caption d-none d-md-block">
+									<h5 th:text="${item.festivalName}">페스티벌이름</h5>
+								</div> -->
 							</div>
 						</div>
-						<div class="carousel-item" th:if="${#lists.size(hotList)} > 0"
-							th:each="item : ${hotList}">
-							<img th:src="${item.festivalImg}" class="d-block w-100" alt="...">
-							<div class="carousel-caption d-none d-md-block">
-								<h5 th:text="${item.festivalName}">페스티벌이름</h5>
-							</div>
-						</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
-					<button class="carousel-control-prev" type="button"
-						data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button"
-						data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
 				</div>
 			</div>
 		</div>

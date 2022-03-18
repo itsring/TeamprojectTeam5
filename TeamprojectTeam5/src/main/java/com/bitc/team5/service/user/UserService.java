@@ -2,6 +2,7 @@ package com.bitc.team5.service.user;
 
 import java.util.List;
 
+import com.bitc.team5.dto.DibDto;
 import com.bitc.team5.dto.UserDto;
 
 public interface UserService {
@@ -19,6 +20,8 @@ public interface UserService {
 	void userDelete(UserDto user) throws Exception;
 
 	UserDto selectUserDetail2(String email) throws Exception;
+
+	List<DibDto> dibList(String email) throws Exception;
 
 
 }

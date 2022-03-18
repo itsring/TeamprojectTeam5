@@ -20,7 +20,7 @@
 	<header>
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
-	<main class="container">
+	<main class="container" style="padding-bottom:310px;">
 		<form action="/loginCheck" method="POST">
 			<h1 class="text-center m-1 mt-2">로그인</h1>
 			<div class="form-floating my-3">
@@ -39,5 +39,6 @@
 				class="text-danger float-end text-decoration-none">회원가입</a>
 		</form>
 	</main>
+	<div th:include="layout/footer :: footer"></div>
 </body>
 </html>

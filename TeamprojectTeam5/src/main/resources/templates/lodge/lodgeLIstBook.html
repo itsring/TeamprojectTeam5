@@ -168,7 +168,7 @@ height: 150px;
 					</div>				
 				</div>
 			</div>
-			
+		
 			<!-- 객실 내용 출력 -->
 	<div id="roomList" class="roomList">
 				<form id="formList" action="/lodge/lodgePay" class="formList" method="GET">
@@ -246,6 +246,11 @@ height: 150px;
 		} 
 	});	
 });  */
+
+/*<![CDATA[*/
+// 	var email = /*[[ ${session.email} ]]*/;
+/*]]*/
+
 $(document).ready(function() {	
 	$("#roomCount").on("change", function(){
 		var result = $("#roomCount option:selected").val();
@@ -310,7 +315,6 @@ function everyCount(result, chkInDate, chkOutDate){
 			
 	};
 	
-
 	$.ajax({
 		url: "/ajax/roomList/everyCount",
 		type : "post",
@@ -344,9 +348,28 @@ function everyCount(result, chkInDate, chkOutDate){
 				str += '<div class="col">';    
 				str += '<h4>' + data[i].roomPrice + '원' +'</h4>';
 				str += '</div>';
-				str += '<div class="col">';  
+				
+				/* str += '<div class="col">';			
 				str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';  
-				str += '</div></div></div></div></div>';
+				str += '</div></div></div></div></div>'; */
+				
+				if ($("#userEmail").val() == undefined || $("#userEmail").val() == null || $("#userEmail").val() == "") {
+					str += '<div class="col">';
+					str += '</div>';
+				}
+				else {
+					str += '<div class="col">';
+					str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';
+					str += '</div>';	
+				}
+				
+				
+// 				str += '<div class="col" if=' + $("#userEmail").val() + '!= null">';  
+// 				str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';
+// 				str += '</div>';
+// 				str += '<div class="col" unless=' + $("#userEmail").val() + '!= null">';  
+// 				str += '</div>';
+				
 				str += '<div style="display:none">';
 				str += '</div></div></div></div></div>';
 /* 				str += '<input type="hidden" class="userEmail" name="userEmail" value="' + $("#userEmail").val() + '">'; */

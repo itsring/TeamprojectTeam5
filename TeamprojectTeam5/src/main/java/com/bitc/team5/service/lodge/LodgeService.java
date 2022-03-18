@@ -41,4 +41,7 @@ public interface LodgeService {
 
 	String lodgeDetailStar(String lodgeName) throws Exception;
 
+	/* 결제 시 객실 날짜 업데이트 */
+	void dateUpdate(LodgeDto room) throws Exception;
+
 }

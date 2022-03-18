@@ -128,16 +128,16 @@ public class BoardController {
 		PageInfo<BoardDto> boardList; 
 		
 		if (keyword.equals("") && keytype.equals("")) {
-			boardList = new PageInfo<>(boardService.freeBoardList(pageNum), 5);
+			boardList = new PageInfo<>(boardService.freeBoardList(pageNum), 10);
 		}
 		else if (!keyword.equals("") && keytype.equals("")) {
-			boardList = new PageInfo<>(boardService.SearchKeywordFreeBoardList(pageNum, keyword), 5);
+			boardList = new PageInfo<>(boardService.SearchKeywordFreeBoardList(pageNum, keyword), 10);
 		}
 		else if (keyword.equals("") && !keytype.equals("")) {
-			boardList = new PageInfo<>(boardService.SearchKeytypeFreeBoardList(pageNum, keytype), 5);
+			boardList = new PageInfo<>(boardService.SearchKeytypeFreeBoardList(pageNum, keytype), 10);
 		}
 		else {
-			boardList = new PageInfo<>(boardService.SearchFreeBoardList(pageNum, keyword, keytype), 5);
+			boardList = new PageInfo<>(boardService.SearchFreeBoardList(pageNum, keyword, keytype), 10);
 		}
 		
 		mv.addObject("boardList", boardList);
@@ -223,16 +223,16 @@ public class BoardController {
 		PageInfo<BoardDto> boardList; 
 		
 		if (keyword.equals("") && keytype.equals("")) {
-			boardList = new PageInfo<>(boardService.reviewBoardList(pageNum), 5);
+			boardList = new PageInfo<>(boardService.reviewBoardList(pageNum), 10);
 		}
 		else if (!keyword.equals("") && keytype.equals("")) {
-			boardList = new PageInfo<>(boardService.SearchKeywordReviewBoardList(pageNum, keyword), 5);
+			boardList = new PageInfo<>(boardService.SearchKeywordReviewBoardList(pageNum, keyword), 10);
 		}
 		else if (keyword.equals("") && !keytype.equals("")) {
-			boardList = new PageInfo<>(boardService.SearchKeytypeReviewBoardList(pageNum, keytype), 5);
+			boardList = new PageInfo<>(boardService.SearchKeytypeReviewBoardList(pageNum, keytype), 10);
 		}
 		else {
-			boardList = new PageInfo<>(boardService.SearchReviewBoardList(pageNum, keyword, keytype), 5);
+			boardList = new PageInfo<>(boardService.SearchReviewBoardList(pageNum, keyword, keytype), 10);
 		}
 		
 		mv.addObject("boardList", boardList);

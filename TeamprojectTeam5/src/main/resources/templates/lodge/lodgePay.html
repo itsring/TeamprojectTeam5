@@ -19,7 +19,8 @@
 <title>숙소 결제</title>
 
 <style>
-
+main{
+padding-bottom:310px;}
 .form{
 background: #E8F5FF;
 border-radius: 20px;
@@ -64,16 +65,16 @@ border-radius: 5px;
 <main>
 	<div class="container py-5">  
 		<div class="row my-5">
-			<div class="col-sm-6 mx-auto">
+			<div class="col-sm-6 mx-auto d-flex justify-content-center">
 				<form class="form" id="form" action="/lodge/lodgePay" method="POST" th:if="${#lists.size(payList)} > 0" th:each="list : ${payList}">
 					<h2>숙소 예약</h2>
 					<div id="roomName">
-						<input type="text" id="lodgeName" name="lodgeName" th:value=${list.lodgeName}>
-						<input type="text" id="roomName" name="roomName" th:value=${list.roomName}>
-						<input type="text" id="roomCount" name="roomCount" th:value=${list.roomCount}>
+						<input type="text" id="lodgeName" name="lodgeName" th:value="${list.lodgeName}">
+						<input type="text" id="roomName" name="roomName" th:value="${list.roomName}">
+						<input type="text" id="roomCount" name="roomCount" th:value="${list.roomCount}">
 					</div>
 					<div id="roomPay">
-						<input type="text" id="roomPrice" name="roomPrice" th:value=${list.roomPrice}>
+						<input type="text" id="roomPrice" name="roomPrice" th:value="${list.roomPrice}">
 					</div>
 					<div id="howTo">
 						<span>결제 방법</span>
@@ -92,8 +93,8 @@ border-radius: 5px;
 						<input th:value="${session.email}" type="text" name="userEmail" class="form-control" id="userEmail">
 						<input type="text" class="form-control" id="chkIn" name="chkInDate" />
 						<input type="text" class="form-control" id="chkOut" name="chkOutDate" />
-						<input type="text" id="roomType" name="roomType" th:value=${list.roomType}>
-						<input type="text" id="roomImg" name="roomImg" th:value=${list.roomImg}>
+						<input type="text" id="roomType" name="roomType" th:value="${list.roomType}">
+						<input type="text" id="roomImg" name="roomImg" th:value="${list.roomImg}">
 					</div>
 				</form>
 			</div>
@@ -101,9 +102,9 @@ border-radius: 5px;
 	</div>
 	
 </main>
-
+<footer>
 	<div th:include="layout/footer :: footer"></div>
-
+</footer>
 
 <script>
 	

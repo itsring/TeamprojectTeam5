@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 //	}
 	@Override
 	public Page<BoardDto> freeBoardList(int pageNum) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 10);
 		return boardMapper.freeBoardList(pageNum);
 	}
 	
@@ -64,20 +64,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Page<BoardDto> SearchKeywordFreeBoardList(int pageNum, String keyword) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 10);
 		
 		return boardMapper.SearchKeywordFreeBoardList(keyword);
 	}
 
 	@Override
 	public Page<BoardDto> SearchKeytypeFreeBoardList(int pageNum, String keytype) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 110);
 		return boardMapper.SearchKeytypeFreeBoardList(keytype);
 	}
 
 	@Override
 	public Page<BoardDto> SearchFreeBoardList(int pageNum, String keyword, String keytype) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 10);
 
 		return boardMapper.SearchFreeBoardList(keyword, keytype);
 	}
@@ -119,7 +119,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public Page<BoardDto> reviewBoardList(int pageNum) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 10);
 		return boardMapper.reviewBoardList();
 	}
 	
@@ -169,19 +169,19 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public Page<BoardDto> SearchKeywordReviewBoardList(int pageNum, String keyword) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 110);
 		return boardMapper.SearchKeywordReviewBoardList(keyword);
 	}
 
 	@Override
 	public Page<BoardDto> SearchKeytypeReviewBoardList(int pageNum, String keytype) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 10);
 		return boardMapper.SearchKeytypeReviewBoardList(keytype);
 	}
 
 	@Override
 	public Page<BoardDto> SearchReviewBoardList(int pageNum, String keyword, String keytype) throws Exception {
-		PageHelper.startPage(pageNum, 3);
+		PageHelper.startPage(pageNum, 10);
 		return boardMapper.SearchReviewBoardList(keyword, keytype);
 	}
 

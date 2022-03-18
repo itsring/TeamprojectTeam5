@@ -148,9 +148,10 @@ function tel() {
 					  <input type="radio" id="1-star" name="star" value="1" />
 					  <label for="1-star" class="star">&#9733;</label>
 					</div>
-					<div class="form-floating my-3">
-						<textarea rows="20" class="form-control" id="contents" name="boardContent" placeholder="내용" ></textarea>
-						<label for="contents">내용</label>
+					<div class="my-3">
+						<textarea rows="20" class="form-control" id="contents" name="boardContent" placeholder="여행후기 게시판은 인제를 여행하며 느꼈던 좋았던 점이나 아쉬웠던 경험들을 올리는
+공간입니다. 글 작성 시 광고, 허위, 비방글 등에 해당하는 내용은 제한되니 유의 바랍니다."></textarea>
+						<label for="contents"></label>
 					</div>
 					<div class="my-3 clearfix">
 						<button type="button" id="btn-list" class="btn btn-secondary float-start">목록</button>
@@ -161,6 +162,5 @@ function tel() {
 			</div>
 		</div>
 	</main>
-	<div th:include="layout/footer :: footer"></div>
 </body>
 </html>

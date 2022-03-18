@@ -66,10 +66,11 @@
 			<h1>제휴 숙소 목록</h1>
 		</div>
 		<div class="container">
-			<h2 class="font-weight-light mx-5 mb-3">부산진구 시민공원 주변 제휴 숙소</h2>
+<!-- 감천 -->
+			<h2 class="font-weight-light mx-5 mb-3">감천</h2>
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '시민공원'" >
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '감천'" >
 						<div class="card" id="lodgeCard">
 							<div class="cardImg">
 								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
@@ -94,13 +95,14 @@
 				<div class="swiper-pagination"></div>
 			</div>
 			
-			<h2 class="font-weight-light mx-5 mb-3">서면 주변 제휴 숙소</h2>
+<!-- 남포동 -->
+			<h2 class="font-weight-light mx-5 mb-3">남포동</h2>
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '서면 먹자 골목'" >
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '남포동'" >
 						<div class="card" id="lodgeCard">
 							<div class="cardImg">
-								<a href="/lodge/lodgeBook/" th:attrappend="href=${list.seq}">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
 									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
 								</a>
 							</div>
@@ -121,7 +123,224 @@
 				<!-- 페이징 -->
 				<div class="swiper-pagination"></div>
 			</div>
-		
+					
+<!-- 서면 -->
+			<h2 class="font-weight-light mx-5 mb-3">서면</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '서면'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+	
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
+			
+<!-- 송도 -->
+			<h2 class="font-weight-light mx-5 mb-3">송도</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '송도'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+<!-- 수영 -->
+			<h2 class="font-weight-light mx-5 mb-3">수영</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '수영'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
+							
+<!-- 영도 -->
+			<h2 class="font-weight-light mx-5 mb-3">영도</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '영도'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
+										
+<!-- 용호동 -->
+			<h2 class="font-weight-light mx-5 mb-3">용호동</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '용호동'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
+													
+<!-- 중구 -->
+			<h2 class="font-weight-light mx-5 mb-3">중구</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '중구'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
+																
+<!-- 진구 -->
+			<h2 class="font-weight-light mx-5 mb-3">진구</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '진구'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
+																			
+<!-- 해운대 -->
+			<h2 class="font-weight-light mx-5 mb-3">해운대</h2>
+			<div class="swiper-container" style="margin-bottom: 100px;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '해운대'" >
+						<div class="card" id="lodgeCard">
+							<div class="cardImg">
+								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
+								</a>
+							</div>
+							<div class="card-body">
+								<h2 class="card-text" th:text="${list.lodgeName}"></h2>
+								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
+								<p class="card-text" th:text="${list.lodgePhone}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>
 	</div>
 
 	<script>

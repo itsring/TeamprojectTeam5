@@ -145,4 +145,34 @@
 				place = #{lodgeName};
 		]]>
 	</select>
+	
+	<!--결제 시 객실 날짜 업데이트-->
+	<update id="dateUpdate" parameterType="com.bitc.team5.dto.LodgeDto">
+		<![CDATA[ 
+			update
+				lodge_room
+			set
+				chk_in_date = #{chkInDate}, chk_out_date = #{chkOutDate}
+			where 
+				lodge_name = #{lodgeName}
+			AND
+				room_type = #{roomType}
+		]]>
+	</update>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

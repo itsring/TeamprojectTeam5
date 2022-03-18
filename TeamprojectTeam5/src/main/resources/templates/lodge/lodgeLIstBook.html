@@ -198,7 +198,7 @@ height: 150px;
 								</div>
 							</div>	 -->	
 							
-							<div class="col-4">
+						<!-- 	<div class="col-4">
 								<img id="roomImg" th:src="@{${list.roomImg}}">
 							</div>
 							<div class="col-8">
@@ -220,7 +220,7 @@ height: 150px;
 									</div> 
 								</div>
 							</div>
-							<div>
+							<div> -->
 								<!-- <span th:value="${session.email}" id="userEmail"></span> -->
 							</div>
 														
@@ -589,12 +589,16 @@ var imageSrc = 'https://i.ibb.co/MhTjs8T/clipart2135697.png';                   
 //마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
-
-
+var input1 = document.getElementById('input1').value;
+  
 var arr = new Array();
-arr[0] = ["칠성시장북편 노상공영주차장",35.8780671960342,128.60320927213, "대구 북구 칠성동1가 275-3","1980287267"];
-arr[1] = ["칠성시장방범초소 노상공영주차장",35.8794483127273,128.602329365994, "대구 북구 칠성동2가 409-24","1438742395"];
-arr[2] = ["신천둔치주차장",35.8767253660639,128.605336577613, "대구 북구 칠성동1가 276-1","10068807"];
+arr[0] = [input1, latitude,longitude];
+
+
+/* var arr = new Array();
+arr[0] = ["베네치아 프리미어 호텔", 35.1628686,129.1644925, "부산광역시 해운대구 중1동 1378-105","1980287267"]; 
+arr[1] = ["선셋블루 호텔",35.1606232,129.1473264, "해운대해변로 부산광역시 해운대구","1438742395"];
+arr[2] = ["PSJ 부산",35.1674764,129.1781578,"부산광역시 해운대구 좌2동 1486-3","10068807"]; */
 
 var markerTmp;      // 마커
 var customOverlay;  // 오버레이

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bitc.team5.dto.BoardDto;
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
@@ -242,8 +243,10 @@ public class LodgeController {
 		LodgeListDto lodgeDetail = lodgeService.lodgeDetailList(seq);
 		mv.addObject("lodgeDetail", lodgeDetail);
 		
-		List<LodgeRoomDto> roomList = lodgeService.roomList();
-		mv.addObject("roomList", roomList);
+		/*
+		 * List<LodgeRoomDto> roomList = lodgeService.roomList();
+		 * mv.addObject("roomList", roomList);
+		 */
 		
 		// 평점 부분
 				String lodgeName = lodgeDetail.getLodgeName();
@@ -268,6 +271,8 @@ public class LodgeController {
 	public String roomInsert(LodgeDto room) throws Exception {
 		lodgeService.roomInsert(room);
 		
+		lodgeService.dateUpdate(room);
+		
 		return "/main";
 	}
 	
@@ -284,8 +289,16 @@ public class LodgeController {
 		List<LodgeRoomDto> payList = lodgeService.payList(seq);
 		mv.addObject("payList", payList);
 		return mv;
-
 	}
+	
+	/* 결제 시 객실 날짜 업데이트 */
+	/*
+	 * @RequestMapping(value="/lodge/lodgePay{seq}",method=RequestMethod.PUT) public
+	 * String dateUpdate(LodgeRoomDto date) throws Exception{
+	 * lodgeService.dateUpdate(date);
+	 * 
+	 * return "redirect:/main"; }
+	 */
 }
 
 

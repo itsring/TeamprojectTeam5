@@ -95,4 +95,10 @@ public class LodgeServiceImpl implements LodgeService {
 		return lodgeMapper.lodgeDetailStar(lodgeName);
 	}
 
+	/* 결제 시 객실 날짜 업데이트 */
+	@Override
+	public void dateUpdate(LodgeDto room) throws Exception {
+		lodgeMapper.dateUpdate(room);
+	}
+
 }

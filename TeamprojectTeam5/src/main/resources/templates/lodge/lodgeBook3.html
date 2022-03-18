@@ -272,10 +272,31 @@ function roomCountOnly(result){
 
 </style>
 
+<style>
+*{  margin: 0; padding: 0; }
+ul{list-style: none;}
+.accordion-box{
+  width: 100%; max-width: 600px;
+  margin:  0 auto;
+}
+p.title{
+  width: 100%;  
+  line-height: 60px; 
+  background: #6495ED;; 
+  color: #E8F5FF; 
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+.con{
+  padding: 20px; 
+  display:none;
+}
+</style>
+
 </head>
 <body>
 	<header>
-		<!-- <div id="header" th:include="layout/header :: header"></div> -->
+		<div id="header" th:include="layout/header :: header"></div>
 
 		<div class="container mt-4">
 			<h3
@@ -431,7 +452,7 @@ function roomCountOnly(result){
 	}
 </script>
 </body>
-<div th:include="layout/footer :: footer"></div>
-	
-
+<footer>
+	<div th:replace="layout/footer :: footer"></div>
+</footer>
 </html>

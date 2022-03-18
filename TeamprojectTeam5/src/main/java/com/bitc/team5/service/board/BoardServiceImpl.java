@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.BoardDto;
+import com.bitc.team5.dto.HotDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.mapper.BoardMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -183,6 +185,17 @@ public class BoardServiceImpl implements BoardService {
 	public Page<BoardDto> SearchReviewBoardList(int pageNum, String keyword, String keytype) throws Exception {
 		PageHelper.startPage(pageNum, 10);
 		return boardMapper.SearchReviewBoardList(keyword, keytype);
+	}
+
+	@Override
+	public List<LodgeListDto> lodgeList() throws Exception {
+		
+		return boardMapper.lodgeList();
+	}
+
+	@Override
+	public List<HotDto> hotPlaceList() throws Exception {
+		return boardMapper.hotPlaceList();
 	}
 
 }

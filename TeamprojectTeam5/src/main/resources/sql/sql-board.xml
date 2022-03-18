@@ -275,5 +275,20 @@
 				deleted_yn = 'N'
 		]]>
 	</update>
-
+	<select id="lodgeList" resultType="com.bitc.team5.dto.LodgeListDto">
+		<![CDATA[ 
+			select 
+				*
+			from 
+				lodge_list
+		]]>
+	</select>
+		<select id="hotPlaceList" resultType="com.bitc.team5.dto.HotDto">
+		<![CDATA[ 
+			select 
+				*
+			from 
+				attration
+		]]>
+	</select>
 </mapper>

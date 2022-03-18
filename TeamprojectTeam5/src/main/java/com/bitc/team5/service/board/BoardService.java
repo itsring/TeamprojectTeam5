@@ -3,6 +3,8 @@ package com.bitc.team5.service.board;
 import java.util.List;
 
 import com.bitc.team5.dto.BoardDto;
+import com.bitc.team5.dto.HotDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.github.pagehelper.Page;
 
 public interface BoardService {
@@ -61,6 +63,10 @@ public interface BoardService {
 	Page<BoardDto> SearchKeytypeReviewBoardList(int pageNum, String keytype) throws Exception;
 	
 	Page<BoardDto> SearchReviewBoardList(int pageNum, String keyword, String keytype) throws Exception;
+
+	List<LodgeListDto> lodgeList() throws Exception;
+
+	List<HotDto> hotPlaceList() throws Exception;
 
 
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bitc.team5.dto.BoardDto;
+import com.bitc.team5.dto.HotDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.service.board.BoardService;
 import com.github.pagehelper.PageInfo;
 
@@ -243,34 +245,45 @@ public class BoardController {
 	@RequestMapping(value = "/reviewboard/write1", method = RequestMethod.POST)
 	public Object box1Selected(@RequestParam("type") String type) throws Exception {
 		List<String> place = new ArrayList<String>();
+		
 		if(type.equals("숙박")) {
-			place.add("대성장");
-			place.add("파라다이스호텔 부산");
-			place.add("G2모텔");
-			place.add("이비스앰배서더호텔 부산시티센터점");
+//			place.add("대성장");
+//			place.add("파라다이스호텔 부산");
+//			place.add("G2모텔");
+//			place.add("이비스앰배서더호텔 부산시티센터점");
+			List<LodgeListDto> boardList = boardService.lodgeList();
+			
+			for(LodgeListDto obj:boardList) {
+				place.add(obj.getLodgeName());
+			}
 			
 		}else if(type.equals("명소")) {
-			place.add("암남공원");
-			place.add("시민공원");
-			place.add("UN기념공원");
-			place.add("용두산공원");
-			place.add("삼락생태공원");
-			place.add("광안대교");
-			place.add("해운대 달맞이 길");
-			place.add("송도 해상 케이블 카");
-			place.add("BIFF 광장");
-			place.add("서면 먹자 골목");
-			place.add("흰여울문화마을");
-			place.add("민락수변공원");
-			place.add("동백섬");
-			place.add("청사포 다릿돌 전망대");
-			place.add("이기대 해안산책로");
-			place.add("감천 문화마을");
-			place.add("자갈치시장");
-			place.add("국제시장");
-			place.add("부전시장");
-			place.add("기장시장");
+//			place.add("암남공원");
+//			place.add("시민공원");
+//			place.add("UN기념공원");
+//			place.add("용두산공원");
+//			place.add("삼락생태공원");
+//			place.add("광안대교");
+//			place.add("해운대 달맞이 길");
+//			place.add("송도 해상 케이블 카");
+//			place.add("BIFF 광장");
+//			place.add("서면 먹자 골목");
+//			place.add("흰여울문화마을");
+//			place.add("민락수변공원");
+//			place.add("동백섬");
+//			place.add("청사포 다릿돌 전망대");
+//			place.add("이기대 해안산책로");
+//			place.add("감천 문화마을");
+//			place.add("자갈치시장");
+//			place.add("국제시장");
+//			place.add("부전시장");
+//			place.add("기장시장");
 			
+			List<HotDto> boardList = boardService.hotPlaceList();
+			
+			for(HotDto obj:boardList) {
+				place.add(obj.getPlaceName());
+			}
 		}
 		return place;
 	}

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.bitc.team5.dto.BoardDto;
+import com.bitc.team5.dto.HotDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.github.pagehelper.Page;
 
 @Mapper
@@ -67,6 +69,10 @@ public interface BoardMapper {
 	Page<BoardDto> SearchKeytypeReviewBoardList(String keytype) throws Exception;
 	
 	Page<BoardDto> SearchReviewBoardList(@Param("keyword") String keyword, @Param("keytype") String keytype) throws Exception;
+
+	List<LodgeListDto> lodgeList() throws Exception;
+
+	List<HotDto> hotPlaceList() throws Exception;
 
 
 

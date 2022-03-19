@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bitc.team5.dto.DibDto;
+import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.UserDto;
 import com.bitc.team5.service.user.UserService;
 
@@ -70,8 +71,9 @@ public class UserController {
 		public ModelAndView myPage(@PathVariable("email") String email, HttpSession session) throws Exception{
 			ModelAndView mv = new ModelAndView("/user/myPage");
 			UserDto userDetail = userService.selectUserDetail(email);
-			
 			List<DibDto> dibList = userService.dibList(email);
+			List<LodgeDto> lodgeList = userService.lodgeBookList(email);
+			mv.addObject("lodgeList", lodgeList);
 			mv.addObject("dibList",dibList);
 			mv.addObject("user",userDetail);
 			return mv;

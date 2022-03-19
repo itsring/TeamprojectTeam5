@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.bitc.team5.dto.DibDto;
+import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.UserDto;
 
 @Mapper
@@ -26,6 +27,8 @@ public interface UserMapper {
 	UserDto selectUserDetail2(String email) throws Exception;
 
 	List<DibDto> dibList(String email) throws Exception;
+
+	List<LodgeDto> lodgeBookList(String email) throws Exception;
 
 	
 

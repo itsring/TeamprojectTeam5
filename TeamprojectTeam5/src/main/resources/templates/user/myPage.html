@@ -128,7 +128,6 @@ margin-top:10px;
 	</header>
 	<main class="container">
 		<div class="mt-5 h-100">
-			<h4 class="text-center">마이페이지</h4>
 			<div>
 				<form action="" id="frm">
 						<div th:if="${#lists.size(user)} > 0" th:each="item : ${user}">
@@ -189,6 +188,7 @@ margin-top:10px;
 							
 							<!-- 찜하기 등 가로 배열  -->
 								<div class="user__info__right ms-5">
+								<h4 class="text-center">마이페이지</h4>
 									<div class="row">
 										<div>
 											<!-- 찜 목록, 클릭시 각 디테일 페이지로 이동 -->
@@ -226,6 +226,30 @@ margin-top:10px;
 														많은 숙소 보기</a>
 													<div></div>
 													<!-- /////////////////////////////////////////////////////////////// -->
+												</div>
+											</div>
+											<div id="items" class="border-top shadow py-0 bg-white rounded my-3" style="border-radius: 40px;">
+												<div class="d-flex justify-content-between py-2 border-bottom"
+													th:if="${#lists.size(lodgeList)} > 0"
+													th:each="list : ${lodgeList}">
+													<div class="col-10">
+														<div class="body ms-5">
+															<h5 class="card-text m-1"
+																th:text="'호텔명 : ' +${list.lodgeName}"></h5>
+															<h5 class="card-text m-1"
+																th:text="'체크인 날짜 : ' +${list.chkInDate}"></h5>
+															<h5 class="card-text m-1"
+																th:text="'체크아웃 날짜 : ' +${list.chkOutDate}"></h5>
+															<h5 class="card-text m-1"
+																th:text="'룸 타입 : ' +${list.roomType}"></h5>
+														</div>
+													</div>
+												</div>
+												<div th:unless="${#lists.size(dibList)} > 0"
+													class="text-center">
+													<div>
+														<h3>명소 찜 내역 없습니다.</h3>
+													</div>
 												</div>
 											</div>
 										</div>

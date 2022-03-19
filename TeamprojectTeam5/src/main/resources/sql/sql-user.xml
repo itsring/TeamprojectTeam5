@@ -85,4 +85,16 @@
 				deleted_yn ='N'
 		]]>
 	</select>
+	<select id="lodgeBookList" parameterType="String" resultType="com.bitc.team5.dto.LodgeDto">
+	<![CDATA[ 
+		select
+			*
+		from
+			lodge
+		where
+			user_email=#{email}
+			
+	]]>
+	</select >
+	
 </mapper >

@@ -25,7 +25,7 @@
 </script>
 </head>
 <body>
-	<header th:fragment="header">
+	<!-- <header th:fragment="header">
 		<div class=" d-flex text-align-center justify-content-between" style="background-color:  #E8F5FF;">
 			<div class="d-flex text-align-center justify-content-between my-2">
 				<a href="/main" class="text-decoration-none d-flex text-align-center align-items-center ms-3">Busan</a>
@@ -46,9 +46,69 @@
 				<div th:if="${session.email} != null">
 				<input type="hidden" id="email" name="email"
 					th:value="${session.email}">
-				<!-- <div class="dropdown"> -->
+				<div class="dropdown">
 					<a
 						class=" text-decoration-none userEmail" href="/user/myPage/" th:attrappend="href=${session.email}"
+						 th:if="${session.email} != null"
+						th:text="|${session.email}|" title="마이페이지로 가기"
+						></a>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<li><a class="dropdown-item" type="button" id="edit-btn" href="/userEdit/" th:attrappend="href=${session.email}">회원정보수정</a>
+						</li>
+						<li><a class="dropdown-item" type="button" id="old-list-btn" href="#">찜목록</a></li>
+						<li><a class="dropdown-item" type="button" id="cart-btn" href="/logout">로그아웃</a></li>
+					</ul>
+				</div>
+				</div>
+				<div class="d-flex align-items-center">
+					<a class="me-4  text-decoration-none "
+							th:unless="${session.email} != null" th:text="로그인"
+							th:href="@{/login}"></a>
+				</div>
+			</div>
+			</form>
+		</div>
+	</header> -->
+	<header th:fragment="header">
+	<div class="d-flex justify-content-center align-items-center">
+		<a href="/main">
+			<img alt="" src="/img_5/busanlogo.png" style="width: 300px; height: 130px;">
+		</a>
+	</div>
+		<div class=" d-flex text-align-center justify-content-between" style="border-top:1px solid black;">
+			<div class="d-flex text-align-center justify-content-between my-2">
+				<a href="/main" class="text-decoration-none d-flex text-align-center align-items-center ms-3 busan">Busan</a>
+			</div>
+			<div class="d-flex text-align-center my-2">
+				 <div class="d-flex text-align-center justify-content-between align-items-center">
+				 	<div class="d-flex text-align-center justify-content-between align-items-center">
+				 		<div class="header__nav ">
+				 	 		<a href="/hotplace" class="text-decoration-none mx-3 d-flex align-items-center text-align-center">명소찾기</a>
+				 	 	</div>
+				 	 	<div class="header__nav">
+				 	 	<a href="/notice" class="text-decoration-none mx-3 d-flex align-items-center text-align-center">공지사항</a>
+				 	 	</div>
+				 	 	<div class="header__nav">
+				 	 	<a href="/freeboard" class="text-decoration-none mx-3 d-flex align-items-center text-align-center">자유게시판</a>
+				 	 	</div>
+				 	 	<div class="header__nav">
+				 	 	<a href="/reviewboard" class="text-decoration-none mx-3 d-flex align-items-center text-align-center">후기게시판</a>
+				 	 	</div>
+				 	 	<div class="header__nav">
+				 	 	<a href="/lodge/lodgeList" class="text-decoration-none mx-3 d-flex text-align-center">숙소찾기</a>
+				 	 	</div>
+				 	 	
+				 	</div>
+				 </div>
+			</div>
+			<form action="" method="GET" class="d-flex align-items-center">
+			<div class="d-flex align-items-center">
+				<div th:if="${session.email} != null">
+				<input type="hidden" id="email" name="email"
+					th:value="${session.email}">
+				<!-- <div class="dropdown"> -->
+					<a
+						class=" text-decoration-none userEmail busan" href="/user/myPage/" th:attrappend="href=${session.email}"
 						 th:if="${session.email} != null"
 						th:text="|${session.email}|" title="마이페이지로 가기"
 						></a>
@@ -61,13 +121,31 @@
 				<!-- </div> -->
 				</div>
 				<div class="d-flex align-items-center">
-					<a class="me-4  text-decoration-none "
+					<a class="me-4  text-decoration-none busan"
 							th:unless="${session.email} != null" th:text="로그인"
 							th:href="@{/login}"></a>
 				</div>
 			</div>
 			</form>
 		</div>
+		<style>
+.header__nav{
+display:flex;
+justify-content:center;
+align-items:center;
+border-right:1px solid black;
+text-align:center;
+}	
+.busan,
+.header__nav a{
+color:gray;
+}
+.busan:hover,	
+.header__nav a:hover{
+color:black;
+}
+
+		</style>
 	</header>
 </body>
 </html>

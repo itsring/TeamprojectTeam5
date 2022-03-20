@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitc.team5.dto.FestivalDto;
 import com.bitc.team5.dto.HotDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.UserDto;
 import com.bitc.team5.service.hot.HotService;
 import com.bitc.team5.service.main.MainService;
@@ -43,7 +43,7 @@ public class MainController {
 			mv.addObject("user", user);
 		}
 		List<HotDto> hot = hotService.selectHotList();
-		List<FestivalDto> hotList = mainService.selectAllHotList();
+		List<LodgeListDto> hotList = mainService.selectLodgeList();
 		mv.addObject("hotList", hotList);
 		mv.addObject("hot", hot);
 		return mv;

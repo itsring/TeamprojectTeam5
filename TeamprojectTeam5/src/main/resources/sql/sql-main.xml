@@ -10,4 +10,13 @@
 	
 ]]>
 </select>
+<select id="selectLodgeList" resultType="com.bitc.team5.dto.LodgeListDto">
+<![CDATA[ 
+	select
+		*
+	from
+		lodge_list
+	
+]]>
+</select>
 </mapper>

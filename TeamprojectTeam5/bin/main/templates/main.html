@@ -32,11 +32,11 @@ font-size:50px;
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 
-	<main>
-		<div class="my-5">
+	<main class="mt-2">
+		<!-- <div class="my-5">
 			<div>
 				<div class="text-center">
-				<!-- 페이지 소개글 -->
+				페이지 소개글
 					<div >
 						<span class="main__title">부산에 여행 오세요</span>
 					</div>
@@ -47,28 +47,27 @@ font-size:50px;
 						</p>
 					</div>
 				</div>
-				<!-- 제휴 숙박 -->
-				<!--  -->
+				제휴 숙박
+				
 			</div>
-		</div>
-		<div class="p-5 " >
+		</div> -->
+		<div class="p-3 " >
 			<div class="container text-center pb-4">
 				<!-- 홈페이지 소개 -->
 				
 			<!-- 부산 명소 캐러셀 부분 -->
-				<div class="">
-					<h1>부산 명소</h1>
-				</div>
-				<div class="container mt-3 pb-5 w-75">
-					<div id="carouselExampleIndicators" class="carousel slide pb-5"
+				
+				<div class="container mt-5  ">
+					<div id="carouselExampleIndicators" class="carousel slide d-flex"
 						data-bs-ride="carousel">
 						
-						<div class="carousel-inner mb-5 border border-3 border-info">
-							<div class="carousel-item active">
+						<div class="carousel-inner ">
+							
+							<div class="carousel-item active" >
 							<!-- 액티브를 주기 위한 캐러셀 첫화면 -->
 								<a href="/hotDetail/20">
 								 <img src="/img_5/walk/walk_igidae.jpg"
-									class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
+									class="" alt="..." style="height: 350px; width:100%;">
 								</a>
 								
 							</div>
@@ -77,23 +76,29 @@ font-size:50px;
 						<!-- 리스트 출력 -->
 								<a href="/hotDetail" th:href="|/hotDetail/${item.seq}|">
 								<!-- 사진 클릭시 명소 디테일부분으로 이동 --> 
-								<img th:src="${item.placeImgLocation}" class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
+								<img th:src="${item.placeImgLocation}" class="" alt="..." style="height: 350px; width: 100%;">
 								<!-- 사진 크기 가로 900 세로 800 -->
 								</a>
 								
 							</div>
-							<div class="">
-						<button class="carousel-control-prev" type="button"
-							data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
-						</div>
+					
+					</div>
+						<div class="ms-5">
+							<div class="text-start">
+								<span class="h1">'부산'</span>
+								<span class="h2">에 <strong>여행 오소</strong></span>
+							</div>
+							<div class="mt-2 text-start">
+								<p>부산하면 떠오르는 대표 관광지인 해운대 해수욕장부터<br> 아름다운 광안대교 야경을 볼 수 있는 광안리 해수욕장,<br> 국내 인기 서핑 포인트인 송정 해수욕장 등 매력 넘치는 부산 바다를 여행해 보세요.</p>
+								<p>해운대, 광안리 해수욕장</p>
+								<p>아름다운 공원과 재밌고 예쁜 축제</p>
+							</div>
+							<div class="container text-end">
+								<p class="mt-3">
+									<a href="/hotplace">#부산 명소 추천</a><br/>
+									<a href="/lodge/lodgeList">#제휴 숙소 추천</a><br/>
+								</p>
+							</div>
 						</div>
 						<!-- <div class="">
 						<button class="carousel-control-prev" type="button"
@@ -107,12 +112,81 @@ font-size:50px;
 							<span class="visually-hidden">Next</span>
 						</button>
 						</div> -->
+						
 					</div>
+					
 				</div>
 			</div>
 		</div>
 		<!-- 부산 축제 캐러셀 부분 -->
-		<div class="p-5" style="background-color:#E8F5FF; color:#6495ED;">
+		<div class="" >
+			<div class="container text-center pb-4">
+				<!-- 홈페이지 소개 -->
+				
+			<!-- 부산 명소 캐러셀 부분 -->
+				
+				<div class="container mt-3  ">
+					<div id="carouselExampleIndicators" class="carousel slide pb-5 d-flex justify-content-between"
+						data-bs-ride="carousel">
+						<div class="ms-3">
+							<div class="text-start">
+								<span class="h1">'여행오소'</span>
+								<span class="h2">만의 <strong>숙소</strong></span>
+							</div>
+							<div class="mt-2 text-start">
+								<p>즐거운 여행에는 편안한 숙소가 필요합니다.<br> 각종 명소와 즐길거리를 파악하여 더욱 편하게<br> 부산을 관광할 수 있도록 엄선한 제휴 숙소들을
+이용해 보심이 어떠신가요?</p>
+								<p>여행오소만의 당신을 위한 특별한 휴식!</p>
+							</div>
+							<div class="container text-start">
+								<p class="mt-3">
+									<a href="/hotplace">#부산 명소 추천</a><br/>
+									<a href="/lodge/lodgeList">#제휴 숙소 추천</a><br/>
+								</p>
+							</div>
+						</div>
+						<div class="carousel-inner mb-5 ms-5">
+							
+							<div class="carousel-item active " >
+							<!-- 액티브를 주기 위한 캐러셀 첫화면 -->
+								<a href="/hotDetail/20">
+								 <img src="/img_5/hotel/hotel_11.jpg"
+									class="" alt="..." style="height: 350px; width:100%;">
+								</a>
+								
+							</div>
+							<div class="carousel-item " th:if="${#lists.size(hotList)} > 0"
+						th:each="item : ${hotList}">
+						<!-- 리스트 출력 -->
+								<a href="/hotDetail" th:href="|/hotDetail/${item.seq}|">
+								<!-- 사진 클릭시 명소 디테일부분으로 이동 --> 
+								<img th:src="${item.lodgeImg}" class="" alt="..." style="height: 350px; width: 100%;">
+								<!-- 사진 크기 가로 900 세로 800 -->
+								</a>
+								
+							</div>
+					
+					</div>
+						
+						<!-- <div class="">
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+						</div> -->
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!-- <div class="p-5" style="background-color:#E8F5FF; color:#6495ED;">
 			<div class="container p-5 my-5">
 				<div class="text-center">
 					<h1>부산 축제</h1>
@@ -124,17 +198,17 @@ font-size:50px;
 							<div class="carousel-item active">
 								<img src="/img_5/festival/busan_rock_festival.jpg"
 									class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
-								<!-- <div class="carousel-caption d-none d-md-block">
+								<div class="carousel-caption d-none d-md-block">
 									<h5>부산 국제 락 페스티벌</h5>
 									<p></p>
-								</div> -->
+								</div>
 							</div>
 							<div class="carousel-item" th:if="${#lists.size(hotList)} > 0"
 								th:each="item : ${hotList}">
 								<img th:src="${item.festivalImg}" class="d-block w-100" alt="..." style="height: 400px; width: 900px;">
-								<!-- <div class="carousel-caption d-none d-md-block">
+								<div class="carousel-caption d-none d-md-block">
 									<h5 th:text="${item.festivalName}">페스티벌이름</h5>
-								</div> -->
+								</div>
 							</div>
 						</div>
 						<button class="carousel-control-prev" type="button"
@@ -152,9 +226,9 @@ font-size:50px;
 			</div>
 		</div>
 		<div class="container">
-		<!-- 축제 일정 혹은 무언가 -->
+		축제 일정 혹은 무언가
 			<div class=""></div>
-		</div>
+		</div> -->
 	</main>
 	
 	<div th:include="layout/footer :: footer"></div>

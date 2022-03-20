@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitc.team5.dto.FestivalDto;
+import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.mapper.MainMapper;
 
 @Service
@@ -18,6 +19,12 @@ public class MainServiceImpl implements MainService {
 	public List<FestivalDto> selectAllHotList() throws Exception {
 		
 		return mainMapper.selectAllHotList();
+	}
+
+	@Override
+	public List<LodgeListDto> selectLodgeList() throws Exception {
+		
+		return mainMapper.selectLodgeList();
 	}
 
 }

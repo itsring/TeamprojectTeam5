@@ -2,6 +2,7 @@ package com.bitc.team5.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bitc.team5.dto.BoardDto;
+import com.bitc.team5.dto.HotDto;
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
@@ -299,6 +301,36 @@ public class LodgeController {
 	 * 
 	 * return "redirect:/main"; }
 	 */
+	
+	
+	
+	//////////////////////////////////
+	
+//	숙소 예약 목록
+	 @RequestMapping(value="/lodge/lodgePayChk", method=RequestMethod.GET) 
+	 public String lodgePayChk(Model model, HttpSession session) throws Exception{
+		 String userEmail = (String) session.getAttribute("email");
+		 List<LodgeDto> chkList = lodgeService.lodgePayChk(userEmail);
+		 
+		 model.addAttribute("chkList", chkList);
+		 
+		 return "/lodge/lodgePayChk";
+	 }
+	 
+	 
+	 // 숙소 예약 목록 삭제
+		@ResponseBody
+		@RequestMapping(value = "/lodge/lodgeDelete")
+		public Map<String, String> lodgeDelete(@RequestParam("seq") int seq) throws Exception {
+			
+			Map<String, String> result = new HashMap<String, String>();
+
+			lodgeService.lodgeDelete(seq);
+
+			result.put("result", "success");
+
+			return result;
+		}
 }
 
 

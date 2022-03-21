@@ -31,13 +31,20 @@
 <style>
 .customoverlay {position:relative;bottom:50px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
 .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-.customoverlay a {display:block;text-decoration:none;color:#111;text-align:center;border-radius:6px;font-size:14px;font-weight:500;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay a {display:block;text-decoration:none;color:#111;text-align:center;border-radius:6px;font-size:14px;font-weight:500;overflow:hidden;background:#6495ED;background:#6495ED url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
 .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:500;}
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 	
 </style>
 
 <style>
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .lodgeDiv{
 position: relative;
 display: inline-block;
@@ -52,24 +59,29 @@ width: 80%;
 background: #000;
 background: rgba(0,0,0,.5);
 }
-</style>
-
-<style>
 
 #book {
-	border: 2px solid skyblue;
-	border-radius: 30px;
+/*	border: 2px solid skyblue;
+	border-radius: 30px; */
 	vertical-align: middle;
-	text-align: center;
+	text-align: left;
 	margin:20px;
+	font-size:30px;
+	
 }
 /* #roomList{
 	display:none;
 } */
+
+#lodgeImg{
+	border-radius: 20px;
+	margin:20px;
+	height:200px;
+}
 #book2 {
-	border: 2px solid #6495ED;
+	border: 2px solid;
 	border-radius: 30px;
-	background-color:#6495ED;
+	height:200px;
 	vertical-align: middle;
 	text-align: left;
 	margin:20px;
@@ -81,8 +93,75 @@ background: rgba(0,0,0,.5);
 position: absolute;
 width: 250px;
 height: 150px;
+border-radius: 20px;
 }
+.mainInfo{
 
+	padding-left:20px;
+	padding-right:20px;
+flex-direction: column; /*수직 정렬*/
+      align-items: center;
+      justify-content: center;
+}
+input[type=date] {
+	width: 250px;
+	height:60px;
+	font-size: 30px;
+}
+#roomCount{
+	width: 250px;
+	height:60px;
+	font-size: 30px;
+	margin-left:22px;
+}
+.mainTitle{
+margin-bottom: 100px;
+font-family: 'GmarketSansBold';
+color:white;
+background-color:black;
+font-size:30px;
+width:1300px;
+height:70px;
+display:flex;
+align-items:center;
+padding-top:15px;
+justify-content:center;
+}
+main{
+padding-bottom:310px;
+}
+.formList{
+width:1100px;
+display:block; 
+margin-left:auto;
+margin-right:auto;
+margin-top:10px;
+
+flex-direction: column; /*수직 정렬*/
+      align-items: center;
+      justify-content: center;
+}
+#roomSearch{
+ border-radius: 5px;
+ background-color:white; 
+ color:#6495ED;
+ font-size:20px;
+ width:360px;
+ margin-top:10px;
+}
+#btn-books{
+ border-radius: 5px;
+ background-color:white; 
+ color:#6495ED;
+ font-size:20px;
+ width:200px;
+ margin-top:10px;
+}
+#btn-books:hover,
+#roomSearch:hover{
+ background-color:#6495ED;
+ color:white;
+}
 </style>
 
 </head>
@@ -92,44 +171,75 @@ height: 150px;
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 	<main>
-		<div class="container" style="margin-top: 10px">
-			<div class="rounded p-5 my-3 bg-primary bg-opacity-25">
-				<h1 class="text-center text-white">관광지 상세 페이지</h1>
-			</div>   
+		<div class="container" style="margin-top: 30px">
+			<div class="text-center mainTitle mx-auto d-flex justify-content-center">
+				<h1>관광지 상세 페이지</h1>
+			</div>  
 			
 			
 			<!-- 숙소 정보 출력 -->
 			<div class="row p-3" id="book" th:each="lodge : ${lodgeDetail}">
 				<div class="row">
-					<div class="col-4 lodgeDiv">				
-						<img th:src="@{${lodge.lodgeImg}}" id="lodgeImg">
-					</div> 
-					<div class="col-8">
-						<div class="row">
-							<div class="col-10">
-								<label for="" class="col-form-label">숙소 이름 : </label> 
-								<input type="text" class="form-control" id="input1" name="input1" th:value="${lodge.lodgeName}"/>
-							</div>
-							<div class="col-2">
-								<label for="" class="col-form-label">평점 : </label> 
-								<!-- <p th:text="${lodge.lodgeScore} + ' / 5.0'"></p> -->
-								<p id="star-grade" th:text="${session.star} + ' / 5.0'"></p>
-							</div>
+					<div class="col-3 lodgeDiv">	
+						<div>			
+							<img th:src="@{${lodge.lodgeImg}}" id="lodgeImg"/>
 						</div>
-						<div class="row">
-							<div class="col-8">
-								<label for="" class="col-form-label">주소 : </label> 
-					<input type="text" class="form-control" id="input2" th:value="${lodge.lodgeAddressName}"/>
-							</div>
-							<div class="col-4">
-								<label for="" class="col-form-label">전화 번호 : </label> 
-					<input type="text" class="form-control" id="input3" th:value="${lodge.lodgePhone}"/>
-							</div>
+					</div> 
+					<div class="col-5 mainInfo">
+						<div>
+							<img src="/img_5/icon/hotelName.png" th:text="${lodge.lodgeName}"/>
+						</div>
+						<div>
+							<img src="/img_5/icon/address.png" th:text="${lodge.lodgeAddressName}"/>
+						</div>
+						<div>
+							<img src="/img_5/icon/phone.png" th:text="${lodge.lodgePhone}"/>
+						</div>
+						<div>
+							<img src="/img_5/icon/grade.png" id="star-grade" th:text="${session.star} + ' / 5.0'"/>
 						</div>
 					</div>
-				</div>
 				
+				
+					<div class="col-4 mainInfo">				
+						<div class="row">
+							<div class="col">
+								<span class="col-form-label">입실 :</span>
+							</div>
+							<div class="col">
+								<input type="date" class="form-control" id="chkInDate" name="chkInDate"/> 
+							 </div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<span class="col-form-label">퇴실 :</span>
+							</div>
+							<div class="col">
+								<input type="date" class="form-control" id="chkOutDate" name="chkOutDate"/>
+							 </div>
+						</div>
+	
+						<div>
+							<span class="col-form-label">인원 : </span>
+							<select id="roomCount" class="ps-3">
+								<option value="인원 선택 : ">인원 선택</option>
+								<option value="1">1인</option>
+								<option value="3">3인</option>
+								<option value="5">5인</option>
+								<option value="9">9인</option>
+							</select>
+						</div>					
+						<div>
+							<form name="formSearch" method="get" action="#">
+								<input type="button" id="roomSearch" name="roomSearch" class="btn btn-primary" value="객실 찾아보기">
+							</form>
+						</div>				
+					</div> 
+				</div>	
 				<div id="mapCenter">
+					<input type="text" class="form-control" id="input1" name="input1" th:value="${lodge.lodgeName}"/>
+					<input type="text" class="form-control" id="input2" th:value="${lodge.lodgeAddressName}"/>
+					<input type="text" class="form-control" id="input3" th:value="${lodge.lodgePhone}"/>
 					<input type="text" class="latitude" id="latitude" th:value="${lodge.lodgeLatitude}">
 					<input type="text" class="longitude" id="longitude" th:value="${lodge.lodgeLongitude}">
 				</div>
@@ -141,7 +251,7 @@ height: 150px;
 				<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 			</div>
 			
-			<div class="row m-3">
+			<!-- <div class="row m-3">
 				<div class="row" >
 					<div class="col-4">
 						<span class="col-form-label">입실 : </span> 
@@ -167,10 +277,10 @@ height: 150px;
 						</form>
 					</div>				
 				</div>
-			</div>
+			</div> -->
 		
 			<!-- 객실 내용 출력 -->
-	<div id="roomList" class="roomList">
+			<div id="roomList" class="roomList">
 				<form id="formList" action="/lodge/lodgePay" class="formList" method="GET">
 <!-- 				<form id="formList" action="/lodge/lodgeListBook" class="formList" method="POST"> -->
 					<div class="row p-3" id="book2" th:if="${#lists.size(roomList)} > 0" th:each="list : ${roomList}">		
@@ -235,7 +345,7 @@ height: 150px;
 		
 	</main>
 	
-	
+	<div th:include="layout/footer :: footer"></div>
 </body>
 	
 <script th:inline="javascript">
@@ -250,6 +360,12 @@ height: 150px;
 /*<![CDATA[*/
 // 	var email = /*[[ ${session.email} ]]*/;
 /*]]*/
+
+
+
+var today = new Date();
+document.getElementById('chkInDate').valueAsDate = new Date();
+document.getElementById('chkOutDate').valueAsDate = new Date(today.setDate(today.getDate()+3));
 
 $(document).ready(function() {	
 	$("#roomCount").on("change", function(){
@@ -328,21 +444,21 @@ function everyCount(result, chkInDate, chkOutDate){
 				var str ='<form id="formList"  class="formList" method="GET" action="/lodge/lodgePay' + data[i].seq + '">'; 
 				str+='<div class="row p-3" id="book2">';
 				str += '<div class="row">';
-				str += '<div class="col-4">';
+				str += '<div class="col-4 p-1">';
 				str += '<img id="roomImg" src=' + data[i].roomImg + '>';		              
 /* 				str += '<input type="hidden" name="roomImg" value=' + data[i].roomImg + '>'; */		              
 				str += '</div>';
-				str += '<div class="col-8">';
+				str += '<div class="col-8 p-3">';
 				str += '<h4>' + data[i].roomName +'</h4>';
 /* 				str += '<input type="hidden" name="roomName" id="roomName" value="' + data[i].roomName +'">'; */
 				str += '<div class="row">';
-				str += '<div class="col">';    
+/* 				str += '<div class="col">';  */   
 				/* str += '<h4>' + data[i].roomType +'</h4>'; */
 /* 				str += '<input type="hidden" class="roomType" name="roomType" value="' + data[i].roomType + '">'; */
 /* 				str += '<input type="hidden" class="roomType" name="roomType" value="' + $("#roomType").val() + '">'; */
-				str += '</div>';
+				/* str += '</div>'; */
 				str += '<div class="col">';    
-				str += '<h4>' + data[i].roomCount + '명' +'</h4>';
+				str += '<h4>' + '최대 ' + data[i].roomCount + '명' +'</h4>';
 				str += '</div></div>';
 				str += '<div class="row">';
 				str += '<div class="col">';    
@@ -359,7 +475,7 @@ function everyCount(result, chkInDate, chkOutDate){
 				}
 				else {
 					str += '<div class="col">';
-					str += '<button type="submit" id="btn-books" class="btn btn-primary">예약하기</button>';
+					str += '<button type="submit" id="btn-books" class="btn btn-primary">객실 예약하기</button>';
 					str += '</div>';	
 				}
 				
@@ -386,9 +502,11 @@ function everyCount(result, chkInDate, chkOutDate){
 	               
 			}
 			
-		}, error: function(request, status, error) {
+		}, /* error: function(request, status, error) {
 				alert(request.responseText + "\nerror:"
-						+ error);
+						+ error); */
+			error: function(request, status, error) {			
+				alert("날짜와 인원을 선택해 주세요");
 				
 		}
 	}); 
@@ -605,7 +723,7 @@ var infowindow = new kakao.maps.InfoWindow({
 //마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 //infowindow.open(map, marker); 
 
-var imageSrc = 'https://i.ibb.co/MhTjs8T/clipart2135697.png';                              // 마커이미지 주소
+var imageSrc = "/img_5/icon/pinset.png";                              // 마커이미지 주소
   imageSize = new kakao.maps.Size(34, 36);                // 마커이미지의 크기
   imageOption = {offset: new kakao.maps.Point(17, 36)};   // 마커의 좌표와 일치시킬 이미지 안에서의 좌표설정
     
@@ -662,7 +780,7 @@ map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 //marker.setMap(null); 
 </script>
 
-	<div th:include="layout/footer :: footer"></div>
+	
 
 </html>
 

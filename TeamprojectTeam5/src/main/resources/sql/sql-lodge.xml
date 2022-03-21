@@ -159,6 +159,28 @@
 				room_type = #{roomType}
 		]]>
 	</update>
+	
+	<!--숙소 예약 목록-->
+	<select id="getChk" parameterType="String" resultType="com.bitc.team5.dto.LodgeDto">
+		<![CDATA[ 
+			SELECT
+				*
+			FROM
+				lodge
+			WHERE
+				user_email = #{userEmail}
+		]]>
+	</select >
+	
+	<!--// 숙소 예약 목록 삭제-->
+		<delete id="lodgeDelete" parameterType="int">
+		<![CDATA[
+			DELETE FROM
+				lodge
+			WHERE
+				seq = #{seq}
+		]]>
+	</delete>
 </mapper>
 
 

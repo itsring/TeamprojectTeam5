@@ -21,9 +21,19 @@
 	crossorigin="anonymous"></script>
 	
 	
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Hi+Melody&display=swap" rel="stylesheet">	
 <style>
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .swiper-container {
-	height:450px;
+	height:400px;
 	/* border:5px solid silver;
 	border-radius:7px; */
 
@@ -35,14 +45,14 @@
 	justify-content:center; /* 좌우 기준 중앙정렬 */
 }
 .swiper-slide img {
-	box-shadow:0 0 5px #555;
 	max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 	/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
 }
+
 .card {
 	border-radius:30px;
-	width:380px;
-    height:400px;
+	width:350px;
+    height:350px;
     overflow:hidden;
     margin:0 auto;
 }
@@ -51,10 +61,37 @@
 	width:100%;
     height:100%;
     object-fit:cover;
+    border-radius:30px;
 }
+/*.title{
+border-top:5px double;
+border-bottom:5px double;
+border-color: #E8F5FF;
+text-align:center;
+font-size:40px;
+color: #6495ED;
+padding:20px;
+}*/
+.title{
+	margin-bottom: 50px;
+	font-family: 'Hi Melody', cursive;
+}
+.mainTitle{
+margin-bottom: 100px;
+font-family: 'GmarketSansBold';
+color:white;
+background-color:black;
+font-size:30px;
+width:1300px;
+height:70px;
+display:flex;
+align-items:center;
+padding-top:15px;
+justify-content:center;
+}
+
 </style>
-	
-	
+
 </head>
 <body>
 	<header>
@@ -62,12 +99,16 @@
 	</header>
 	
 	<main style="margin-top: 30px;">
-		<div class="text-center" style="margin-bottom: 100px;">
+		<div class="text-center mainTitle mx-auto d-flex justify-content-center">
 			<h1>제휴 숙소 목록</h1>
 		</div>
 		<div class="container">
 <!-- 감천 -->
-			<h2 class="font-weight-light mx-5 mb-3">감천</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">감천 || Gamcheon</h1>
+				<h5 class="font-weight-light mx-5 mb-3">관광 명소로'마을미술 프로젝트'의 감천문화마을이 유명한 감천</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '감천'" >
@@ -84,19 +125,20 @@
 							</div>
 						</div>
 					</div>
-	
 				</div>
 			
 				<!-- 네비게이션 -->
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
 			
 <!-- 남포동 -->
-			<h2 class="font-weight-light mx-5 mb-3">남포동</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">남포동 || Nampo-dong</h1>
+				<h5 class="font-weight-light mx-5 mb-3">근대 부산의 발상지로서 구시가지의 모습과 분위기가 잘 보존되어 있는 남포동</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '남포동'" >
@@ -113,19 +155,20 @@
 							</div>
 						</div>
 					</div>
-	
 				</div>
 			
 				<!-- 네비게이션 -->
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
-					
+			
 <!-- 서면 -->
-			<h2 class="font-weight-light mx-5 mb-3">서면</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">서면 || Seomyeon</h1>
+				<h5 class="font-weight-light mx-5 mb-3">각종 상업시설과 금융기관, 의료기관, 교육기관 등이 밀집해 있는 부산광역시 최대의 번화가 서면</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '서면'" >
@@ -142,19 +185,20 @@
 							</div>
 						</div>
 					</div>
-	
 				</div>
 			
 				<!-- 네비게이션 -->
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
 			
 <!-- 송도 -->
-			<h2 class="font-weight-light mx-5 mb-3">송도</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">송도 || Songdo</h1>
+				<h5 class="font-weight-light mx-5 mb-3">바다와 송림이 아름다운 어촌마을로 해수욕장과 해변공원이 유명한 송도</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '송도'" >
@@ -172,10 +216,19 @@
 						</div>
 					</div>
 				</div>
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
 			</div>
-				
+			
 <!-- 수영 -->
-			<h2 class="font-weight-light mx-5 mb-3">수영</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">수영 || Suyeong</h1>
+				<h5 class="font-weight-light mx-5 mb-3">환상적인 해안선과 광안대교의 야경이 아름다운 수영</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '수영'" >
@@ -198,12 +251,14 @@
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
-							
+			
 <!-- 영도 -->
-			<h2 class="font-weight-light mx-5 mb-3">영도</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">영도 || Yeongdo</h1>
+				<h5 class="font-weight-light mx-5 mb-3">섬이라는 독특한 지형과 분위기가 매력적인 영도</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '영도'" >
@@ -226,12 +281,14 @@
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
-										
+			
 <!-- 용호동 -->
-			<h2 class="font-weight-light mx-5 mb-3">용호동</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">용호동 || Yongho-dong</h1>
+				<h5 class="font-weight-light mx-5 mb-3">부산의 랜드마크 중 하나인 이기대나 오륙도같은 유명 관광지가 위치한 용호동</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '용호동'" >
@@ -254,12 +311,14 @@
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
-													
+			
 <!-- 중구 -->
-			<h2 class="font-weight-light mx-5 mb-3">중구</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">중구 || Jung-gu</h1>
+				<h5 class="font-weight-light mx-5 mb-3">지역적 특성을 살려 관광명소로 발전을 거듭해오고 있는 근현대 부산의 변천사를 볼 수 있는 중구</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '중구'" >
@@ -282,12 +341,14 @@
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
-																
+			
 <!-- 진구 -->
-			<h2 class="font-weight-light mx-5 mb-3">진구</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">부산진구 || Busanjin-gu</h1>
+				<h5 class="font-weight-light mx-5 mb-3">현대 부산의 지리적, 문화적 중심지 부산진구</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '진구'" >
@@ -310,12 +371,14 @@
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
-																			
+			
 <!-- 해운대 -->
-			<h2 class="font-weight-light mx-5 mb-3">해운대</h2>
+			<div class="title">
+				<h1 class="font-weight-light mx-5 mb-3">해운대 || Heaundae</h1>
+				<h5 class="font-weight-light mx-5 mb-3">다채로운 축제와 이벤트가 열리며 각종 문화 시설을 갖춘 해운대</h5>
+			</div>
+			
 			<div class="swiper-container" style="margin-bottom: 100px;">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '해운대'" >
@@ -338,9 +401,9 @@
 				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 			
-				<!-- 페이징 -->
-				<div class="swiper-pagination"></div>
 			</div>
+			
+
 	</div>
 
 	<script>
@@ -348,7 +411,7 @@
 	new Swiper('.swiper-container', {
 
 		slidesPerView : 3, // 동시에 보여줄 슬라이드 갯수
-		spaceBetween : 30, // 슬라이드간 간격
+		spaceBetween : -30, // 슬라이드간 간격
 		slidesPerGroup : 3, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 
 		// 그룹수가 맞지 않을 경우 빈칸으로 메우기

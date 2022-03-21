@@ -101,4 +101,17 @@ public class LodgeServiceImpl implements LodgeService {
 		lodgeMapper.dateUpdate(room);
 	}
 
+//	숙소 예약 목록
+	@Override
+	public List<LodgeDto> lodgePayChk(String userEmail) throws Exception {
+		List<LodgeDto> chk = lodgeMapper.getChk(userEmail);
+		return chk;
+	}
+
+	// 숙소 예약 목록 삭제
+	@Override
+	public void lodgeDelete(int seq) throws Exception {
+		lodgeMapper.lodgeDelete(seq);
+	}
+
 }

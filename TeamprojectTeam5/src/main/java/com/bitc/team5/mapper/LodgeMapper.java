@@ -50,5 +50,11 @@ public interface LodgeMapper {
 	/* 결제 시 객실 날짜 업데이트 */
 	void dateUpdate(LodgeDto room) throws Exception;
 
+//	숙소 예약 목록
+	List<LodgeDto> getChk(String userEmail) throws Exception;
+
+	// 숙소 예약 목록 삭제
+	void lodgeDelete(int seq) throws Exception;
+
 
 }

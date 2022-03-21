@@ -144,7 +144,7 @@ font-weight:bold;
 					<div class="roomPay">
 						<div class="row">
 							<div class="col-2 sum">=</div>
-							<p class="col-10"><input readonly type="text" id="roomPrice" name="roomPrice" th:value="${list.roomPrice}">원</p>
+							<p class="col-10"><input readonly type="text" id="roomPrice2" name="roomPrice2" th:value="${list.roomPrice}">원</p>
 						</div>		
 					</div>
 					<div class="howTo">
@@ -161,6 +161,7 @@ font-weight:bold;
 						</div>
 					</div>
 					<div style="display:none">
+					<input  type="text" id="roomPrice" name="roomPrice" th:value="${list.roomPrice}">
 						<input type="text" id="roomName" name="roomName" th:value="${list.roomName}">
 						<input type="text" id="roomCount" name="roomCount" th:value="${list.roomCount}">
 						<input type="text" id="lodgeName" name="lodgeName" th:value="${list.lodgeName}">
@@ -216,10 +217,16 @@ var result = Number(roomPrice) * (chkOutDate.getDate() - chkInDate.getDate() + 1
 $("#roomPrice").val(result);
 
 /* 천단위 콤마찍기 */
-const input = document.querySelector('#roomPrice');
+var roomPrice2 = $("#roomPrice2").val();
+	
+var result = Number(roomPrice2) * (chkOutDate.getDate() - chkInDate.getDate() + 1);
+
+$("#roomPrice2").val(result);
+
+const input = document.querySelector('#roomPrice2');
 input.addEventListener('keyup', comma)
 function comma() {
-	let value = $('#roomPrice').val();
+	let value = $('#roomPrice2').val();
 	  value = Number(value.replaceAll(',', ''));
 	  if(isNaN(value)) {
 	    input.value = 0;

@@ -11,6 +11,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+			
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Hi+Melody&display=swap" rel="stylesheet">
 
 <style>
 /* 눈누 폰트 상위 타이틀 폰트 */
@@ -21,8 +25,13 @@
     font-style: normal;
 }
 
+.title{
+	font-family: 'Hi Melody', cursive;
+	font-size:40px;
+}
+
 .swiper-container {
-max-width:70%;
+max-width:65%;
 height:450px;
 /* border:5px solid silver; */
 border-radius:7px;
@@ -48,8 +57,10 @@ background-color:black;
 font-size:30px;
 width:1300px;
 height:70px;
+display:flex;
 align-items:center;
 padding-top:15px;
+justify-content:center;
 }
 </style>
 
@@ -69,7 +80,7 @@ padding-top:15px;
 		</div>
 		
 		
-		<h2 class="font-weight-light" style="margin-left: 400px;">시장</h2>
+		<h2 class="title font-weight-light" style="margin-left: 430px;">시장 || Market</h2>
 		
 		<div class="swiper-container" style="margin-bottom: 100px;">
 			<div class="swiper-wrapper">
@@ -78,7 +89,7 @@ padding-top:15px;
 						<a href="/hotDetail/" th:attrappend="href=${item.seq}" class=""> 
 							<img th:src="@{${item.placeImgLocation}}" class="img-fluid mb-3" src="" style="height: 300px; width: 350px;">
 						</a>
-						<h5 th:text="${item.placeName}" class="card-text text-center"></h5>
+						<h4 th:text="${item.placeName}" class="card-text text-center" style="font-weight: bold;"></h4>
 						<p th:text="${item.placeLocation}" class="card-text text-center"></p>
 					</div>
 				</div>
@@ -89,11 +100,11 @@ padding-top:15px;
 			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
+			<!-- <div class="swiper-pagination"></div> -->
 		</div>
 		
 		
-		<h2 class="font-weight-light" style="margin-left: 400px;">랜드마크</h2>
+		<h2 class="title font-weight-light" style="margin-left: 430px;">랜드마크 || Land mark</h2>
 		<div class="swiper-container" style="margin-bottom: 100px;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotLandList)} > 0" th:each="item : ${hotLandList}">
@@ -101,7 +112,7 @@ padding-top:15px;
 						<a href="/hotDetail/" th:attrappend="href=${item.seq}" class=""> 
 							<img th:src="@{${item.placeImgLocation}}" class="img-fluid mb-3" src="" style="height: 300px; width: 350px;">
 						</a>
-						<h5 th:text="${item.placeName}" class="card-text text-center"></h5>
+						<h4 th:text="${item.placeName}" class="card-text text-center" style="font-weight: bold;"></h4>
 						<p th:text="${item.placeLocation}" class="card-text text-center"></p>
 					</div>
 				</div>
@@ -112,11 +123,11 @@ padding-top:15px;
 			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
+			<!-- <div class="swiper-pagination"></div> -->
 		</div>
 		
 		
-		<h2 class="font-weight-light" style="margin-left: 400px;">공원</h2>
+		<h2 class="title font-weight-light" style="margin-left: 430px;">공원 || Park</h2>
 		<div class="swiper-container" style="margin-bottom: 100px;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotParkList)} > 0" th:each="item : ${hotParkList}">
@@ -124,7 +135,7 @@ padding-top:15px;
 						<a href="/hotDetail/" th:attrappend="href=${item.seq}" class=""> 
 							<img th:src="@{${item.placeImgLocation}}" class="img-fluid mb-3" src="" style="height: 300px; width: 350px;">
 						</a>
-						<h5 th:text="${item.placeName}" class="card-text text-center"></h5>
+						<h4 th:text="${item.placeName}" class="card-text text-center" style="font-weight: bold;"></h4>
 						<p th:text="${item.placeLocation}" class="card-text text-center"></p>
 					</div>
 				</div>
@@ -135,11 +146,11 @@ padding-top:15px;
 			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
+			<!-- <div class="swiper-pagination"></div> -->
 		</div>
 		
 		
-		<h2 class="font-weight-light" style="margin-left: 400px;">산책로</h2>
+		<h2 class="title font-weight-light" style="margin-left: 430px;">산책로 || Walk</h2>
 		<div class="swiper-container" style="margin-bottom: 100px;">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotWalkList)} > 0" th:each="item : ${hotWalkList}">
@@ -147,7 +158,7 @@ padding-top:15px;
 						<a href="/hotDetail/" th:attrappend="href=${item.seq}" class=""> 
 							<img th:src="@{${item.placeImgLocation}}" class="img-fluid mb-3" src="" style="height: 300px; width: 350px;">
 						</a>
-						<h5 th:text="${item.placeName}" class="card-text text-center"></h5>
+						<h4 th:text="${item.placeName}" class="card-text text-center" style="font-weight: bold;"></h4>
 						<p th:text="${item.placeLocation}" class="card-text text-center"></p>
 					</div>
 				</div>
@@ -158,7 +169,7 @@ padding-top:15px;
 			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
+			<!-- <div class="swiper-pagination"></div> -->
 		</div>
 		
 		
@@ -182,6 +193,7 @@ padding-top:15px;
 			el : '.swiper-pagination',
 			clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
 		},
+		
 		navigation : { // 네비게이션
 			nextEl : '.swiper-button-next', // 다음 버튼 클래스명
 			prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
@@ -196,9 +208,8 @@ padding-top:15px;
 	<div class="d-flex justify-content-end m-5" th:if="${session.email}=='qwe123@qwe123'">
 		<a href="/hotinsert" class="btn btn-primary">등록</a>
 	</div>
-	<div class="d-flex just justify-content-end m-5" th:unless="${session.email}=='qwe123@qwe123'"></div>
 	
-				
+	
 	</main>
 	
 	<!-- 푸터 영역 -->

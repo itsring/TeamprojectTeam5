@@ -20,9 +20,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	//공지
 	@Override
-	public List<BoardDto> noticeBoardList() throws Exception {
-		
-		return	boardMapper.noticeBoardList();
+	public List<BoardDto> noticeBoardList(int pageNum) throws Exception {
+		PageHelper.startPage(pageNum, 10);
+		return	boardMapper.noticeBoardList(pageNum);
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<LodgeListDto> lodgeList() throws Exception {
-		
+
 		return boardMapper.lodgeList();
 	}
 

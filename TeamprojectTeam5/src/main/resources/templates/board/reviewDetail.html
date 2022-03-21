@@ -58,10 +58,11 @@ article {
   padding:2em;
 }
 </style>
-<script>
-$(document).ready(function() {
-	tel();//전화번호 불러오는 함수
-});
+<script th:inline="javascript">
+/*<![CDATA[*/
+var boardOpt = /*[[ ${boardList} ]]*/
+/*]]*/
+
 function tel() {
 	$("#type").on("change", function() {
 		/* select 태그의 자손 태그인 option태그중 상태가 selected인 속성값을 가져옴 */
@@ -69,6 +70,8 @@ function tel() {
 		var datas = {
 			type : result
 		};
+		
+		var place = boardOpt.place;
 
 		$.ajax({
 			url : "/reviewboard/write1",
@@ -83,6 +86,10 @@ function tel() {
 				for (var i = 0; i < data.length; i++) {
 					sel2.append("<option>" + data[i] + "</option>");
 				}
+				
+				if (place != "") {
+					$("#place").val(place).prop("selected", true);
+				}
 			},
 			error : function() {
 				alert("ajax 통신 실패");
@@ -90,55 +97,78 @@ function tel() {
 		});
 	});
 }
-//	버튼 클릭 이벤트 (누르면 공지사항으로 돌아가기, 글 수정, 글 삭제)
-	$(document).ready(function() {
-		var seq = $("#seq").val();
+
+function starRatingSelect(star) {
+	var result = "";
+	
+	switch (star) {
+	case "1":
+		result = $("#1-stars");
+		break;
 		
-		$("#btn-list").on("click", function() {
-			location.href="/reviewboard";
-		});
+	case "2":
+		result = $("#2-stars");
+		break;
 		
-		$("#btn-edit").on("click", function() {
-			$("#method").val("PUT");
-			var frm = $("#frm")[0];
-			frm.action = "/review/update/" + seq;
-			frm.submit();
-		});
+	case "3":
+		result = $("#3-stars");
+		break;
 		
-		$("#btn-delete").on("click", function() {
-			$("#method").val("DELETE");
-			var frm = $("#frm")[0];
-			frm.action = "/review/delete/" + seq;
-			frm.submit();
-		});
-	});
-	function pageSetup() {
-		var pageNum = boardOpt.pageNum;
-		var keyword = boardOpt.keyword;
-		var keywordType = boardOpt.keytype;
+	case "4":
+		result = $("#4-stars");
+		break;
 		
-		$("#keyWord").val(keyword);
-		
-		if (keywordType != "") {
-			$("#type").val(keywordType).prop("selected", true);
-		}
+	default:
+		result = $("#5-stars");
+		break;
 	}
 	
-	/*<![CDATA[*/
-	var boardOpt = /*[[ ${boardOption} ]]*/
-	/*]]*/
+	return result;
+}
+
+function pageSetup() {
+	var category = boardOpt.category;
+	var star = boardOpt.star;
+		
+	if (category != "") {
+		$("#type").val(category).prop("selected", true);
+		$("#type").trigger("change");
+		starRatingSelect(star).trigger("click");
+	}
+}
+
+//	버튼 클릭 이벤트 (누르면 공지사항으로 돌아가기, 글 수정, 글 삭제)
+$(document).ready(function() {
+	var seq = $("#seq").val();
+		
+	$("#btn-list").on("click", function() {
+		location.href="/reviewboard";
+	});
+		
+	$("#btn-edit").on("click", function() {
+		$("#method").val("PUT");
+		var frm = $("#frm")[0];
+		frm.action = "/review/update/" + seq;
+		frm.submit();
+	});
 	
+	$("#btn-delete").on("click", function() {
+		$("#method").val("DELETE");
+		var frm = $("#frm")[0];
+		frm.action = "/review/delete/" + seq;
+		frm.submit();
+	});
+	
+	tel();//전화번호 불러오는 함수
 	pageSetup();
-
-
-	
+});
 </script>
 </head>
     <header>
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 <body>
-	<main class="container mt-5">
+	<main class="container" style="margin-top:60px;margin-bottom:60px;">
 		<form id="frm" method="POST">
 			<div class="row my-3">
 				<div class="col-sm-3">
@@ -163,7 +193,7 @@ function tel() {
 				  <label for="3-stars" class="star">&#9733;</label>
 				  <input type="radio" id="2-stars" name="star" value="2" />
 				  <label for="2-stars" class="star">&#9733;</label>
-				  <input type="radio" id="1-star" name="star" value="1" />
+				  <input type="radio" id="1-stars" name="star" value="1" />
 				  <label for="1-star" class="star">&#9733;</label>
 			</div>
 			</div>
@@ -198,6 +228,6 @@ function tel() {
 			</div>
 		</form>
 	</main>
-	
+		<div th:include="layout/footer :: footer"></div>
 </body>
 </html>

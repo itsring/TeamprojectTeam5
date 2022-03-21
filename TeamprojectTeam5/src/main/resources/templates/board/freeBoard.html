@@ -27,12 +27,29 @@
 <title></title>
 
 <style type="text/css">
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
  /* link - 아직 클릭하지 않은 경우 red 색상 설정 */
  a:link { color: black; text-decoration: none;}	
  /* visited - 한번 클릭하거나 전에 클릭한적 있을 경우 #c71d44 설정 */
  a:visited { color: black; text-decoration: none;}	
  /* hover - 마우스를 해당 링크에 위치했을 경우 #006DD7 설정 */
  a:hover { color: black; text-decoration: underline;}
+ .mainTitle{
+margin-bottom: 100px;
+font-family: 'GmarketSansBold';
+color:white;
+background-color:black;
+font-size:30px;
+width:1300px;
+height:70px;
+align-items:center;
+padding-top:15px;
+}
 </style>
 <script th:inline="javascript">
  $(document).ready(function() {
@@ -178,12 +195,12 @@
 <!-- <!-- 					</div> --> 
 <!-- 				</div> -->
 <!-- 			</div> -->
-		<div class="container mt-5">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">자유 게시판</h2>
-				</div>
+	<main style="padding-bottom:310px;margin-top:30px;">
+			<div class="mainTitle d-flex justify-content-center align-items-center mx-auto" style="color:white;background-color:black;">
+					<!-- <h1 class="heading-section" style="font-weight: 500;">자유 게시판</h1> -->
+					<h1 class="" style="font-weight: 500;">자유 게시판</h1>
 			</div>
+		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap">
@@ -228,14 +245,14 @@
 							</li>
 						</ul>
 					</div>
-					<div class="my-3 clearfix">
+					<div class="my-3 clearfix float-end">
 						<form name="search-form" autocomplete="off">
 							<select name="type" id="type">
 								<option selected value="">제목으로 검색</option>
 							</select>
 							<input type="text" id="keyWord" name="keyword" value="">
 							<button type="button" id="btn-search" class="btn btn-outline-dark mr-2">검색</button>
-							<a href="/freeboard/write" class="btn btn-outline-dark mr-2 text-decoration-none">글쓰기</a>
+							<a href="/freeboard/write" class="btn btn-outline-dark mr-2 text-decoration-none" th:if="${session.email}!=null" >글쓰기</a>
 						</form>
 	<!-- 					<div class="my-3 clearfix"> -->
 	<!-- 					관리자 ID qwe123 비밀번호 1234 -->
@@ -246,6 +263,8 @@
 			</div>
 		</div>
 	</div>
+	</main>
+	<div th:include="layout/footer :: footer"></div>
 	<script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>

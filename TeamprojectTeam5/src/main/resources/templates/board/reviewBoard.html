@@ -16,6 +16,23 @@
 	crossorigin="anonymous"></script>
 <title></title>
 <style>
+.mainTitle{
+margin-bottom: 100px;
+font-family: 'GmarketSansBold';
+color:white;
+background-color:black;
+font-size:30px;
+width:1300px;
+height:70px;
+align-items:center;
+padding-top:15px;
+}
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 .star-rating {
   border:solid 1px #ccc;
   display:flex;
@@ -65,6 +82,7 @@ article {
  a:visited { color: black; text-decoration: none;}	
  /* hover - 마우스를 해당 링크에 위치했을 경우 #006DD7 설정 */
  a:hover { color: black; text-decoration: underline;}
+
 </style>
 <script th:inline="javascript">
 $(document).ready(function() {
@@ -149,6 +167,8 @@ $(document).ready(function() {
 	<header>
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
+	<!-- <main style = "padding-bottom: 310px"> -->
+	<main style = "padding-bottom: 150px;margin-top:30px;">
 <!-- 	<div class="container mt-5"> -->
 <!-- 		<div class="row"> -->
 <!-- 			<div class="col-sm"> -->
@@ -223,12 +243,12 @@ $(document).ready(function() {
 <!-- 			</div> -->
 <!-- 		</div> -->
 <!-- 	</div> -->
-		<div class="container mt-5">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">후기 게시판</h2>
-				</div>
+			<div class="justify-content-center mainTitle d-flex mx-auto">
+				
+					<h1 class="heading-section">후기 게시판</h1>
 			</div>
+		<div class="container mt-5">
+				
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap">
@@ -285,7 +305,7 @@ $(document).ready(function() {
 							</li>
 						</ul>
 					</div>
-					<div class="my-3 clearfix">
+					<div class="my-3 clearfix float-end">
 					<form name="search-form" autocomplete="off">
 						<select name="type" id="type">
 							<option selected value="">검색 내용을 선택</option>
@@ -303,5 +323,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+</main>
+	<div th:include="layout/footer :: footer"></div>
 </body>
 </html>

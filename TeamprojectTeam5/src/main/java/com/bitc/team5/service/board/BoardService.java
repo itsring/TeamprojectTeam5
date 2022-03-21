@@ -10,7 +10,7 @@ import com.github.pagehelper.Page;
 public interface BoardService {
 
 	//공지
-	List<BoardDto> noticeBoardList() throws Exception;
+	List<BoardDto> noticeBoardList(int pageNum) throws Exception;
 
 	void noticeInsert(BoardDto board) throws Exception;
 

@@ -108,13 +108,13 @@ function tel() {
 	<header>
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
-	<main class="container mt-5">
+	<main class="container mt-5" style="padding-bottom:70px">
 		<div class="row">
 			<div class="col-sm">
 				<form action="/reviewboard/write" method="POST">
-					<div class="form-floating my-3">
-						<input type="text" class="form-control" id="title" name="boardTitle" placeholder="제목">
-						<label for="title">제목</label>
+						<div class="input-group mb-3">
+					  <span class="input-group-text" id="basic-addon1">제목을 입력하세요</span>
+					  <input type="text" class="form-control" placeholder="" name="boardTitle" aria-label="Username" aria-describedby="basic-addon1">
 					</div>
 					<div class="form-floating my-3">
 						<input type="text" class="form-control" readonly id="userName" name="userName" placeholder="유저이름" th:value="${session.userName}">
@@ -155,12 +155,13 @@ function tel() {
 					</div>
 					<div class="my-3 clearfix">
 						<button type="button" id="btn-list" class="btn btn-secondary float-start">목록</button>
-						<button type="reset" id="btn-cancel" class="btn btn-warning float-end">취소</button>
-						<button type="submit" id="btn-submit" class="btn btn-primary float-end me-2">등록</button>
+						<button type="reset" id="btn-cancel" class="btn btn-outline-dark float-end">취소</button>
+						<button type="submit" id="btn-submit" class="btn btn-outline-dark float-end">등록</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</main>
+	<div th:include="layout/footer :: footer"></div>
 </body>
 </html>

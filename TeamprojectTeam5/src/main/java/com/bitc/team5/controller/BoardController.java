@@ -34,15 +34,25 @@ public class BoardController {
 	}
 	
 	//공지사항리스트 보기
+//	@RequestMapping(value="/notice",method=RequestMethod.GET)
+//	public ModelAndView noticeBoardList() throws Exception{
+//	ModelAndView mv = new ModelAndView("/board/noticeBoard");
+//	
+//	List<BoardDto> boardList = boardService.noticeBoardList();
+//	mv.addObject("boardList",boardList);
+//	
+//	return mv;
+//	}
 	@RequestMapping(value="/notice",method=RequestMethod.GET)
-	public ModelAndView noticeBoardList() throws Exception{
-	ModelAndView mv = new ModelAndView("/board/noticeBoard");
-	
-	List<BoardDto> boardList = boardService.noticeBoardList();
-	mv.addObject("boardList",boardList);
-	
-	return mv;
+	public ModelAndView reviewBoardList(@RequestParam(required = false, defaultValue= "1") int pageNum) throws Exception{
+		ModelAndView mv = new ModelAndView("/board/noticeBoard");
+		
+		PageInfo<BoardDto> page = new PageInfo<>(boardService.noticeBoardList(pageNum));
+		mv.addObject("boardList",page);
+		
+		return mv;
 	}
+	
 	// 공지사항 작성
 	@RequestMapping(value="/notice/write",method=RequestMethod.GET)
 	public String noticeWrite() throws Exception{
@@ -287,7 +297,6 @@ public class BoardController {
 		}
 		return place;
 	}
-	
 	//후기 게시판 검색기능
 	@ResponseBody
 	@RequestMapping(value="/ajaxReviewboard",method=RequestMethod.GET)
@@ -328,8 +337,13 @@ public class BoardController {
 	public ModelAndView reviewDetail(@PathVariable("board_seq")int seq) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/reviewDetail");
 		
+		System.out.println("\n================================ 디버깅 ================================\n\n");
+		System.out.println("seq : " + seq);
+		
 		BoardDto boardList = boardService.reviewDetail(seq);
 		mv.addObject("boardList", boardList);
+		
+		System.out.println(boardList);
 		
 		return mv;
 		

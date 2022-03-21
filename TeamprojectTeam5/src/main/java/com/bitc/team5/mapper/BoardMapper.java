@@ -13,7 +13,7 @@ import com.github.pagehelper.Page;
 @Mapper
 public interface BoardMapper {
 	//공지 게시판
-	List<BoardDto> noticeBoardList() throws Exception;
+	List<BoardDto> noticeBoardList(int pageNum) throws Exception;
 
 	void noticeInsert(BoardDto board) throws Exception;
 
@@ -72,7 +72,7 @@ public interface BoardMapper {
 
 	List<LodgeListDto> lodgeList() throws Exception;
 
-	List<HotDto> hotPlaceList() throws Exception;
+	List<HotDto> hotPlaceList() throws  Exception;
 
 
 

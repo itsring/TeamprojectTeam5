@@ -32,10 +32,11 @@ padding-bottom:350px;
 .form{
 background: #c0c0c0;
 border-radius: 20px;
-width: 600px;
-height: 650px;
+width: 500px;
+/* height: 620px; */
+height: 100%;
 text-align: center;
-padding:20px 10px 20px 10px;
+padding:20px 15px 20px 15px;
 
 }
 .btn-pay{
@@ -43,24 +44,25 @@ border-radius: 5px;
  background-color:white; 
  color:#6495ED;
  font-size:20px;
- width:161px;
- height:100px;
+ width:230px;
+ height:110px;
 margin-top:7px;
+font-weight:bold;
 }
 .btn-pay:hover{
  background-color:#6495ED;
  color:white;
 }
-#howTo span{
-   text-align:middle; 
-}
-#howTo{
+
+.howTo{
 border-radius: 5px;
- background-color:#6495ED;
+ background-color: #6495ED;
  color:white;
- width:98%;
+ width:99%;
  height:10%;
- margin:10px 5px;
+ margin:20px 5px;
+  font-size:30px;
+padding-top:8px;
 }
 .mainTitle{
 margin-bottom: 100px;
@@ -76,22 +78,19 @@ padding-top:15px;
 justify-content:center;
 }
 input[type=text] {
-	width: 400px;
+	width: 350px;
 	height:40px;
 	font-size: 20px;
 	border:none;
 	text-align:right;
-
 }
-#roomName{
+.addList{
 background-color:white;
 border-radius:10px 10px 0 0;
-padding:10px; 
-font-size:20px;
-text-align:right;
+padding:10px;
 
 }
-#roomPay{
+.roomPay{
 background-color:white;
 border-radius:0 0 10px 10px;
 border-top: 3px dashed #c0c0c0;
@@ -101,7 +100,16 @@ font-size:20px;
 #lodgeName{
 font-weight:bold;
 font-size:25px;
-text-align:center
+text-align:center;
+margin-bottom:15px;
+}
+#roomName, #roomCount, #subDate{
+padding-right:25px; 
+font-size:20px;
+text-align:right;
+}
+.sum{
+font-weight:bold;
 }
 </style>
 
@@ -118,19 +126,28 @@ text-align:center
 		<div class="row my-5">
 			<div class="col-sm-6 mx-auto d-flex justify-content-center">
 				<form class="form" id="form" action="/lodge/lodgePay" method="POST" th:if="${#lists.size(payList)} > 0" th:each="list : ${payList}">
-					<div id="roomName">
-						<p><input type="text" id="lodgeName" name="lodgeName" th:value="${list.lodgeName}"></p>
-						<div id="lodgeName" th:value="${list.lodgeName}"></div>
-						<div id="roomName" th:text="${list.roomName}"></div>
-						<div id="roomCount" th:text="${list.roomCount}+'명'"></div>
-						<div id="subDate"></div>
+					<div class="addList">
+						<div id="lodgeName" th:text="'< ' + ${list.lodgeName} + ' >'"></div>
+						<div class="row">
+							<div class="col-2 sum">+</div>
+							<div class="col-10" id="roomName" th:text="${list.roomName}"></div>
+						</div>
+						<div class="row">
+							<div class="col-2 sum">+</div>
+							<div class="col-10" id="roomCount" th:text="${list.roomCount}+'명'"></div>
+						</div>
+						<div class="row">
+							<div class="col-2 sum">+</div>
+							<div class="col-10" id="subDate"></div>
+						</div>
 					</div>
-					<div id="roomPay">
-					<input type="text" id="roomPrice" name="roomPrice" th:value="${list.roomPrice}">
-						<div id="roomPrice" th:text="${list.roomPrice} + '원'"></div>						
-<!-- 						<input type="text" id="Pay" name="Pay"> -->
+					<div class="roomPay">
+						<div class="row">
+							<div class="col-2 sum">=</div>
+							<p class="col-10"><input readonly type="text" id="roomPrice" name="roomPrice" th:value="${list.roomPrice}">원</p>
+						</div>		
 					</div>
-					<div id="howTo">
+					<div class="howTo">
 						<span>결제 방법</span>
 					</div>
 					<div class="row">
@@ -197,6 +214,21 @@ var roomPrice = $("#roomPrice").val();
 var result = Number(roomPrice) * (chkOutDate.getDate() - chkInDate.getDate() + 1);
 
 $("#roomPrice").val(result);
+
+/* 천단위 콤마찍기 */
+const input = document.querySelector('#roomPrice');
+input.addEventListener('keyup', comma)
+function comma() {
+	let value = $('#roomPrice').val();
+	  value = Number(value.replaceAll(',', ''));
+	  if(isNaN(value)) {
+	    input.value = 0;
+	  }else {
+	    const formatValue = value.toLocaleString('ko-KR');
+	    input.value = formatValue;
+	  }
+}
+comma();
 
 /* document.getElementById("resultPay").innerHTML=result; */
 

@@ -195,8 +195,11 @@ flex-direction: column; /*수직 정렬*/
 						<div>
 							<img src="/img_5/icon/phone.png" th:text="${lodge.lodgePhone}"/>
 						</div>
-						<div>
+						<div th:if="${session.star}!= null">
 							<img src="/img_5/icon/grade.png" id="star-grade" th:text="${session.star} + ' / 5.0'"/>
+						</div>
+						<div th:unless="${session.star}!= null">
+							<p><img src="/img_5/icon/grade.png" id="star-grade"/>0.0 / 5.0</p>
 						</div>
 					</div>
 				
@@ -285,6 +288,7 @@ flex-direction: column; /*수직 정렬*/
 <!-- 				<form id="formList" action="/lodge/lodgeListBook" class="formList" method="POST"> -->
 					<div class="row p-3" id="book2" th:if="${#lists.size(roomList)} > 0" th:each="list : ${roomList}">		
 						<div class="row">
+							<p>객실이 모두 예약되었습니다.</p>
 							<!-- <div class="col-4">
 								<img id="roomImg" th:src="@{${list.roomImg}}">
 							</div>
@@ -458,11 +462,12 @@ function everyCount(result, chkInDate, chkOutDate){
 /* 				str += '<input type="hidden" class="roomType" name="roomType" value="' + $("#roomType").val() + '">'; */
 				/* str += '</div>'; */
 				str += '<div class="col">';    
-				str += '<h4>' + '최대 ' + data[i].roomCount + '명' +'</h4>';
+				str += '<h4>' + '최대인원 ' + data[i].roomCount + '명' +'</h4>';
 				str += '</div></div>';
 				str += '<div class="row">';
 				str += '<div class="col">';    
-				str += '<h4>' + data[i].roomPrice + '원' +'</h4>';
+				str += '<h4>' + data[i].roomPrice.toString()
+				  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원' +'</h4>';
 				str += '</div>';
 				
 				/* str += '<div class="col">';			
@@ -501,7 +506,7 @@ function everyCount(result, chkInDate, chkOutDate){
 				bookList.append(str);
 	               
 			}
-			
+
 		}, /* error: function(request, status, error) {
 				alert(request.responseText + "\nerror:"
 						+ error); */
@@ -674,6 +679,8 @@ function roomCountOnly(result){
 			}
 	});
 }); */
+
+
 
 </script>
 	

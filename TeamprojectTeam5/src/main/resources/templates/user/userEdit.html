@@ -45,8 +45,8 @@ $(document).ready(function() {
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
 
-	<main>
-		<div class="text-center mt-5">
+	<main style="padding-bottom:200px; padding-top:110px;">
+		<div class="text-center ">
 				<div class=" d-flex justify-content-center">
 					<form id="frm" method="POST">
 							<h3>회원정보 수정</h3>
@@ -78,7 +78,7 @@ $(document).ready(function() {
 								</div> -->
 								<div class="d-flex ">
 									<button type="button" id="btn-del"
-										class="btn btn-danger float-end ">
+										class="btn btn-danger float-end me-1">
 										탈퇴 <span th:text="${user.seq}" class="d-none"></span>
 									</button>
 									<button type="button" id="btn-edit"

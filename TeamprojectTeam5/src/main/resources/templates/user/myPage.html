@@ -21,6 +21,8 @@
 	border-right: 1px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 2px black;
 	height: 100vh;
+	margin:10px;
+	width:270px;
 }
 
 .logo {
@@ -93,6 +95,25 @@ margin-top:10px;
 	background-color: #6495ED;
 	color: white;
 }
+.mainTitle{
+margin-bottom: 30px;
+font-family: 'GmarketSansBold';
+color:white;
+background-color:black;
+font-size:30px;
+
+height:70px;
+display:flex;
+align-items:center;
+padding-top:15px;
+justify-content:center;
+}
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -126,7 +147,10 @@ margin-top:10px;
 	<header>
 		<div id="header" th:include="layout/header :: header"></div>
 	</header>
-	<main class="container">
+	<main class="container" style="margin-top: 30px;">
+		<div class="row-lg row-sm text-center mainTitle mx-auto d-flex justify-content-center">
+			<h1>마이 페이지</h1>
+		</div>
 		<div class="mt-5 h-100">
 			<div>
 				<form action="" id="frm">
@@ -168,13 +192,15 @@ margin-top:10px;
 										</div>
 									</div>
 								
-									<div class="d-flex justify-content-between align-items-center ">
+									<div class="d-flex align-items-center ">
 										<div class="">
 											<div class=" btn-edit BR__1px">
-												<a type="button" href="/userEdit/"
+												<div>
+													<a type="button" href="/userEdit/"
 													th:attrappend="href=${user.email}"
 													class="p-1 text-decoration-none left__button user-edit">회원정보
 													수정</a>
+												</div>
 											</div>
 										</div>
 										<div class="">
@@ -188,7 +214,7 @@ margin-top:10px;
 							
 							<!-- 찜하기 등 가로 배열  -->
 								<div class="user__info__right ms-5">
-								<h4 class="text-center">마이페이지</h4>
+								<!-- <h4 class="text-center">마이페이지</h4> -->
 									<div class="row">
 										<div>
 											<!-- 찜 목록, 클릭시 각 디테일 페이지로 이동 -->
@@ -241,10 +267,10 @@ margin-top:10px;
 														</div>
 													</div>
 												</div>
-												<div th:unless="${#lists.size(dibList)} > 0"
+												<div th:unless="${#lists.size(lodgeList)} > 0"
 													class="text-center">
 													<div>
-														<h3>명소 찜 내역 없습니다.</h3>
+														<h3>숙소 찜 내역 없습니다.</h3>
 													</div>
 												</div>
 											</div></div>

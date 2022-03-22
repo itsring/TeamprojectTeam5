@@ -28,6 +28,8 @@
 .title{
 	font-family: 'Hi Melody', cursive;
 	font-size:40px;
+/* 	margin-left: 430px; */
+	margin-left: 35px;
 }
 
 .swiper-container {
@@ -55,12 +57,16 @@ font-family: 'GmarketSansBold';
 color:white;
 background-color:black;
 font-size:30px;
-
+/* width:1300px; */
 height:70px;
 display:flex;
 align-items:center;
 padding-top:15px;
 justify-content:center;
+}
+
+.ca-bottom {
+margin-bottom: 50px;
 }
 </style>
 
@@ -80,10 +86,9 @@ justify-content:center;
 		</div>
 		
 		
-		<!-- <h2 class="title font-weight-light" style="margin-left: 430px;">시장 || Market</h2> -->
+		<h2 class="title font-weight-light">시장 || Market</h2>
 		
-		<div class="swiper-container" style="margin-bottom: 100px;">
-		<h2 class="title font-weight-light" >시장 || Market</h2>
+		<div class="swiper-container ca-bottom">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotMarketList)} > 0" th:each="item : ${hotMarketList}">
 					<div class="container">
@@ -105,9 +110,8 @@ justify-content:center;
 		</div>
 		
 		
-		<!-- <h2 class="title font-weight-light" style="margin-left: 430px;">랜드마크 || Land mark</h2> -->
-		<div class="swiper-container" style="margin-bottom: 100px;">
 		<h2 class="title font-weight-light">랜드마크 || Land mark</h2>
+		<div class="swiper-container ca-bottom">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotLandList)} > 0" th:each="item : ${hotLandList}">
 					<div class="container">
@@ -129,10 +133,8 @@ justify-content:center;
 		</div>
 		
 		
-		<!-- <h2 class="title font-weight-light" style="margin-left: 430px;">공원 || Park</h2> -->
-		
-		<div class="swiper-container" style="margin-bottom: 100px;">
 		<h2 class="title font-weight-light">공원 || Park</h2>
+		<div class="swiper-container ca-bottom">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotParkList)} > 0" th:each="item : ${hotParkList}">
 					<div class="container">
@@ -154,9 +156,8 @@ justify-content:center;
 		</div>
 		
 		
-		<!-- <h2 class="title font-weight-light" style="margin-left: 430px;">산책로 || Walk</h2> -->
-		<div class="swiper-container" style="margin-bottom: 100px;">
-			<h2 class="title font-weight-light">산책로 || Walk</h2>
+		<h2 class="title font-weight-light">산책로 || Walk</h2>
+		<div class="swiper-container ca-bottom">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:if="${#lists.size(hotWalkList)} > 0" th:each="item : ${hotWalkList}">
 					<div class="container">

@@ -8,46 +8,35 @@ import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
 
 public interface LodgeService {
-	/* 숙소 예약 내용 저장 */
-	void insertLodge(LodgeDto lodge) throws Exception;
 
-	/* 숙소 확인 페이지3 + 객실 조회*/
-	List<LodgeRoomDto> selectRoomList(String pName) throws Exception;
-
-//	List<LodgeRoomDto> roomList(String roomCount) throws Exception;
-
-	List<LodgeRoomDto> selectRoomCountList(int roomCount, String lodgeName) throws Exception;
-
-	List<LodgeRoomDto> selectRoomDateOnlyList(Date chkInDate, Date chkOutDate, String lodgeName) throws Exception;
-
+	/* 명소별 제휴 숙소 목록*/
+	List<LodgeListDto> selectLodgeList() throws Exception;
+	
+	/* 숙소 예약 상세*/
+	LodgeListDto lodgeDetailList(int seq) throws Exception;
+	
+	/* 평점 추가 */
+	String lodgeDetailStar(String lodgeName) throws Exception;
+	
+	/* 객실 목록 ajax */
 	List<LodgeRoomDto> selectRoomEveryCountList(Date chkInDate, Date chkOutDate, String lodgeName, int roomCount) throws Exception;
 
-//	List<lodgeBookDto> selectRoomById(Long name) throws Exception;
-
-	//////////////////////////////////
+	/* 숙소 결제 내용 */
+	List<LodgeRoomDto> payList(int seq) throws Exception;
 	
-	/* 명소별 숙소 목록*/
-	List<LodgeListDto> selectLodgeList() throws Exception;
-
-	LodgeListDto lodgeDetailList(int seq) throws Exception;
-
+	/* 객실 정보 출력 */
 	List<LodgeRoomDto> roomList() throws Exception;
 
-	/* 객실 예약 */
+	/* 숙소 결제 db입력 */
 	void roomInsert(LodgeDto room) throws Exception;
 
-	/* 결제 페이지 */
-	List<LodgeRoomDto> payList(int seq) throws Exception;
-
-	String lodgeDetailStar(String lodgeName) throws Exception;
-
-	/* 결제 시 객실 날짜 업데이트 */
+	/* 결제 시 해당 날짜 검색 불가 */
 	void dateUpdate(LodgeDto room) throws Exception;
 
-//	숙소 예약 목록
+	/* 숙소 예약/결제 확인 목록 */
 	List<LodgeDto> lodgePayChk(String userEmail) throws Exception;
 
-	// 숙소 예약 목록 삭제
+	/* 숙소 예약/결제 확인 삭제 */
 	void lodgeDelete(int seq) throws Exception;
 
 }

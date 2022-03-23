@@ -14,47 +14,35 @@ import com.bitc.team5.dto.LodgeRoomDto;
 @Mapper
 public interface LodgeMapper {
 
-	/* 숙소 예약 내용 저장 */
-	void insertLodge(LodgeDto lodge) throws Exception;
-
-	/* 숙소 확인 페이지3 + 객실 조회*/
-	List<LodgeRoomDto> selectRoomList(@Param("pName") String pName) throws Exception;
-
-//	List<LodgeRoomDto> roomList(String roomCount) throws Exception;
-
-	List<LodgeRoomDto> selectRoomCountList(@Param("roomCount") int roomCount, @Param("lodgeName")String lodgeName) throws Exception;
-
-	List<LodgeRoomDto> selectRoomDateOnlyList(@Param("chkInDate") Date chkInDate,@Param("chkOutDate") Date chkOutDate,@Param("lodgeName") String lodgeName) throws Exception;
-
+	/* 명소별 제휴 숙소 목록*/
+	List<LodgeListDto> selectLodgeList() throws Exception;
+	
+	/* 숙소 예약 상세*/
+	LodgeListDto lodgeDetailList(int seq) throws Exception;
+	
+	/* 평점 추가 */
+	String lodgeDetailStar(String lodgeName) throws Exception;
+	
+	/* 객실 목록 ajax */
 	List<LodgeRoomDto> selectRoomEveryCountList(@Param("chkInDate") Date chkInDate,@Param("chkOutDate") Date chkOutDate,@Param("lodgeName") String lodgeName,@Param("roomCount") int roomCount) throws Exception;
 
-//	List<lodgeBookDto> selectRoomById(Long name) throws Exception;
-
-	///////////////////////////////
-	
-	/* 명소별 숙소 목록*/
-	List<LodgeListDto> selectLodgeList() throws Exception;
-
-	LodgeListDto lodgeDetailList(int seq) throws Exception;
-
-	List<LodgeRoomDto> roomLIst() throws Exception;
-
-	/* 객실 예약 */
-	void roomInsert(LodgeDto room) throws Exception;
-
-	/* 결제 페이지 */
+	/* 숙소 결제 내용 */
 	List<LodgeRoomDto> payList(int seq) throws Exception;
-
-	String lodgeDetailStar(String lodgeName) throws Exception;
-
-	/* 결제 시 객실 날짜 업데이트 */
+	
+	/* 객실 정보 출력 */
+	List<LodgeRoomDto> roomLIst() throws Exception;
+	
+	/* 숙소 결제 db입력 */
+	void roomInsert(LodgeDto room) throws Exception;
+	
+	/* 결제 시 해당 날짜 검색 불가 */
 	void dateUpdate(LodgeDto room) throws Exception;
-
-//	숙소 예약 목록
+	
+	/* 숙소 예약/결제 확인 목록 */
 	List<LodgeDto> getChk(String userEmail) throws Exception;
-
-	// 숙소 예약 목록 삭제
+	
+	/* 숙소 예약/결제 확인 삭제 */
 	void lodgeDelete(int seq) throws Exception;
-
+	
 
 }

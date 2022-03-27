@@ -47,7 +47,7 @@ public class DibController {
 		
 		model.addAttribute("dibList", dibList);
 		
-		return "/dib/diblist";
+		return "dib/diblist";
 	}
 	
 	@ResponseBody

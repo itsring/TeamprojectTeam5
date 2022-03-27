@@ -26,7 +26,7 @@ public class HotController {
 	///////////////****************관광지 리스트 페이지*****************///////////////////
 	@RequestMapping(value="/hotplace")
 	public ModelAndView hotplace() throws Exception {
-		ModelAndView mv = new ModelAndView("/hot/hotmain");
+		ModelAndView mv = new ModelAndView("hot/hotmain");
 		
 		List<HotDto> hotList = hotService.selectHotList();
 		List<HotDto> hotMarketList = hotService.selectMarketList();
@@ -50,7 +50,7 @@ public class HotController {
 		@RequestMapping(value="/hotinsert")
 		public String hotinsert() throws Exception {
 		
-		return "/hot/hotinsert";
+		return "hot/hotinsert";
 		}
 		
 		//상품 정보 입력
@@ -64,7 +64,7 @@ public class HotController {
 	///////////////****************관광지 상세 페이지*****************///////////////////
 	@RequestMapping(value="/hotDetail/{seq}", method=RequestMethod.GET)
 	public ModelAndView hotDetail(@PathVariable("seq") int seq, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("/hot/hotdetails");
+		ModelAndView mv = new ModelAndView("hot/hotdetails");
 		
 		HotDto hotDetail = hotService.hotDetailList(seq);
 		
@@ -83,7 +83,7 @@ public class HotController {
 	///////////////****************관광지 수정 페이지*****************///////////////////
 	@RequestMapping(value="/hotupdate/{seq}")
 	public ModelAndView hotupdate(@PathVariable("seq") int seq) throws Exception {
-		ModelAndView mv = new ModelAndView("/hot/hotupdate");
+		ModelAndView mv = new ModelAndView("hot/hotupdate");
 		
 		HotDto hotup = hotService.hotDetailList(seq);
 		mv.addObject("hotup", hotup);

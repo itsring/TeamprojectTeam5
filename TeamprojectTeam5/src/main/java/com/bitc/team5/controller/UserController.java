@@ -25,7 +25,7 @@ public class UserController {
 		@RequestMapping("/login")
 		public String login() throws Exception{
 			//이메일, 비밀번호
-			return "/user/login";
+			return "user/login";
 		}
 		//로그인체크
 		@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
@@ -46,7 +46,7 @@ public class UserController {
 		//회원가입 페이지
 		@RequestMapping(value = "/join", method = RequestMethod.GET)
 		public String userJoinPage() throws Exception {
-			return "/user/join";
+			return "user/join";
 		}
 		//회원 등록
 		@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -60,16 +60,16 @@ public class UserController {
 			HttpSession session = request.getSession();
 			session.removeAttribute("userId");
 			session.invalidate();
-			return "/user/login";
+			return "user/login";
 		}
 		//로그인 실패
 		@RequestMapping("/loginFail")
 		public String loginFail() throws Exception{
-			return "/user/loginFail";
+			return "user/loginFail";
 		}
 		@RequestMapping(value="/user/myPage/{email}",method=RequestMethod.GET)
 		public ModelAndView myPage(@PathVariable("email") String email, HttpSession session) throws Exception{
-			ModelAndView mv = new ModelAndView("/user/myPage");
+			ModelAndView mv = new ModelAndView("user/myPage");
 			UserDto userDetail = userService.selectUserDetail(email);
 			List<DibDto> dibList = userService.dibList(email);
 			List<LodgeDto> lodgeList = userService.lodgeBookList(email);
@@ -81,7 +81,7 @@ public class UserController {
 //		정보 수정 페이지
 		@RequestMapping(value="/userEdit/{email}", method=RequestMethod.GET)
 		public ModelAndView userDetail(@PathVariable("email") String email) throws Exception{
-			ModelAndView mv = new ModelAndView("/user/userEdit");
+			ModelAndView mv = new ModelAndView("user/userEdit");
 			UserDto user = userService.selectUserDetail(email);
 			mv.addObject("user", user);
 			return mv;

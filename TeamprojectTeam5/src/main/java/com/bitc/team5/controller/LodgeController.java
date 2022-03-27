@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitc.team5.dto.BoardDto;
-import com.bitc.team5.dto.HotDto;
 import com.bitc.team5.dto.LodgeDto;
 import com.bitc.team5.dto.LodgeListDto;
 import com.bitc.team5.dto.LodgeRoomDto;
@@ -35,7 +33,7 @@ public class LodgeController {
 	/* 명소별 제휴 숙소 목록*/
 	 @RequestMapping(value="/lodge/lodgeList", method=RequestMethod.GET) 
 	 public ModelAndView lodgeList() throws Exception {
-	 	ModelAndView mv = new ModelAndView("/lodge/lodgeList");
+	 	ModelAndView mv = new ModelAndView("lodge/lodgeList");
 	  
 		 List<LodgeListDto> lodgeList = lodgeService.selectLodgeList();
 		 mv.addObject("lodgeList", lodgeList);
@@ -47,7 +45,7 @@ public class LodgeController {
 	 /* 숙소 예약 상세*/
 	@RequestMapping(value="/lodge/lodgeListBook/{seq}", method=RequestMethod.GET) 
 	public ModelAndView lodgeDetail(@PathVariable("seq") int seq, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("/lodge/lodgeListBook");
+		ModelAndView mv = new ModelAndView("lodge/lodgeLIstBook");
 		
 		LodgeListDto lodgeDetail = lodgeService.lodgeDetailList(seq);
 		mv.addObject("lodgeDetail", lodgeDetail);
@@ -78,7 +76,7 @@ public class LodgeController {
 	/* 숙소 결제 내용 */
 	@RequestMapping(value="/lodge/lodgePay{seq}", method=RequestMethod.GET) 
 	public ModelAndView lodgePay(@PathVariable("seq") int seq, HttpServletRequest request, Model model) throws Exception {
-		ModelAndView mv = new ModelAndView("/lodge/lodgePay");
+		ModelAndView mv = new ModelAndView("lodge/lodgePay");
 		String chkInDate= request.getParameter("chkInDate");
 		String chkOutDate= request.getParameter("chkOutDate");
 		HttpSession session = request.getSession();
@@ -100,7 +98,7 @@ public class LodgeController {
 		/* 결제 시 해당 날짜 검색 불가 */
 		lodgeService.dateUpdate(room);
 		
-		return "/main";
+		return "./main";
 	}
 	
 	
@@ -112,7 +110,7 @@ public class LodgeController {
 		 
 		 model.addAttribute("chkList", chkList);
 		 
-		 return "/lodge/lodgePayChk";
+		 return "lodge/lodgePayChk";
 	 }
 	 
 	 

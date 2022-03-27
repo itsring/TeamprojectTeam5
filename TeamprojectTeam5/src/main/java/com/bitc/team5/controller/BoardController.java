@@ -30,7 +30,7 @@ public class BoardController {
 	//게시판 선택 페이지
 	@RequestMapping(value="/board")
 	public String boardList() throws Exception{
-		return "/board/boardSelect";
+		return "board/boardSelect";
 	}
 	
 	//공지사항리스트 보기
@@ -45,7 +45,7 @@ public class BoardController {
 //	}
 	@RequestMapping(value="/notice",method=RequestMethod.GET)
 	public ModelAndView reviewBoardList(@RequestParam(required = false, defaultValue= "1") int pageNum) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/noticeBoard");
+		ModelAndView mv = new ModelAndView("board/noticeBoard");
 		
 		PageInfo<BoardDto> page = new PageInfo<>(boardService.noticeBoardList(pageNum));
 		mv.addObject("boardList",page);
@@ -56,7 +56,7 @@ public class BoardController {
 	// 공지사항 작성
 	@RequestMapping(value="/notice/write",method=RequestMethod.GET)
 	public String noticeWrite() throws Exception{
-		return "/board/noticeWrite";
+		return "board/noticeWrite";
 	}
 	
 	@RequestMapping(value="/notice/write", method=RequestMethod.POST)
@@ -68,7 +68,7 @@ public class BoardController {
 	//공지사항 자세히보기
 	@RequestMapping(value= "/notice/{board_seq}", method=RequestMethod.GET)
 	public ModelAndView openBoardDetail(@PathVariable("board_seq")int seq) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/noticeDetail");
+		ModelAndView mv = new ModelAndView("board/noticeDetail");
 		
 		BoardDto boardList = boardService.noticeBoardDetail(seq);
 		mv.addObject("boardList", boardList);
@@ -128,7 +128,7 @@ public class BoardController {
 			@RequestParam(value = "keyword", required = false, defaultValue="") String keyword,
 			@RequestParam(value="keytype", required=false, defaultValue="") String keytype
 			) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/freeBoard");
+		ModelAndView mv = new ModelAndView("board/freeBoard");
 		
 		Map<String, String> boardOption = new HashMap<String, String>();
 		boardOption.put("pageNum", String.valueOf(pageNum));
@@ -160,7 +160,7 @@ public class BoardController {
 	@RequestMapping(value="/freeboard/write",method=RequestMethod.GET)
 	public String freeWrite() throws Exception{
 		
-		return "/board/freeWrite";
+		return "board/freeWrite";
 		
 	}
 	
@@ -223,7 +223,7 @@ public class BoardController {
 			@RequestParam(value = "keyword", required = false, defaultValue="") String keyword,
 			@RequestParam(value="keytype", required=false, defaultValue="") String keytype
 			) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/reviewBoard");
+		ModelAndView mv = new ModelAndView("board/reviewBoard");
 		
 		Map<String, String> boardOption = new HashMap<String, String>();
 		boardOption.put("pageNum", String.valueOf(pageNum));
@@ -322,7 +322,7 @@ public class BoardController {
 	//후기 글쓰기
 	@RequestMapping(value="/reviewboard/write", method=RequestMethod.GET)
 	public String reviewWrite() throws Exception{
-		return "/board/reviewWrite";
+		return "board/reviewWrite";
 		
 	}
 	
@@ -335,7 +335,7 @@ public class BoardController {
 	//후기 자세히보기
 	@RequestMapping(value="/reviewboard/{board_seq}", method=RequestMethod.GET)
 	public ModelAndView reviewDetail(@PathVariable("board_seq")int seq) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/reviewDetail");
+		ModelAndView mv = new ModelAndView("board/reviewDetail");
 		
 		System.out.println("\n================================ 디버깅 ================================\n\n");
 		System.out.println("seq : " + seq);
@@ -367,7 +367,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/review/write", method = RequestMethod.GET)
 	public String joinUser() throws Exception {
-		return "/board/reviewWrite";
+		return "board/reviewWrite";
 	}
 
 }	

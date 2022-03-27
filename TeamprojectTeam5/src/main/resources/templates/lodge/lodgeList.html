@@ -113,8 +113,11 @@ justify-content:center;
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" th:each="list : ${lodgeList}" th:if="${list.placeName} == '감천'" >
 						<div class="card" id="lodgeCard">
+						<!-- <form th:action="@{/lodge/lodgeListBook/{seq}(seq=${list.seq})}">
+						<button> -->
 							<div class="cardImg">
 								<a href="/lodge/lodgeListBook/" th:attrappend="href=${list.seq}">
+								<!-- <a th:href="@{/lodge/lodgeListBook/{seq}(seq=${list.seq})}"> -->
 									<img th:src="@{${list.lodgeImg}}" id="lodegImg" class="card-img-top" alt="...">
 								</a>
 							</div>
@@ -123,6 +126,8 @@ justify-content:center;
 								<p class="card-text" th:text="${list.lodgeAddressName}"></p>
 								<p class="card-text" th:text="${list.lodgePhone}"></p>
 							</div>
+			<!-- 				</button>
+							</form> -->
 						</div>
 					</div>
 				</div>

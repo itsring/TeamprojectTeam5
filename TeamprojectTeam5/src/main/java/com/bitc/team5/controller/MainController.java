@@ -33,7 +33,7 @@ public class MainController {
 		return "index";
 	}
 	//메인페이지
-	@RequestMapping("/main")
+	@RequestMapping("/main/busan")
 	public ModelAndView viewMain(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("email");
